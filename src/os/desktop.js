@@ -18,5 +18,5 @@ export function addShortcut(config) {
 }
 
 function updateTime() {
-    dateAndTime.innerHTML = new Date().toLocaleTimeString().slice(0, 5);
+    dateAndTime.innerHTML = new Date().toLocaleTimeString().slice(0, 4);
 }
