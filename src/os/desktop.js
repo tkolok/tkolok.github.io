@@ -1,6 +1,7 @@
 import query from '../common/query.js';
 
 const {dateAndTime} = query(document.body);
+const dateFormatter = new Intl.DateTimeFormat(undefined, {timeStyle: 'short'});
 
 updateTime();
 setInterval(updateTime, 1000);
@@ -18,5 +19,5 @@ export function addShortcut(config) {
 }
 
 function updateTime() {
-    dateAndTime.innerHTML = new Date().toLocaleTimeString().slice(0, 4);
+    dateAndTime.innerHTML = dateFormatter.format(new Date());
 }
