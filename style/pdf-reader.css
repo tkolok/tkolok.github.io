@@ -1,0 +1,7 @@
+.pdf-reader iframe {
+    background-color: #fff;
+    height: 100%;
+    min-height: 300px;
+    min-width: 300px;
+    width: 100%;
+}
