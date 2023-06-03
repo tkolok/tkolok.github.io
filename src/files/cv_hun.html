@@ -14,8 +14,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="flex flex-row flex-start">
-<div id="quickReferences"
-     class="flex flex-column">
+<aside class="flex flex-column">
     <img alt="" src="cv.jpg">
     <div>
         <h2 id="programmingSkills">Programozási ismeretek</h2>
@@ -47,17 +46,20 @@
             <li>
                 <div class="contact flex flex-row flex-start">
                     <i class="fa fa-phone"></i>
-                    <span>+(36) 70/620-5150</span>
+                    <a href="tel:+36706205150">+(36) 70/620-5150</a>
                 </div>
             </li>
             <li>
                 <div class="contact flex flex-row flex-start">
                     <i class="fa fa-envelope"></i>
-                    <a href="mailto: hadastk@gmail.com">hadastk@gmail.com</a>
+                    <a href="mailto:hadastk@gmail.com">hadastk@gmail.com</a>
                 </div>
             </li>
             <li>
                 <div class="contact text-center">
+                    <a href="https://tkolok.github.io/">
+                        <i class="fa fa-link"></i>
+                    </a>
                     <a href="https://github.com/tkolok">
                         <i class="fa fa-github"></i>
                     </a>
@@ -68,9 +70,8 @@
             </li>
         </ul>
     </div>
-</div>
-<div id="main"
-     class="flex-fill">
+</aside>
+<main class="flex-fill">
     <h1 id="name">Hadas Tamás</h1>
     <div>
         <h2 id="professionalExperience">Szakmai tapasztalat</h2>
@@ -164,6 +165,6 @@
             <p id="mobxPieDescription">Egy példa repository, hogy (szerintem) hogyan érdemes a MobX 3.X verzióját React-tal használni.</p>
         </section>
     </div>
-</div>
+</main>
 </body>
 </html>

@@ -23,7 +23,7 @@ addShortcut({
         'pdf-reader',
         {
             name: 'Önéletrajz',
-            path: 'files/cv'
+            path: 'files/cv_hun'
         },
         {full: true}),
     name: 'Önéletrajz'
