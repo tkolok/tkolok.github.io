@@ -8,7 +8,6 @@ const programs = {};
     const data = {id, ...(await import(`../programs/${id}.js`)).default};
 
     programs[data.id] = data;
-    console.log(programs);
 
     if (data.shortcut ?? true) {
         addShortcut({...data, dblclick: openProgram});
