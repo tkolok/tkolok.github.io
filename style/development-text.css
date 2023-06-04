@@ -1,0 +1,8 @@
+body:after {
+    bottom: 35px;
+    color: rgba(0, 0, 0, .5);
+    content: 'This project is under development.';
+    font-weight: bold;
+    position: absolute;
+    right: 5px;
+}
