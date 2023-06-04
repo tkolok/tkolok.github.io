@@ -4,17 +4,18 @@ import {addShortcut} from './desktop.js';
 
 const programs = {};
 
-['pdf-reader'].forEach(async id => {
-    const data = {...(await import(`../programs/${id}.js`)).default, id};
+['internet-explorer', 'pdf-reader'].forEach(async id => {
+    const data = {id, ...(await import(`../programs/${id}.js`)).default};
 
-    programs[id] = data;
+    programs[data.id] = data;
+    console.log(programs);
 
     if (data.shortcut ?? true) {
         addShortcut({...data, dblclick: openProgram});
     }
 
     function openProgram() {
-        open(id);
+        open(data.id);
     }
 });
 
