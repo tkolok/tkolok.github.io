@@ -1,4 +1,4 @@
-import query from '../common/query.js';
+import query from '../../common/query.js';
 
 export default {
     init: (dialog, file) => {

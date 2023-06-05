@@ -1,6 +1,10 @@
 {
     "name": "win98-cv",
-    "version": "1.0.0",
-    "dependencies": {
+    "version": "0.0.1",
+    "scripts": {
+        "build": "sass style.scss style/style.css -s compressed"
+    },
+    "devDependencies": {
+        "sass": "1.62.1"
     }
 }

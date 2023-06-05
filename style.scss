@@ -1,3 +1,6 @@
+@import 'src/programs/pdf-reader/pdf-reader';
+@import 'style/win98-style';
+
 body:after {
     bottom: 35px;
     color: rgba(0, 0, 0, .5);

@@ -4,7 +4,10 @@ await Promise.all([new Promise(resolve => setTimeout(resolve, 3000)), initProgra
 document.body.querySelector('#booting').remove();
 
 function initPrograms() {
-    return ['internet-explorer', 'pdf-reader'].reduce(async (ret, id) => {
+    return [
+        'internet-explorer/internet-explorer',
+        'pdf-reader/pdf-reader'
+    ].reduce(async (ret, id) => {
         ret = import(`../programs/${id}.js`);
 
         addProgram({id, ...(await ret).default});
