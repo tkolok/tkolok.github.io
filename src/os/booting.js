@@ -5,10 +5,10 @@ document.body.querySelector('#booting').remove();
 
 function initPrograms() {
     return [
-        'internet-explorer/internet-explorer',
-        'pdf-reader/pdf-reader'
+        'internet-explorer',
+        'pdf-reader'
     ].reduce(async (ret, id) => {
-        ret = import(`../programs/${id}.js`);
+        ret = import(`../programs/${id}/${id}.js`);
 
         addProgram({id, ...(await ret).default});
 
