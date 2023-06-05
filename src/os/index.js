@@ -1,2 +1,2 @@
+import './booting.js';
 import './taskbar.js';
-import './programs.js';

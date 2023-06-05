@@ -4,20 +4,6 @@ import {addShortcut} from './desktop.js';
 
 const programs = {};
 
-['internet-explorer', 'pdf-reader'].forEach(async id => {
-    const data = {id, ...(await import(`../programs/${id}.js`)).default};
-
-    programs[data.id] = data;
-
-    if (data.shortcut ?? true) {
-        addShortcut({...data, dblclick: openProgram});
-    }
-
-    function openProgram() {
-        open(data.id);
-    }
-});
-
 addShortcut({
     dblclick: () => open(
         'pdf-reader',
@@ -29,7 +15,17 @@ addShortcut({
     name: 'Önéletrajz'
 });
 
-window.openProgram = open;
+export function addProgram(data) {
+    programs[data.id] = data;
+
+    if (data.shortcut ?? true) {
+        addShortcut({...data, dblclick: openProgram});
+    }
+
+    function openProgram() {
+        open(data.id);
+    }
+}
 
 export function open(name, file = {}, options = {}) {
     const program = programs[name];
