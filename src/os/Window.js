@@ -33,7 +33,7 @@ export default class Window extends HTMLDialogElement {
         elements.label.addEventListener('dblclick', this.maximize.bind(this));
         elements.label.addEventListener('drag', event => this.setPosition(event.x, event.y));
         elements.label.addEventListener('dragend', event => this.setPosition(event.x, event.y));
-        elements.label.addEventListener('dragstart', event => event.dataTransfer.setDragImage(dragImg, 0, 0));
+        elements.label.addEventListener('dragstart', dragStart);
         elements.maximize.addEventListener('click', this.maximize.bind(this));
 
         this.initMenu();
@@ -64,6 +64,10 @@ function buildMenuitem(menuitem) {
     const label = menuitem.name.replace(new RegExp(menuitem.key), `<u>${menuitem.key}</u>`);
 
     return `<li>${label}</li>`;
+}
+
+function dragStart(event) {
+    event.dataTransfer.setDragImage(dragImg, 0, 0);
 }
 
 customElements.define('w-window', Window, {extends: 'dialog'});
