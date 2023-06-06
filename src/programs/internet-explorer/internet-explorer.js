@@ -1,7 +1,6 @@
 export default {
     icon: 'ie',
     id: 'ie',
-    init: (dialog, file) => {},
     menu: [
         {
             children: [],

@@ -3,6 +3,7 @@ import query from '../common/query.js';
 import {addShortcut} from './desktop.js';
 
 const programs = {};
+const dragImg = Object.assign(new Image(0, 0), {src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='});
 
 addShortcut({
     dblclick: () => open(
@@ -35,7 +36,7 @@ export function open(name, file = {}, options = {}) {
     dialog.innerHTML = `
         <header>
             <span class="icon medium ${program.icon}"></span>
-            <label>${program.name}</label>
+            <label draggable="true">${program.name}</label>
             <button class="minimize"></button>
             <button class="maximize"></button>
             <button class="close"></button>
@@ -69,11 +70,18 @@ function initTitleBar(dialog) {
 
     elements.close.addEventListener('click', () => dialog.remove());
     elements.label.addEventListener('dblclick', maximize);
+    elements.label.addEventListener('drag', setPosition);
+    elements.label.addEventListener('dragend', setPosition);
+    elements.label.addEventListener('dragstart', event => event.dataTransfer.setDragImage(dragImg, 0, 0));
     elements.maximize.addEventListener('click', maximize);
 
     // minimize.addEventListener('click', () => dialog.open = !dialog.open);
 
     function maximize() {
         dialog.classList.toggle('full', !dialog.classList.contains('full'));
+    }
+
+    function setPosition(event) {
+        Object.assign(dialog.style, {top: `${event.y}px`, left: `${event.x}px`});
     }
 }
