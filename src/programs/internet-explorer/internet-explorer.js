@@ -19,5 +19,5 @@ export default {
     ],
     name: 'Internet Explorer',
     shortcut: true,
-    template: '<iframe src="https://www.greenpeace.org/"></iframe>'
+    template: '<div>I think it is not working yet.</div>'
 };
