@@ -1,19 +1,26 @@
 import buildList from '../common/buildList.js';
 import query from '../common/query.js';
+import TaskbarButton from './TaskbarButton.js';
 
 const dragImg = Object.assign(new Image(0, 0), {src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='});
 
 export default class Window extends HTMLDialogElement {
     #config;
+    #icon;
+    #name;
+    #taskbarButton;
 
     constructor(config, data) {
         super();
 
         this.#config = config;
+        this.#icon = config.icon;
+        this.#name = config.name;
+        this.#taskbarButton = new TaskbarButton(this);
         this.classList.add(config.id);
         this.innerHTML = `
             <header>
-                <span class="icon medium ${config.icon}"></span>
+                <span class="icon small ${config.icon}"></span>
                 <label draggable="true">${config.name}</label>
                 <button class="minimize"></button>
                 <button class="maximize"></button>
@@ -57,6 +64,14 @@ export default class Window extends HTMLDialogElement {
 
     setPosition(x = 0, y = 0) {
         Object.assign(this.style, {top: `${y}px`, left: `${x}px`});
+    }
+
+    get icon() {
+        return this.#icon;
+    }
+
+    get name() {
+        return this.#name;
     }
 }
 
