@@ -2,7 +2,7 @@ import {NAME_CHANGE} from './Window.js';
 
 const taskbarButtons = document.body.querySelector('#taskbarButtons');
 
-export default class TaskbarButton extends HTMLDivElement {
+export default class TaskbarButton extends HTMLButtonElement {
     #window;
 
     constructor(window) {
@@ -24,4 +24,4 @@ export default class TaskbarButton extends HTMLDivElement {
     }
 }
 
-customElements.define('w-taskbar-button', TaskbarButton, {extends: 'div'});
+customElements.define('w-taskbar-button', TaskbarButton, {extends: 'button'});

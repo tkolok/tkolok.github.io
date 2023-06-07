@@ -53,6 +53,7 @@ export default class Window extends HTMLDialogElement {
 
     close(returnValue) {
         this.remove();
+        this.#taskbarButton.remove();
     }
 
     initMenu() {
