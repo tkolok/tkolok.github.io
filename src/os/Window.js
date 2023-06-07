@@ -42,12 +42,13 @@ export default class Window extends HTMLDialogElement {
         elements.label.addEventListener('drag', event => this.setPosition(event.x, event.y));
         elements.label.addEventListener('dragend', event => this.setPosition(event.x, event.y));
         elements.label.addEventListener('dragstart', dragStart);
+        elements.minimize.addEventListener('click', this.minimize.bind(this));
         elements.maximize.addEventListener('click', this.maximize.bind(this));
 
         this.initMenu();
         this.setPosition();
         config.run(this, data);
-        this.open = true;
+        this.show();
         document.body.append(this);
     }
 
@@ -62,6 +63,10 @@ export default class Window extends HTMLDialogElement {
 
     maximize() {
         this.classList.toggle('full', !this.classList.contains('full'));
+    }
+
+    minimize() {
+        super.close();
     }
 
     setPosition(x = 0, y = 0) {

@@ -9,7 +9,7 @@ export default class TaskbarButton extends HTMLButtonElement {
         super();
 
         this.#window = window;
-        this.addEventListener('click', () => console.log(window));
+        this.addEventListener('click', () => window.show());
         this.innerHTML = `
             <span class="icon small ${window.icon}"></span>
             <span class="name"></span>`;
