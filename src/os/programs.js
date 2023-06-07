@@ -1,8 +1,8 @@
 import Shortcut from './Shortcut.js';
 
 const defaultConfig = {
-    init: () => {},
     menu: [],
+    run: () => {},
     shortcut: false,
     template: ''
 };

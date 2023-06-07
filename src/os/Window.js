@@ -2,6 +2,7 @@ import buildList from '../common/buildList.js';
 import query from '../common/query.js';
 import TaskbarButton from './TaskbarButton.js';
 
+export const NAME_CHANGE = 'window-name-change';
 const dragImg = Object.assign(new Image(0, 0), {src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='});
 
 export default class Window extends HTMLDialogElement {
@@ -45,7 +46,7 @@ export default class Window extends HTMLDialogElement {
 
         this.initMenu();
         this.setPosition();
-        config.init(this, data);
+        config.run(this, data);
         this.open = true;
         document.body.append(this);
     }
@@ -72,6 +73,12 @@ export default class Window extends HTMLDialogElement {
 
     get name() {
         return this.#name;
+    }
+
+    set name(detail) {
+        this.#name = detail;
+        this.querySelector('header label').innerHTML = detail;
+        this.dispatchEvent(new CustomEvent(NAME_CHANGE, {detail}));
     }
 }
 

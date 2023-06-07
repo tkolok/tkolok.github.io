@@ -1,15 +1,4 @@
-import query from '../../common/query.js';
-
 export default {
-    init: (dialog, file) => {
-        const elements = query(dialog, {
-            label: 'header label',
-            main: 'main'
-        });
-
-        elements.label.innerHTML += ` - ${file.name}`;
-        elements.main.innerHTML = `<iframe src="./src/${file.path}.html"></iframe>`;
-    },
     menu: [
         {
             children: [],
@@ -27,10 +16,11 @@ export default {
         }
     ],
     name: 'PDF Reader',
+    run: (window, file) => {
+        window.name += ` - ${file.name}`;
+        window.querySelector('main').innerHTML = `<iframe src="./src/${file.path}.html"></iframe>`;
+    },
     shortcut: false
-    // mely ablak műveletek érhetőek el
-    // menu beállítások
+    // mely ablak műveletek érhetőek el (hide, disabled)
     // once, egyszer nyitható-e meg
-    // path
-    // template
 };
