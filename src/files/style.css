@@ -10,7 +10,7 @@ a {
     text-decoration-line: none;
 }
 
-body {
+#body {
     color: #333;
     height: 297mm;
     font-family: 'Roboto', sans-serif;
