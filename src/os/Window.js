@@ -2,8 +2,8 @@ import buildList from '../common/buildList.js';
 import query from '../common/query.js';
 import TaskbarButton from './TaskbarButton.js';
 
-export const NAME_CHANGE = 'window-name-change';
 const dragImg = Object.assign(new Image(0, 0), {src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='});
+const windows = [];
 
 export default class Window extends HTMLDialogElement {
     #config;
@@ -18,6 +18,7 @@ export default class Window extends HTMLDialogElement {
         this.#icon = config.icon;
         this.#name = config.name;
         this.#taskbarButton = new TaskbarButton(this);
+        this.addEventListener('focus', () => this.active = true);
         this.classList.add(config.id);
         this.innerHTML = `
             <header>
@@ -48,7 +49,7 @@ export default class Window extends HTMLDialogElement {
         this.initMenu();
         this.setPosition();
         config.run(this, data);
-        this.show();
+        this.active = true;
         document.body.append(this);
     }
 
@@ -73,18 +74,36 @@ export default class Window extends HTMLDialogElement {
         Object.assign(this.style, {top: `${y}px`, left: `${x}px`});
     }
 
+    set active(value) {
+        this.classList.toggle('active', value);
+        this.#taskbarButton.classList.toggle('active', value);
+
+        if (value) {
+            const index = windows.indexOf(this);
+
+            if (index > -1) {
+                windows.splice(index, 1);
+            }
+            windows.forEach(window => window.active = false);
+            windows.push(this);
+            this.show();
+        }
+
+        this.style.zIndex = `${10 + windows.indexOf(this)}`;
+    }
+
     get icon() {
         return this.#icon;
     }
 
-    get name() {
+    get windowName() {
         return this.#name;
     }
 
-    set name(detail) {
-        this.#name = detail;
-        this.querySelector('header label').innerHTML = detail;
-        this.dispatchEvent(new CustomEvent(NAME_CHANGE, {detail}));
+    set windowName(value) {
+        this.#name = value;
+        this.querySelector('header label').innerHTML = value;
+        this.#taskbarButton.windowName = value;
     }
 }
 

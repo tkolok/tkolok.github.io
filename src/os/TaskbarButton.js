@@ -1,26 +1,20 @@
-import {NAME_CHANGE} from './Window.js';
-
 const taskbarButtons = document.body.querySelector('#taskbarButtons');
 
 export default class TaskbarButton extends HTMLButtonElement {
-    #window;
-
     constructor(window) {
         super();
 
-        this.#window = window;
-        this.addEventListener('click', () => window.show());
+        this.addEventListener('click', () => window.active = true);
         this.innerHTML = `
             <span class="icon small ${window.icon}"></span>
-            <span class="name"></span>`;
-        window.addEventListener(NAME_CHANGE, this.#updateName.bind(this));
-        this.#updateName();
+            <label></label>`;
+        this.windowName = window.windowName;
 
         taskbarButtons.append(this);
     }
 
-    #updateName() {
-        this.querySelector('.name').innerHTML = this.#window.name;
+    set windowName(value) {
+        this.querySelector('label').innerText = value;
     }
 }
 
