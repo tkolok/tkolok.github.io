@@ -1,7 +1,11 @@
-export default {
-    css: '@import "./src/files/style.css";',
-    className: 'flex flex-row flex-start',
-    html: `
+export default (() => {
+    const style = document.createElement('style');
+    style.innerHTML = '@import "./src/files/style.css";';
+
+    const body = document.createElement('div');
+    body.className = 'flex flex-row flex-start';
+    body.id = 'body';
+    body.innerHTML = `
         <aside class="flex flex-column">
             <img alt="" src="./assets/images/cv.jpg">
             <div>
@@ -153,5 +157,7 @@ export default {
                     <p id="mobxPieDescription">Egy példa repository, hogy (szerintem) hogyan érdemes a MobX 3.X verzióját React-tal használni.</p>
                 </section>
             </div>
-        </main>`
-};
+        </main>`;
+
+    return [style, body];
+})();
