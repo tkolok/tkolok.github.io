@@ -1,5 +1,4 @@
 import buildList from '../common/buildList.js';
-import query from '../common/query.js';
 import TaskbarButton from './TaskbarButton.js';
 
 const dragImg = Object.assign(new Image(0, 0), {src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='});
@@ -24,29 +23,21 @@ export default class Window extends HTMLDialogElement {
             <header>
                 <span class="icon small ${config.icon}"></span>
                 <label draggable="true">${config.name}</label>
-                <button class="minimize"></button>
-                <button class="maximize"></button>
-                <button class="close"></button>
             </header>
             <menu></menu>
             <main>${config.template}</main>`;
 
-        const elements = query(this, {
-            close: '.close',
-            label: 'label',
-            maximize: '.maximize',
-            minimize: '.minimize'
-        });
+        const label = this.querySelector('label');
+        label.addEventListener('dblclick', this.maximize.bind(this));
+        label.addEventListener('drag', event => this.setPosition(event.x, event.y));
+        label.addEventListener('dragend', event => this.setPosition(event.x, event.y));
+        label.addEventListener('dragstart', dragStart);
 
-        elements.close.addEventListener('click', this.close.bind(this));
-        elements.label.addEventListener('dblclick', this.maximize.bind(this));
-        elements.label.addEventListener('drag', event => this.setPosition(event.x, event.y));
-        elements.label.addEventListener('dragend', event => this.setPosition(event.x, event.y));
-        elements.label.addEventListener('dragstart', dragStart);
-        elements.minimize.addEventListener('click', this.minimize.bind(this));
-        elements.maximize.addEventListener('click', this.maximize.bind(this));
+        this.#addTitleBarButton('minimize');
+        this.#addTitleBarButton('maximize');
+        this.#addTitleBarButton('close');
 
-        this.initMenu();
+        this.#initMenu();
         this.setPosition();
         config.run(this, data);
         this.active = true;
@@ -54,12 +45,9 @@ export default class Window extends HTMLDialogElement {
     }
 
     close(returnValue) {
+        windows.splice(windows.indexOf(this), 1);
         this.remove();
         this.#taskbarButton.remove();
-    }
-
-    initMenu() {
-        this.querySelector('menu').innerHTML = buildList(this.#config.menu, buildMenuitem);
     }
 
     maximize() {
@@ -104,6 +92,20 @@ export default class Window extends HTMLDialogElement {
         this.#name = value;
         this.querySelector('header label').innerHTML = value;
         this.#taskbarButton.windowName = value;
+    }
+
+    #addTitleBarButton(buttonType) {
+        if (this.#config[buttonType]?.state !== 'hidden') {
+            const button = document.createElement('button');
+
+            button.addEventListener('click', this[buttonType].bind(this));
+            button.classList.add(buttonType);
+            this.querySelector('header').append(button);
+        }
+    }
+
+    #initMenu() {
+        this.querySelector('menu').innerHTML = buildList(this.#config.menu, buildMenuitem);
     }
 }
 
