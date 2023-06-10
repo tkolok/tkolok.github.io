@@ -3,6 +3,7 @@ import query from '../common/query.js';
 const {dateAndTime, startButton, startMenu} = query(document.body.querySelector('#taskbar'));
 const dateFormatter = new Intl.DateTimeFormat(undefined, {timeStyle: 'short'});
 
+startButton.addEventListener('blur', () => toggleStartMenu(false));
 startButton.addEventListener('click', () => toggleStartMenu());
 updateTime();
 setInterval(updateTime, 1000);
