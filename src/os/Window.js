@@ -70,7 +70,7 @@ export default class Window extends HTMLDialogElement {
         super.close();
     }
 
-    setPosition(x = 0, y = 0) {
+    setPosition(x = 25 + (windows.length % 10) * 25, y = 25 + (windows.length % 10) * 25) {
         Object.assign(this.style, {top: `${y}px`, left: `${x}px`});
     }
 
