@@ -8,7 +8,7 @@ document.body.querySelector('#booting').remove();
 function initPrograms() {
     return [
         'internet-explorer',
-        'pdf-reader'
+        'word-pad'
     ].reduce(async (ret, id) => {
         ret = import(`../programs/${id}/${id}.js`);
 
@@ -21,7 +21,7 @@ function initPrograms() {
 function initShortcuts() {
     new Shortcut(
         {
-            id: 'pdf-reader',
+            id: 'word-pad',
             name: 'Önéletrajz'
         },
         {

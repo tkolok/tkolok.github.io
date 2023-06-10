@@ -1,4 +1,8 @@
+const name = 'WordPad';
+
 export default {
+    icon: 'rich-text',
+    id: 'word-pad',
     menu: [
         {
             children: [],
@@ -15,7 +19,7 @@ export default {
             name: 'Help'
         }
     ],
-    name: 'PDF Reader',
+    name,
     run: async (window, file) => {
         const main = window.querySelector('main');
 
@@ -23,7 +27,7 @@ export default {
         main.shadowRoot.append(...(await import(`/src/${file.path}.js`)).default);
 
         window.maximize();
-        window.windowName += ` - ${file.name}`;
+        window.windowName = `${file.name} - ${name}`;
     },
     shortcut: false
     // mely ablak műveletek érhetőek el (hide, disabled)

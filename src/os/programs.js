@@ -1,6 +1,7 @@
 import Shortcut from './Shortcut.js';
 
 const defaultConfig = {
+    icon: '',
     menu: [],
     run: () => {},
     shortcut: false,
