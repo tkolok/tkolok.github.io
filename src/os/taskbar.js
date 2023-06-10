@@ -10,10 +10,40 @@ setInterval(updateTime, 1000);
 [
     {
         click: () => console.log('TODO'),
+        icon: 'programs',
+        label: 'Programs'
+    },
+    {
+        click: () => console.log('TODO'),
         icon: 'documents',
         label: 'Documents'
     },
+    {
+        click: () => console.log('TODO'),
+        icon: 'settings',
+        label: 'Settings'
+    },
+    {
+        click: () => console.log('TODO'),
+        icon: 'find',
+        label: 'Find'
+    },
+    {
+        click: () => console.log('TODO'),
+        icon: 'help',
+        label: 'Help'
+    },
+    {
+        click: () => console.log('TODO'),
+        icon: 'run',
+        label: 'Run...'
+    },
     null,
+    {
+        click: () => console.log('TODO'),
+        icon: 'log-off',
+        label: 'Log Off...'
+    },
     {
         click: () => window.close(),
         icon: 'monitor',
