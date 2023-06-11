@@ -7,14 +7,12 @@ document.body.querySelector('#booting').remove();
 
 function initPrograms() {
     return [
-        'internet-explorer',
-        'word-pad'
-    ].reduce(async (ret, id) => {
-        ret = import(`../programs/${id}/${id}.js`);
+        import('../programs/internet-explorer/internet-explorer.js'),
+        import('../programs/word-pad/word-pad.js')
+    ].reduce(async (ret, program) => {
+        define((await program).default);
 
-        define({id, ...(await ret).default});
-
-        return ret;
+        return program;
     }, null);
 }
 
