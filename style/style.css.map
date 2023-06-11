@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../src/programs/word-pad/word-pad.scss","win98-style.css","../style.scss"],"names":[],"mappings":"AAAA,eACI,sBCDJ,23RCGA,WACI,YACA,qBACA,6CACA,iBACA,kBACA","file":"style.css"}
+{"version":3,"sourceRoot":"","sources":["../src/programs/notepad/notepad.scss","../src/programs/word-pad/word-pad.scss","win98-style.css","../style.scss"],"names":[],"mappings":"AAAA,kBACI,YACA,iBACA,gBACA,gBACA,YACA,WCNJ,eACI,sBCDJ,23RCIA,WACI,YACA,qBACA,6CACA,iBACA,kBACA","file":"style.css"}
