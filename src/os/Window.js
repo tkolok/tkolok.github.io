@@ -27,15 +27,11 @@ export default class Window extends HTMLDialogElement {
             <menu></menu>
             <main>${config.template}</main>`;
 
-        const label = this.querySelector('label');
-        label.addEventListener('dblclick', this.maximize.bind(this));
-        label.addEventListener('drag', event => this.setPosition(event.x, event.y));
-        label.addEventListener('dragend', event => this.setPosition(event.x, event.y));
-        label.addEventListener('dragstart', dragStart);
-
+        this.querySelector('label').addEventListener('dblclick', this.maximize.bind(this));
         this.#addTitleBarButton('minimize');
         this.#addTitleBarButton('maximize');
         this.#addTitleBarButton('close');
+        this.#initDragging();
 
         this.#initMenu();
         this.setPosition();
@@ -104,6 +100,20 @@ export default class Window extends HTMLDialogElement {
         }
     }
 
+    #initDragging() {
+        const label = this.querySelector('label');
+        let xDiff;
+        let yDiff;
+
+        label.addEventListener('drag', event => this.setPosition(event.x - xDiff, event.y - yDiff));
+        label.addEventListener('dragend', event => this.setPosition(event.x - xDiff, event.y - yDiff));
+        label.addEventListener('dragstart', event => {
+            xDiff = event.x - this.offsetLeft;
+            yDiff = event.y - this.offsetTop;
+            event.dataTransfer.setDragImage(dragImg, 0, 0);
+        });
+    }
+
     #initMenu() {
         this.querySelector('menu').innerHTML = buildList(this.#config.menu, buildMenuitem);
     }
@@ -113,10 +123,6 @@ function buildMenuitem(menuitem) {
     const label = menuitem.name.replace(new RegExp(menuitem.key), `<u>${menuitem.key}</u>`);
 
     return `<li>${label}</li>`;
-}
-
-function dragStart(event) {
-    event.dataTransfer.setDragImage(dragImg, 0, 0);
 }
 
 customElements.define('w-window', Window, {extends: 'dialog'});
