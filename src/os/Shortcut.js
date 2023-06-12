@@ -13,6 +13,7 @@ export default class Shortcut extends HTMLDivElement {
         this.innerHTML = `
             <div class="icon ${config.icon || this.#program.icon || ''}"></div>
             <p>${config.name || this.#program.name}</p>`;
+        this.tabIndex = 1;
 
         document.body.append(this);
     }
