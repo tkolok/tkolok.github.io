@@ -23,6 +23,6 @@ function initShortcuts() {
         },
         {
             name: 'Önéletrajz',
-            path: 'files/cv_hun'
+            path: 'files/documents/cv_hun'
         });
 }
