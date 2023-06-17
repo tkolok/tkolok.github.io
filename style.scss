@@ -2,11 +2,11 @@
 @import 'src/programs/word-pad/word-pad';
 @import 'style/win98-style';
 
-body:after {
+#devNote {
     bottom: 35px;
     color: rgba(0, 0, 0, .5);
-    content: 'This project is under development.';
     font-weight: bold;
     position: absolute;
     right: 5px;
+    text-align: right;
 }
