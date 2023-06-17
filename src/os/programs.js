@@ -1,22 +1,18 @@
-import Shortcut from './Shortcut.js';
+const programs = new Map();
 
-const defaultConfig = {
-    icon: '',
-    menu: [],
-    run: () => {},
-    shortcut: false,
-    template: ''
-};
-const programs = {};
+export async function define(module) {
+    const {default: program, config} = await module;
 
-export function define(config) {
-    programs[config.id] = {...defaultConfig, ...config};
+    customElements.define(`w-program-${config.id}`, program, {extends: 'dialog'});
+    programs.set(config.id, {config, program});
 
-    if (config.shortcut) {
-        new Shortcut(config);
-    }
+    return module;
 }
 
 export function get(id) {
-    return programs[id];
+    return programs.get(id).program;
+}
+
+export function getConfig(id) {
+    return programs.get(id).config;
 }

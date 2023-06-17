@@ -1,6 +1,8 @@
+import Window from '../../os/Window.js';
+
 const name = 'Notepad';
 
-export default {
+export const config = {
     icon: 'notepad',
     id: 'notepad',
     menu: [
@@ -24,10 +26,14 @@ export default {
         }
     ],
     name: 'Notepad',
-    run: window => {
-        window.maximize();
-        window.windowName = `Untitled - ${name}`;
-    },
-    shortcut: true,
     template: '<textarea spellcheck="false"></textarea>'
 };
+
+export default class Notepad extends Window {
+    constructor() {
+        super(config);
+
+        this.maximize();
+        this.windowName = `Untitled - ${name}`;
+    }
+}

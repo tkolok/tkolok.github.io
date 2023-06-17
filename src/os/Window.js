@@ -7,10 +7,11 @@ const windows = [];
 export default class Window extends HTMLDialogElement {
     #config;
     #icon;
+    #main;
     #name;
     #taskbarButton;
 
-    constructor(config, data) {
+    constructor(config) {
         super();
 
         this.#config = config;
@@ -27,6 +28,7 @@ export default class Window extends HTMLDialogElement {
             <menu></menu>
             <main>${config.template}</main>`;
 
+        this.#main = this.querySelector('main');
         this.querySelector('label').addEventListener('dblclick', this.maximize.bind(this));
         this.#addTitleBarButton('minimize');
         this.#addTitleBarButton('maximize');
@@ -35,7 +37,6 @@ export default class Window extends HTMLDialogElement {
 
         this.#initMenu();
         this.setPosition();
-        config.run(this, data);
         this.active = true;
         document.body.append(this);
     }
@@ -78,6 +79,10 @@ export default class Window extends HTMLDialogElement {
 
     get icon() {
         return this.#icon;
+    }
+
+    get main() {
+        return this.#main;
     }
 
     get windowName() {

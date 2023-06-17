@@ -1,6 +1,8 @@
+import Window from '../../os/Window.js';
+
 const name = 'WordPad';
 
-export default {
+export const config = {
     icon: 'rich-text',
     id: 'word-pad',
     menu: [
@@ -19,17 +21,21 @@ export default {
             name: 'Help'
         }
     ],
-    name,
-    run: async (window, file) => {
-        const main = window.querySelector('main');
-
-        main.attachShadow({mode: 'open'});
-        main.shadowRoot.append(...(await import(`/src/${file.path}.js`)).default);
-
-        window.maximize();
-        window.windowName = `${file.name} - ${name}`;
-    },
-    shortcut: false
-    // mely ablak műveletek érhetőek el (hide, disabled)
+    name
+    // mely ablak műveletek érhetőek el (hidden, disabled)
     // once, egyszer nyitható-e meg
 };
+
+export default class WordPad extends Window {
+    constructor(file) {
+        super(config);
+
+        this.maximize();
+        this.windowName = `${file.name} - ${name}`;
+
+        (async () => {
+            this.main.attachShadow({mode: 'open'});
+            this.main.shadowRoot.append(...(await import(`/src/${file.path}.js`)).default);
+        })();
+    }
+}

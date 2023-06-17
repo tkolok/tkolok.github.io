@@ -1,4 +1,6 @@
-export default {
+import Window from '../../os/Window.js';
+
+export const config = {
     icon: 'ie',
     id: 'ie',
     menu: [
@@ -18,6 +20,11 @@ export default {
         }
     ],
     name: 'Internet Explorer',
-    shortcut: true,
     template: '<div>I think it is not working yet.</div>'
 };
+
+export default class InternetExplorer extends Window {
+    constructor() {
+        super(config);
+    }
+}

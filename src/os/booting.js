@@ -7,17 +7,15 @@ document.body.querySelector('#booting').remove();
 
 function initPrograms() {
     return [
-        import('../programs/notepad/notepad.js'),
         import('../programs/internet-explorer/internet-explorer.js'),
+        import('../programs/notepad/notepad.js'),
         import('../programs/word-pad/word-pad.js')
-    ].reduce(async (ret, program) => {
-        define((await program).default);
-
-        return program;
-    }, null);
+    ].reduce(async (ret, module) => define(module), null);
 }
 
 function initShortcuts() {
+    new Shortcut({id: 'ie'});
+    new Shortcut({id: 'notepad'});
     new Shortcut(
         {
             id: 'word-pad',
