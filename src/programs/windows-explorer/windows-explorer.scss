@@ -1,0 +1,10 @@
+.explorer main {
+    align-items: flex-start;
+    background-color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+
+    .shortcut:not(:focus) > p {
+        color: #000;
+    }
+}
