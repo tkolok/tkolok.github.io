@@ -1,7 +1,6 @@
-import {open} from '../../os/programs.js';
-import Shortcut from '../../os/Shortcut.js';
+import {getFolder} from '../../os/folders.js';
+import Shortcut, {shortcutById} from '../../os/Shortcut.js';
 import Window from '../../os/Window.js';
-import directories from './directories.js';
 
 const id = 'explorer';
 export const config = {
@@ -19,18 +18,10 @@ export default class WindowsExplorer extends Window {
     }
 
     #open(path) {
-        this.main.replaceChildren(...getFolder(path).children.map(config => {
-            config.open = config.id === id
-                ? () => this.#open(`${path}/${config.path}`)
-                : () => open(config.id, config.data);
-
-            return new Shortcut(config);
-        }));
+        this.main.replaceChildren(...getFolder(path).children.map(config =>
+            config.id === id
+                ? new Shortcut({...config, open: () => this.#open(`${path}/${config.path}`)})
+                : shortcutById(config.id, config.data)
+        ));
     }
-}
-
-function getFolder(fullPath) {
-    return fullPath.split('/')
-        .filter(path => path)
-        .reduce((folder, path) => folder.children.find(current => current.path === path), directories);
 }
