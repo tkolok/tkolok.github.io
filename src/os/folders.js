@@ -1,3 +1,5 @@
+import CVBuilder from '../files/cv_builder.js';
+
 const folders = folder(
     {name: ''},
     folder(
@@ -7,14 +9,20 @@ const folders = folder(
             {
                 data: {
                     name: 'Hungarian CV',
-                    path: 'files/documents/cv_hun'
+                    children: CVBuilder('hu')
                 },
                 name: 'Hungarian CV'
             }
         ),
-        folder(
-            {name: 'Win98'},
-            file('ie')
+        file(
+            'word-pad',
+            {
+                data: {
+                    name: 'English CV',
+                    children: CVBuilder('en')
+                },
+                name: 'English CV'
+            }
         )
     )
 );
@@ -36,6 +44,7 @@ function file(id, config) {
 function folder(config, ...children) {
     return {
         children,
+        data: config.path || config.name,
         icon: config.icon || 'folder',
         id: 'explorer',
         name: config.name,

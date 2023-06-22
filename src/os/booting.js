@@ -16,9 +16,8 @@ function initPrograms() {
 
 function initShortcuts() {
     document.body.append(
-        shortcutById('explorer'),
+        shortcutByPath('/Documents'),
         shortcutById('ie'),
-        shortcutById('notepad'),
-        shortcutByPath('/Documents/Hungarian CV')
+        shortcutById('notepad')
     );
 }

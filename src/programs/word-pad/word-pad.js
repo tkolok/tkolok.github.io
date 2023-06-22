@@ -27,15 +27,12 @@ export const config = {
 };
 
 export default class WordPad extends Window {
-    constructor(file) {
+    constructor(data) {
         super(config);
 
+        this.main.attachShadow({mode: 'open'});
+        this.main.shadowRoot.append(...data.children);
         this.maximize();
-        this.windowName = `${file.name} - ${name}`;
-
-        (async () => {
-            this.main.attachShadow({mode: 'open'});
-            this.main.shadowRoot.append(...(await import(`/src/${file.path}.js`)).default);
-        })();
+        this.windowName = `${data.name} - ${name}`;
     }
 }
