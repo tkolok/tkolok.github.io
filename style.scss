@@ -11,3 +11,23 @@
     right: 5px;
     text-align: right;
 }
+
+dialog .resizer {
+    position: absolute;
+
+    &.e {
+        cursor: e-resize;
+        height: 100%;
+        right: 0;
+        top: 0;
+        width: 4px;
+    }
+
+    &.n {
+        bottom: 0;
+        cursor: n-resize;
+        height: 4px;
+        left: 0;
+        width: 100%;
+    }
+}

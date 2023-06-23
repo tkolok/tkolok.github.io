@@ -28,6 +28,8 @@ export default class Window extends HTMLDialogElement {
             <menu></menu>
             <main>${config.template}</main>`;
 
+        this.#addResizer('n', (event, {height}) => ({height: `${height + event.movementY}px`}));
+        this.#addResizer('e', (event, {width}) => ({width: `${width + event.movementX}px`}));
         this.#main = this.querySelector('main');
         this.querySelector('label').addEventListener('dblclick', this.maximize.bind(this));
         this.#addTitleBarButton('minimize');
@@ -93,6 +95,35 @@ export default class Window extends HTMLDialogElement {
         this.#name = value;
         this.querySelector('header label').innerHTML = value;
         this.#taskbarButton.windowName = value;
+    }
+
+    #addResizer(direction, resize) {
+        const resizer = document.createElement('div');
+        const _this = this;
+
+        resizer.addEventListener('mousedown', event => {
+            if (event.buttons === 1) {
+                document.body.style.cursor = `${direction}-resize`;
+
+                window.addEventListener('mousemove', mousemove);
+                window.addEventListener('mouseup', stop);
+            }
+        });
+        resizer.className = `resizer ${direction}`;
+        this.append(resizer);
+
+        function mousemove(event) {
+            Object.assign(_this.style, resize(event, {
+                height: _this.offsetHeight,
+                width: _this.offsetWidth
+            }));
+        }
+
+        function stop() {
+            window.removeEventListener('mousemove', mousemove);
+            window.removeEventListener('mouseup', stop);
+            document.body.style.cursor = null;
+        }
     }
 
     #addTitleBarButton(buttonType) {
