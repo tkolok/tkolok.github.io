@@ -28,8 +28,10 @@ export default class Window extends HTMLDialogElement {
             <menu></menu>
             <main>${config.template}</main>`;
 
-        this.#addResizer('n', (event, {height}) => ({height: `${height + event.movementY}px`}));
-        this.#addResizer('e', (event, {width}) => ({width: `${width + event.movementX}px`}));
+        this.#addResizer('bottom', 'n', event => ({height: event.movementY}));
+        this.#addResizer('left', 'e', event => ({left: event.movementX, width: -event.movementX}));
+        this.#addResizer('right', 'e', event => ({width: event.movementX}));
+        this.#addResizer('top', 'n', event => ({height: -event.movementY, top: event.movementY}));
         this.#main = this.querySelector('main');
         this.querySelector('label').addEventListener('dblclick', this.maximize.bind(this));
         this.#addTitleBarButton('minimize');
@@ -97,7 +99,7 @@ export default class Window extends HTMLDialogElement {
         this.#taskbarButton.windowName = value;
     }
 
-    #addResizer(direction, resize) {
+    #addResizer(className, direction, resize) {
         const resizer = document.createElement('div');
         const _this = this;
 
@@ -109,14 +111,18 @@ export default class Window extends HTMLDialogElement {
                 window.addEventListener('mouseup', stop);
             }
         });
-        resizer.className = `resizer ${direction}`;
+        resizer.className = `resizer ${className}`;
         this.append(resizer);
 
         function mousemove(event) {
-            Object.assign(_this.style, resize(event, {
-                height: _this.offsetHeight,
-                width: _this.offsetWidth
-            }));
+            const result = resize(event);
+
+            Object.assign(_this.style, {
+                height: `${_this.offsetHeight + (result.height || 0)}px`,
+                left: `${_this.offsetLeft + (result.left || 0)}px`,
+                top: `${_this.offsetTop + (result.top || 0)}px`,
+                width: `${_this.offsetWidth + (result.width || 0)}px`
+            });
         }
 
         function stop() {

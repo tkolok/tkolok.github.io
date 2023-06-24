@@ -15,7 +15,23 @@
 dialog .resizer {
     position: absolute;
 
-    &.e {
+    &.bottom {
+        bottom: 0;
+        cursor: n-resize;
+        height: 4px;
+        left: 0;
+        width: 100%;
+    }
+
+    &.left {
+        cursor: e-resize;
+        height: 100%;
+        left: 0;
+        top: 0;
+        width: 4px;
+    }
+
+    &.right {
         cursor: e-resize;
         height: 100%;
         right: 0;
@@ -23,11 +39,11 @@ dialog .resizer {
         width: 4px;
     }
 
-    &.n {
-        bottom: 0;
+    &.top {
         cursor: n-resize;
         height: 4px;
         left: 0;
+        top: 0;
         width: 100%;
     }
 }
