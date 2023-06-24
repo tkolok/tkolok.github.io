@@ -19,12 +19,16 @@ export const config = {
             name: 'Help'
         }
     ],
-    name: 'Internet Explorer',
-    template: '<div>I think it is not working yet.</div>'
+    name: 'Internet Explorer'
 };
 
 export default class InternetExplorer extends Window {
-    constructor() {
+    constructor(url = 'https://www.google.com') {
         super(config);
+
+        const iframe = document.createElement('iframe');
+        iframe.src = url;
+        this.main.append(iframe);
+        this.maximize();
     }
 }

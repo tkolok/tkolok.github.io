@@ -26,7 +26,7 @@ export default class Window extends HTMLDialogElement {
                 <label draggable="true">${config.name}</label>
             </header>
             <menu></menu>
-            <main>${config.template}</main>`;
+            <main>${config.template || ''}</main>`;
 
         this.#addResizer('bottom', 'n', event => ({height: event.movementY}));
         this.#addResizer('left', 'e', event => ({left: event.movementX, width: -event.movementX}));
@@ -43,6 +43,7 @@ export default class Window extends HTMLDialogElement {
         this.setPosition();
         this.active = true;
         document.body.append(this);
+        Object.assign(this.style, {height: `${this.offsetHeight}px`, width: `${this.offsetWidth}px`});
     }
 
     close(returnValue) {
