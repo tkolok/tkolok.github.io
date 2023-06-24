@@ -1,4 +1,18 @@
-.ie iframe {
-    height: 100%;
-    width: 100%;
+.ie main {
+    display: flex;
+    flex-direction: column;
+
+    .address-bar {
+        display: flex;
+        gap: 4px;
+        padding: 4px;
+
+        input {
+            flex: 1;
+        }
+    }
+
+    iframe {
+        flex: 1;
+    }
 }

@@ -23,12 +23,32 @@ export const config = {
 };
 
 export default class InternetExplorer extends Window {
+    #address = document.createElement('input');
+    #iframe = document.createElement('iframe');
+
     constructor(url = 'https://www.google.com') {
         super(config);
 
-        const iframe = document.createElement('iframe');
-        iframe.src = url;
-        this.main.append(iframe);
+        const addressBar = document.createElement('div');
+        addressBar.append(
+            Object.assign(document.createElement('span'), {innerHTML: 'Address'}),
+            this.#address
+        );
+        addressBar.className = 'address-bar';
+
+        this.#address.addEventListener('keypress', event => {
+            if (event.code === 'Enter') {
+                this.#setAddress();
+            }
+        });
+
+        this.main.append(addressBar, this.#iframe);
+        this.#setAddress(url);
         this.maximize();
+    }
+
+    #setAddress(url = this.#address.value) {
+        this.#address.value = url;
+        this.#iframe.src = url;
     }
 }
