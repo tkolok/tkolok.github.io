@@ -12,7 +12,6 @@ a {
 
 #body {
     color: #333;
-    height: 297mm;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     width: 210mm;
@@ -62,7 +61,6 @@ ul {
 /* body */
 aside {
     background-color: #EEE;
-    height: 100%;
     padding: 2.5rem 1rem;
     width: 35%;
 }
@@ -110,8 +108,4 @@ main h3 span:before {
 
 .contact i {
     min-width: 1.5rem;
-}
-
-.fa-star-o {
-    color: #AAA;
 }
