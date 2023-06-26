@@ -1,4 +1,5 @@
 import CVBuilder from '../files/cv_builder.js';
+import myDiary from '../files/my_diary.js';
 
 const folders = folder(
     {name: ''},
@@ -22,6 +23,16 @@ const folders = folder(
                     children: CVBuilder('en')
                 },
                 name: 'English CV'
+            }
+        ),
+        file(
+            'word-pad',
+            {
+                data: {
+                    name: 'My Diary',
+                    children: myDiary
+                },
+                name: 'My Diary'
             }
         )
     )
