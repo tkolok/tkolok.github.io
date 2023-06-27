@@ -18,10 +18,19 @@ export default class WindowsExplorer extends Window {
     }
 
     #open(path) {
-        this.main.replaceChildren(...getFolder(path).children.map(config =>
-            config.id === id
-                ? new Shortcut({...config, open: () => this.#open(`${path}/${config.path}`)})
-                : shortcutByPath(`${path}/${config.path}`)
-        ));
+        this.main.replaceChildren(
+            ...getFolder(path).children
+                .sort(defaultSort)
+                .map(config =>
+                    config.id === id
+                        ? new Shortcut({...config, open: () => this.#open(`${path}/${config.path}`)})
+                        : shortcutByPath(`${path}/${config.path}`)
+                ));
     }
+}
+
+function defaultSort(a, b) {
+    const bFolder = b.id === id;
+
+    return (a.id === id) === bFolder ? a.name.localeCompare(b.name) : (+bFolder || -1);
 }
