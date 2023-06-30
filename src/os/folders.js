@@ -33,6 +33,15 @@ const folders = folder(
                 },
                 name: 'My Diary'
             }
+        ),
+        file(
+            'imaging',
+            {
+                data: {
+                    src: 'cv.jpg'
+                },
+                name: 'cv.jpg'
+            }
         )
     )
 );

@@ -8,6 +8,7 @@ document.body.querySelector('#booting').remove();
 function initPrograms() {
     return [
         import('../programs/windows-explorer/windows-explorer.js'),
+        import('../programs/imaging/imaging.js'),
         import('../programs/internet-explorer/internet-explorer.js'),
         import('../programs/notepad/notepad.js'),
         import('../programs/word-pad/word-pad.js')

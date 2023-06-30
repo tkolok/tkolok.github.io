@@ -4,7 +4,7 @@ import Window from '../../os/Window.js';
 const name = 'WordPad';
 
 export const config = {
-    icon: 'rich-text',
+    icon: 'word-pad',
     id: 'word-pad',
     menu: [
         {
