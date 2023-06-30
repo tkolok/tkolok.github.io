@@ -40,7 +40,7 @@ const folders = folder(
                 data: {
                     src: 'cv.jpg'
                 },
-                name: 'cv.jpg'
+                name: 'New York selfie'
             }
         )
     )
