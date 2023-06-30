@@ -1,6 +1,3 @@
-import CVBuilder from '../files/cv_builder.js';
-import myDiary from '../files/my_diary.js';
-
 const folders = folder(
     {name: ''},
     folder(
@@ -9,8 +6,9 @@ const folders = folder(
             'word-pad',
             {
                 data: {
+                    id: 'hu',
                     name: 'Hungarian CV',
-                    children: CVBuilder('hu')
+                    path: 'cv-files'
                 },
                 name: 'Hungarian CV'
             }
@@ -19,8 +17,9 @@ const folders = folder(
             'word-pad',
             {
                 data: {
+                    id: 'en',
                     name: 'English CV',
-                    children: CVBuilder('en')
+                    path: 'cv-files'
                 },
                 name: 'English CV'
             }
@@ -30,7 +29,7 @@ const folders = folder(
             {
                 data: {
                     name: 'My Diary',
-                    children: myDiary
+                    path: 'my-diary'
                 },
                 name: 'My Diary'
             }

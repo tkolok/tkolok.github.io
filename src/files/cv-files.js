@@ -72,7 +72,10 @@ const translations = {
     }
 };
 
-export default function CVBuilder(lang) {
+export const en = build('en');
+export const hu = build('hu');
+
+function build(lang) {
     const translation = translations[lang];
     const style = document.createElement('style');
     style.innerHTML = '@import "./src/files/style.css";';

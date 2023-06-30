@@ -30,9 +30,12 @@ export default class WordPad extends Window {
     constructor(data) {
         super(config);
 
-        this.main.attachShadow({mode: 'open'});
-        this.main.shadowRoot.append(...data.children);
-        this.main.shadowRoot.querySelectorAll('a').forEach(redirect);
+        (async () => {
+            this.main.attachShadow({mode: 'open'});
+            this.main.shadowRoot.append(...(await import(`/src/files/${data.path}.js`))[data.id || 'default']);
+            this.main.shadowRoot.querySelectorAll('a').forEach(redirect);
+        })();
+
         this.maximize();
         this.windowName = `${data.name} - ${name}`;
     }
