@@ -1,47 +1,68 @@
 const folders = folder(
-    {name: ''},
+    {
+        icon: 'computer',
+        name: 'My Computer',
+        path: ''
+    },
     folder(
-        {icon: 'documents', name: 'Documents'},
-        file(
-            'word-pad',
+        {
+            icon: 'drive',
+            name: '(C:)',
+            path: 'C:'
+        },
+        folder(
             {
-                data: {
-                    id: 'hu',
-                    name: 'Hungarian CV',
-                    path: 'cv-files'
-                },
-                name: 'Hungarian CV'
-            }
+                icon: 'documents',
+                name: 'My Documents'
+            },
+            file(
+                'word-pad',
+                {
+                    data: {
+                        id: 'hu',
+                        name: 'Hungarian CV',
+                        path: 'cv-files'
+                    },
+                    name: 'Hungarian CV'
+                }
+            ),
+            file(
+                'word-pad',
+                {
+                    data: {
+                        id: 'en',
+                        name: 'English CV',
+                        path: 'cv-files'
+                    },
+                    name: 'English CV'
+                }
+            ),
+            file(
+                'word-pad',
+                {
+                    data: {
+                        name: 'My Diary',
+                        path: 'my-diary'
+                    },
+                    name: 'My Diary'
+                }
+            ),
+            file(
+                'imaging',
+                {
+                    data: {
+                        src: 'cv.jpg'
+                    },
+                    name: 'New York selfie'
+                }
+            )
         ),
-        file(
-            'word-pad',
-            {
-                data: {
-                    id: 'en',
-                    name: 'English CV',
-                    path: 'cv-files'
-                },
-                name: 'English CV'
-            }
+        folder(
+            {name: 'Program Files'},
+            file('ie')
         ),
-        file(
-            'word-pad',
-            {
-                data: {
-                    name: 'My Diary',
-                    path: 'my-diary'
-                },
-                name: 'My Diary'
-            }
-        ),
-        file(
-            'imaging',
-            {
-                data: {
-                    src: 'cv.jpg'
-                },
-                name: 'New York selfie'
-            }
+        folder(
+            {name: 'Windows'}
         )
     )
 );
@@ -63,10 +84,10 @@ function file(id, config) {
 function folder(config, ...children) {
     return {
         children,
-        data: config.path || config.name,
+        data: config.path ?? config.name,
         icon: config.icon || 'folder',
         id: 'explorer',
         name: config.name,
-        path: config.path || config.name
+        path: config.path ?? config.name
     };
 }

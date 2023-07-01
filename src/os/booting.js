@@ -17,7 +17,7 @@ function initPrograms() {
 
 function initShortcuts() {
     document.body.append(
-        shortcutByPath('/Documents'),
+        shortcutByPath(''),
         shortcutById('ie'),
         shortcutById('notepad')
     );

@@ -31,9 +31,9 @@ startMenu.append(
             label: 'Programs'
         },
         {
-            click: () => open('explorer', '/Documents'),
+            click: () => open('explorer', 'C:/My Documents'),
             icon: 'documents',
-            label: 'Documents'
+            label: 'My Documents'
         },
         {
             click: () => console.log('TODO'),
