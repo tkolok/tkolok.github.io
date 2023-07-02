@@ -1,0 +1,38 @@
+.explorer {
+    height: 400px;
+    width: 500px;
+
+    aside {
+        background: #fff url(../../../assets/images/folder-bg.png) no-repeat;
+        overflow: hidden;
+        padding: 15px;
+        width: 170px;
+    }
+
+    h1 {
+        font-size: 16px;
+        margin: 10px 0;
+    }
+
+    main {
+        background-color: #fff;
+        display: flex;
+    }
+
+    .folders {
+        align-content: flex-start;
+        align-items: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+
+        .shortcut:not(:focus) > p {
+            color: #000;
+        }
+    }
+
+    .rainbow {
+        background: linear-gradient(90deg, #f30, #f30 25%, #fc0 50%, #6c3 75%, #09f);
+        height: 1px;
+        margin: 0 0 24px -15px;
+    }
+}

@@ -86,6 +86,14 @@ export default class Window extends HTMLDialogElement {
         return this.#icon;
     }
 
+    set icon(value) {
+        const icon = this.querySelector('header .icon');
+
+        icon.classList.remove(this.#icon);
+        icon.classList.add(value);
+        this.#icon = value;
+    }
+
     get main() {
         return this.#main;
     }

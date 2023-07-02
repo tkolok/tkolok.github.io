@@ -7,19 +7,42 @@ export const config = {
     icon: 'search-folder',
     id,
     menu: [],
-    name: 'Windows Explorer'
+    name: 'Exploring',
+    template: `
+        <aside>
+            <span class="icon"></span>
+            <h1>Folder</h1>
+            <div class="rainbow"></div>
+        </aside>
+        <div class="folders"></div>`
 };
 
-export default class WindowsExplorer extends Window {
+// TODO add description part
+
+export default class FileExplorer extends Window {
+    #descIcon;
+    #folders;
+    #name;
+
     constructor(path = '') {
         super(config);
 
+        this.#descIcon = this.main.querySelector('.icon');
+        this.#folders = this.main.querySelector('.folders');
+        this.#name = this.main.querySelector('h1');
         this.#open(path);
     }
 
     #open(path) {
-        this.main.replaceChildren(
-            ...getFolder(path).children
+        const folder = getFolder(path);
+
+        this.#name.innerText = folder.name;
+        this.#descIcon.className = `icon ${folder.icon}`;
+        this.icon = folder.icon;
+        this.windowName = folder.name;
+
+        this.#folders.replaceChildren(
+            ...folder.children
                 .sort(defaultSort)
                 .map(config =>
                     config.id === id

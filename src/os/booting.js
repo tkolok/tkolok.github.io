@@ -7,7 +7,7 @@ document.body.querySelector('#booting').remove();
 
 function initPrograms() {
     return [
-        import('../programs/windows-explorer/windows-explorer.js'),
+        import('../programs/file-explorer/file-explorer.js'),
         import('../programs/imaging/imaging.js'),
         import('../programs/internet-explorer/internet-explorer.js'),
         import('../programs/notepad/notepad.js'),
