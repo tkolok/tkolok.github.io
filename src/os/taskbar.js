@@ -14,6 +14,53 @@ startMenu.append(
         {
             children: [
                 {
+                    children: [
+                        {
+                            children: [
+                                {
+                                    click: () => console.log('TODO'),
+                                    icon: 'freecell',
+                                    label: 'FreeCell'
+                                },
+                                {
+                                    click: () => console.log('TODO'),
+                                    icon: 'hearts',
+                                    label: 'Hearts'
+                                },
+                                {
+                                    click: () => console.log('TODO'),
+                                    icon: 'minesweeper',
+                                    label: 'Minesweeper'
+                                },
+                                {
+                                    click: () => console.log('TODO'),
+                                    icon: 'solitaire',
+                                    label: 'Solitaire'
+                                }
+                            ],
+                            label: 'Games'
+                        },
+                        {
+                            click: () => console.log('TODO'),
+                            icon: 'calculator',
+                            label: 'Calculator'
+                        },
+                        {
+                            click: () => console.log('TODO'),
+                            icon: 'imaging',
+                            label: 'Imaging'
+                        },
+                        {
+                            click: () => open('notepad'),
+                            icon: 'notepad',
+                            label: 'Notepad'
+                        },
+                        {
+                            click: () => console.log('TODO'),
+                            icon: 'word-pad',
+                            label: 'WordPad'
+                        }
+                    ],
                     click: () => console.log('TODO'),
                     label: 'Accessories'
                 },
@@ -21,11 +68,6 @@ startMenu.append(
                     click: () => open('ie'),
                     icon: 'ie',
                     label: 'Internet Explorer'
-                },
-                {
-                    click: () => open('notepad'),
-                    icon: 'notepad',
-                    label: 'Notepad'
                 }
             ],
             label: 'Programs'
@@ -37,11 +79,6 @@ startMenu.append(
         },
         {
             click: () => console.log('TODO'),
-            icon: 'settings',
-            label: 'Settings'
-        },
-        {
-            click: () => console.log('TODO'),
             icon: 'search-file',
             label: 'Find'
         },
@@ -49,11 +86,6 @@ startMenu.append(
             click: () => console.log('TODO'),
             icon: 'help',
             label: 'Help'
-        },
-        {
-            click: () => console.log('TODO'),
-            icon: 'run',
-            label: 'Run...'
         },
         null,
         {
@@ -63,7 +95,7 @@ startMenu.append(
         },
         {
             click: () => window.close(),
-            icon: 'monitor',
+            icon: 'shut-down',
             label: 'Shut down...'
         }
     ].map(buildMenuitem)

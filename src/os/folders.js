@@ -6,7 +6,14 @@ const folders = folder(
     },
     folder(
         {
-            icon: 'drive',
+            icon: 'drive-floppy',
+            name: '(A:)',
+            path: 'A:'
+        }
+    ),
+    folder(
+        {
+            icon: 'drive-hard-disk',
             name: '(C:)',
             path: 'C:'
         },
@@ -64,6 +71,13 @@ const folders = folder(
         folder(
             {name: 'Windows'}
         )
+    ),
+    folder(
+        {
+            icon: 'drive-cd',
+            name: '(D:)',
+            path: 'D:'
+        }
     )
 );
 
