@@ -3,6 +3,13 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2023. 07. 19.',
+                    text: `
+                        Az elmúlt közel 1 hónapban nem sok izgalmas történt velem. Persze, voltam sok helyen, de nagyon említésre méltó nem történt.
+                        Megkóstoltam a világ legerősebb sörét, ami inkább pálinka, mint sör. A múlt héten pedig megünnepeltük Angyalka születésnapját! Most meg
+                        erőteljes munkakeresésben vagyok.`
+                },
+                {
                     date: '2023. 06. 20.',
                     text: `
                         Az elmúlt pár hétben elképesztően sok babás esemény volt. Először is Bariék is bejelentették, hogy kislány érkezik a családba. Majd
