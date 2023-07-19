@@ -10,6 +10,7 @@ function initPrograms() {
         import('../programs/file-explorer/file-explorer.js'),
         import('../programs/imaging/imaging.js'),
         import('../programs/internet-explorer/internet-explorer.js'),
+        import('../programs/minesweeper/Minesweeper.js'),
         import('../programs/notepad/notepad.js'),
         import('../programs/word-pad/word-pad.js')
     ].reduce(async (ret, module) => define(module), null);

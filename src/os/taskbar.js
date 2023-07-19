@@ -18,22 +18,19 @@ startMenu.append(
                         {
                             children: [
                                 {
-                                    click: () => console.log('TODO'),
                                     icon: 'freecell',
                                     label: 'FreeCell'
                                 },
                                 {
-                                    click: () => console.log('TODO'),
                                     icon: 'hearts',
                                     label: 'Hearts'
                                 },
                                 {
-                                    click: () => console.log('TODO'),
+                                    click: () => open('minesweeper'),
                                     icon: 'minesweeper',
                                     label: 'Minesweeper'
                                 },
                                 {
-                                    click: () => console.log('TODO'),
                                     icon: 'solitaire',
                                     label: 'Solitaire'
                                 }
@@ -41,12 +38,10 @@ startMenu.append(
                             label: 'Games'
                         },
                         {
-                            click: () => console.log('TODO'),
                             icon: 'calculator',
                             label: 'Calculator'
                         },
                         {
-                            click: () => console.log('TODO'),
                             icon: 'imaging',
                             label: 'Imaging'
                         },
@@ -56,12 +51,10 @@ startMenu.append(
                             label: 'Notepad'
                         },
                         {
-                            click: () => console.log('TODO'),
                             icon: 'word-pad',
                             label: 'WordPad'
                         }
                     ],
-                    click: () => console.log('TODO'),
                     label: 'Accessories'
                 },
                 {
@@ -78,18 +71,15 @@ startMenu.append(
             label: 'My Documents'
         },
         {
-            click: () => console.log('TODO'),
             icon: 'search-file',
             label: 'Find'
         },
         {
-            click: () => console.log('TODO'),
             icon: 'help',
             label: 'Help'
         },
         null,
         {
-            click: () => console.log('TODO'),
             icon: 'log-off',
             label: 'Log Off...'
         },
@@ -132,6 +122,8 @@ function buildMenuitem(config) {
 
         if (config.click) {
             menuitem.addEventListener('click', buildClick(config));
+        } else if (!config.children) {
+            menuitem.classList.add('todo');
         }
     } else {
         menuitem.classList.add('menu-separator');
