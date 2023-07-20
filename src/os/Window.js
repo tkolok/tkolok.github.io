@@ -1,4 +1,3 @@
-import buildList from '../common/buildList.js';
 import TaskbarButton from './TaskbarButton.js';
 
 /* config
@@ -38,7 +37,6 @@ export default class Window extends HTMLDialogElement {
                 <span class="icon small ${config.icon}"></span>
                 <label draggable="true">${config.name}</label>
             </header>
-            <menu></menu>
             <main>${config.template || ''}</main>`;
 
         this.#main = this.querySelector('main');
@@ -182,14 +180,45 @@ export default class Window extends HTMLDialogElement {
     }
 
     #initMenu() {
-        this.querySelector('menu').innerHTML = buildList(this.#config.menu, buildMenuitem);
+        if (this.#config.menu) {
+            const menu = document.createElement('menu');
+
+            menu.addEventListener('blur', () => menu.classList.remove('opened'));
+            menu.addEventListener('focus', () => menu.classList.add('opened'));
+            menu.append(...this.#config.menu.map(menuitem => buildMenuitem(this, menu, menuitem)));
+            menu.tabIndex = 1;
+
+            this.querySelector('header').after(menu);
+        }
     }
 }
 
-function buildMenuitem(menuitem) {
-    const label = menuitem.name.replace(new RegExp(menuitem.key), `<u>${menuitem.key}</u>`);
+function buildMenuitem(window, menu, menuitem) {
+    const li = document.createElement('li');
 
-    return `<li>${label}</li>`;
+    if (menuitem) {
+        li.innerHTML = `<label>${menuitem.name.replace(new RegExp(menuitem.key), `<u>${menuitem.key}</u>`)}</label>`;
+
+        if (menuitem.children) {
+            const ul = document.createElement('ul');
+
+            ul.append(...menuitem.children.map(child => buildMenuitem(window, menu, child)));
+
+            li.append(ul);
+        }
+
+        if (menuitem.click) {
+            li.addEventListener('click', event => {
+                event.stopPropagation();
+                menuitem.click(window);
+                menu.blur();
+            });
+        }
+    } else {
+        li.classList.add('menu-separator');
+    }
+
+    return li;
 }
 
 customElements.define('w-window', Window, {extends: 'dialog'});

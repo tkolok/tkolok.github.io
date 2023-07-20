@@ -13,6 +13,7 @@ export const config = {
                 },
                 null,
                 {
+                    click: window => window.start(9, 9, 10),
                     key: 'B',
                     name: 'Beginner' // 81 tiles, 10 mines
                 },
@@ -28,6 +29,7 @@ export const config = {
                     key: 'C',
                     name: 'Custom...'
                 },
+                null,
                 {
                     key: 'X',
                     name: 'Exit'
@@ -59,44 +61,10 @@ export default class Minesweeper extends Window {
         super(config);
 
         this.#field = this.main.querySelector('tbody');
-        this.#start(9, 9, 10);
+        this.start(9, 9, 10);
     }
 
-    #boom() {
-        this.#table.forEach(row => row.forEach(cell => {
-            if (cell.dataset.value === 'MINE') {
-                cell.classList.remove('hidden');
-            }
-        }));
-    }
-
-    #iterateNeighbours(cell, fn) {
-        const maxX = Math.min(this.#width - 1, cell.cellIndex + 1);
-        const maxY = Math.min(this.#height - 1, cell.parentElement.rowIndex + 1);
-
-        for (let x = Math.max(0, cell.cellIndex - 1); x <= maxX; x++) {
-            for (let y = Math.max(0, cell.parentElement.rowIndex - 1); y <= maxY; y++) {
-                fn(this.#table[y][x], x, y);
-            }
-        }
-    }
-
-    #mouseup(cell) {
-        if (cell.classList.contains('hidden')) {
-            cell.classList.remove('hidden');
-
-            switch (cell.dataset.value) {
-                case '0':
-                    this.#iterateNeighbours(cell, neighbour => this.#mouseup(neighbour));
-                    break;
-                case 'MINE':
-                    cell.classList.add('boom');
-                    this.#boom();
-            }
-        }
-    }
-
-    #start(height, width, mines) {
+    start(height, width, mines) {
         const cells = [];
 
         this.#height = height;
@@ -135,5 +103,39 @@ export default class Minesweeper extends Window {
                 }
             });
         });
+    }
+
+    #boom() {
+        this.#table.forEach(row => row.forEach(cell => {
+            if (cell.dataset.value === 'MINE') {
+                cell.classList.remove('hidden');
+            }
+        }));
+    }
+
+    #iterateNeighbours(cell, fn) {
+        const maxX = Math.min(this.#width - 1, cell.cellIndex + 1);
+        const maxY = Math.min(this.#height - 1, cell.parentElement.rowIndex + 1);
+
+        for (let x = Math.max(0, cell.cellIndex - 1); x <= maxX; x++) {
+            for (let y = Math.max(0, cell.parentElement.rowIndex - 1); y <= maxY; y++) {
+                fn(this.#table[y][x], x, y);
+            }
+        }
+    }
+
+    #mouseup(cell) {
+        if (cell.classList.contains('hidden')) {
+            cell.classList.remove('hidden');
+
+            switch (cell.dataset.value) {
+                case '0':
+                    this.#iterateNeighbours(cell, neighbour => this.#mouseup(neighbour));
+                    break;
+                case 'MINE':
+                    cell.classList.add('boom');
+                    this.#boom();
+            }
+        }
     }
 }
