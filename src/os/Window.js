@@ -1,6 +1,19 @@
 import buildList from '../common/buildList.js';
 import TaskbarButton from './TaskbarButton.js';
 
+/* config
+ * disableResize: boolean = false
+ * icon: string
+ * id: string
+ * menu: menuitem[]
+ * name: string
+ * once: boolean = false
+ * template: string = ''
+ *
+ * TODO
+ *   mely ablak műveletek érhetőek el (hidden, disabled)
+ */
+
 const dragImg = Object.assign(new Image(0, 0), {src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='});
 const windows = [];
 
@@ -28,16 +41,19 @@ export default class Window extends HTMLDialogElement {
             <menu></menu>
             <main>${config.template || ''}</main>`;
 
-        this.#addResizer('bottom', 'n', event => ({height: event.movementY}));
-        this.#addResizer('left', 'e', event => ({left: event.movementX, width: -event.movementX}));
-        this.#addResizer('right', 'e', event => ({width: event.movementX}));
-        this.#addResizer('top', 'n', event => ({height: -event.movementY, top: event.movementY}));
         this.#main = this.querySelector('main');
         this.querySelector('label').addEventListener('dblclick', this.maximize.bind(this));
         this.#addTitleBarButton('minimize');
         this.#addTitleBarButton('maximize');
         this.#addTitleBarButton('close');
         this.#initDragging();
+
+        if (!config.disableResize) {
+            this.#addResizer('bottom', 'n', event => ({height: event.movementY}));
+            this.#addResizer('left', 'e', event => ({left: event.movementX, width: -event.movementX}));
+            this.#addResizer('right', 'e', event => ({width: event.movementX}));
+            this.#addResizer('top', 'n', event => ({height: -event.movementY, top: event.movementY}));
+        }
 
         this.#initMenu();
         this.setPosition();

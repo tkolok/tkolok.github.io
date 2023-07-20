@@ -5,6 +5,7 @@ import Window from '../../os/Window.js';
 // Expert: 480 tiles, 99 mines
 
 export const config = {
+    disableResize: true,
     icon: 'minesweeper',
     id: 'minesweeper',
     menu: [],

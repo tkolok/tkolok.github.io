@@ -23,7 +23,6 @@ export const config = {
         }
     ],
     name
-    // mely ablak műveletek érhetőek el (hidden, disabled)
 };
 
 export default class WordPad extends Window {
