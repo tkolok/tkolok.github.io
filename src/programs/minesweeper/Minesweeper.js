@@ -1,14 +1,46 @@
 import Window from '../../os/Window.js';
 
-// Beginner: 81 tiles, 10 mines
-// Intermediate: 256 tiles, 40 mines
-// Expert: 480 tiles, 99 mines
-
 export const config = {
     disableResize: true,
     icon: 'minesweeper',
     id: 'minesweeper',
-    menu: [],
+    menu: [
+        {
+            children: [
+                {
+                    key: 'N',
+                    name: 'New'
+                },
+                null,
+                {
+                    key: 'B',
+                    name: 'Beginner' // 81 tiles, 10 mines
+                },
+                {
+                    key: 'I',
+                    name: 'Intermediate' // 256 tiles, 40 mines
+                },
+                {
+                    key: 'E',
+                    name: 'Expert' // 480 tiles, 99 mines
+                },
+                {
+                    key: 'C',
+                    name: 'Custom...'
+                },
+                {
+                    key: 'X',
+                    name: 'Exit'
+                }
+            ],
+            key: 'G',
+            name: 'Game'
+        },
+        {
+            key: 'H',
+            name: 'Help'
+        }
+    ],
     name: 'Minesweeper',
     once: true,
     template: `
