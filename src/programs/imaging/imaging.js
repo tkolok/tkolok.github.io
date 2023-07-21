@@ -1,15 +1,8 @@
-import Window from '../../os/Window.js';
-
-export const config = {
-    icon: 'imaging',
-    id: 'imaging',
-    menu: [],
-    name: 'Imaging'
-};
+import Window from '../../os/window.js';
 
 export default class extends Window {
     constructor(data) {
-        super(config);
+        super();
 
         const img = document.createElement('img');
         img.src = `/assets/images/${data.src}`;
@@ -17,4 +10,19 @@ export default class extends Window {
 
         this.maximize();
     }
+
+    //<editor-fold desc="Config">
+    static get icon() {
+        return 'imaging';
+    }
+
+    static get id() {
+        return 'imaging';
+    }
+
+    static get name() {
+        return 'Imaging';
+    }
+
+    //</editor-fold>
 };

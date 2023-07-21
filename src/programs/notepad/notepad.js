@@ -1,39 +1,54 @@
-import Window from '../../os/Window.js';
+import Window from '../../os/window.js';
 
 const name = 'Notepad';
 
-export const config = {
-    icon: 'notepad',
-    id: 'notepad',
-    menu: [
-        {
-            children: [],
-            key: 'F',
-            name: 'File'
-        },
-        {
-            children: [],
-            key: 'E',
-            name: 'Edit'
-        },
-        {
-            key: 'S',
-            name: 'Search'
-        },
-        {
-            key: 'H',
-            name: 'Help'
-        }
-    ],
-    name: 'Notepad',
-    template: '<textarea spellcheck="false"></textarea>'
-};
-
 export default class Notepad extends Window {
     constructor() {
-        super(config);
+        super();
 
         this.maximize();
         this.windowName = `Untitled - ${name}`;
     }
+
+    //<editor-fold desc="Config">
+    static get icon() {
+        return 'notepad';
+    }
+
+    static get id() {
+        return 'notepad';
+    }
+
+    static get name() {
+        return name;
+    }
+
+    get menu() {
+        return [
+            {
+                children: [],
+                key: 'F',
+                name: 'File'
+            },
+            {
+                children: [],
+                key: 'E',
+                name: 'Edit'
+            },
+            {
+                key: 'S',
+                name: 'Search'
+            },
+            {
+                key: 'H',
+                name: 'Help'
+            }
+        ];
+    }
+
+    get template() {
+        return '<textarea spellcheck="false"></textarea>';
+    }
+
+    //</editor-fold>
 }

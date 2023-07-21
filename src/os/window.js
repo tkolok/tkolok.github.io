@@ -1,4 +1,4 @@
-import TaskbarButton from './TaskbarButton.js';
+import TaskbarButton from './taskbar-button.js';
 
 /* config
  * disableResize: boolean = false
@@ -17,27 +17,25 @@ const dragImg = Object.assign(new Image(0, 0), {src: 'data:image/gif;base64,R0lG
 const windows = [];
 
 export default class Window extends HTMLDialogElement {
-    #config;
     #icon;
     #main;
     #name;
     #taskbarButton;
 
-    constructor(config) {
+    constructor() {
         super();
 
-        this.#config = config;
-        this.#icon = config.icon;
-        this.#name = config.name;
+        this.#icon = this.constructor.icon;
+        this.#name = this.constructor.name;
         this.#taskbarButton = new TaskbarButton(this);
         this.addEventListener('focus', () => this.active = true);
-        this.classList.add(config.id);
+        this.classList.add(this.constructor.id);
         this.innerHTML = `
             <header>
-                <span class="icon small ${config.icon}"></span>
-                <label draggable="true">${config.name}</label>
+                <span class="icon small ${this.constructor.icon}"></span>
+                <label draggable="true">${this.constructor.name}</label>
             </header>
-            <main>${config.template || ''}</main>`;
+            <main>${this.template}</main>`;
 
         this.#main = this.querySelector('main');
         this.querySelector('label').addEventListener('dblclick', this.maximize.bind(this));
@@ -46,7 +44,7 @@ export default class Window extends HTMLDialogElement {
         this.#addTitleBarButton('close');
         this.#initDragging();
 
-        if (!config.disableResize) {
+        if (!this.constructor.disableResize) {
             this.#addResizer('bottom', 'n', event => ({height: event.movementY}));
             this.#addResizer('left', 'e', event => ({left: event.movementX, width: -event.movementX}));
             this.#addResizer('right', 'e', event => ({width: event.movementX}));
@@ -156,13 +154,11 @@ export default class Window extends HTMLDialogElement {
     }
 
     #addTitleBarButton(buttonType) {
-        if (this.#config[buttonType]?.state !== 'hidden') {
-            const button = document.createElement('button');
+        const button = document.createElement('button');
 
-            button.addEventListener('click', this[buttonType].bind(this));
-            button.classList.add(buttonType);
-            this.querySelector('header').append(button);
-        }
+        button.addEventListener('click', this[buttonType].bind(this));
+        button.classList.add(buttonType);
+        this.querySelector('header').append(button);
     }
 
     #initDragging() {
@@ -180,17 +176,48 @@ export default class Window extends HTMLDialogElement {
     }
 
     #initMenu() {
-        if (this.#config.menu) {
+        if (this.menu) {
             const menu = document.createElement('menu');
 
             menu.addEventListener('blur', () => menu.classList.remove('opened'));
             menu.addEventListener('focus', () => menu.classList.add('opened'));
-            menu.append(...this.#config.menu.map(menuitem => buildMenuitem(this, menu, menuitem)));
+            menu.append(...this.menu.map(menuitem => buildMenuitem(this, menu, menuitem)));
             menu.tabIndex = 1;
 
             this.querySelector('header').after(menu);
         }
     }
+
+    // <editor-fold desc="Config">
+    static get disableResize() {
+        return false;
+    }
+
+    static get icon() {
+        return '';
+    }
+
+    static get id() {
+        throw 'Id must be defined!';
+    }
+
+    static get name() {
+        throw 'Name must be defined!';
+    }
+
+    static get once() {
+        return false;
+    }
+
+    get menu() {
+        return null;
+    }
+
+    get template() {
+        return '';
+    }
+
+    // </editor-fold>
 }
 
 function buildMenuitem(window, menu, menuitem) {
@@ -220,5 +247,3 @@ function buildMenuitem(window, menu, menuitem) {
 
     return li;
 }
-
-customElements.define('w-window', Window, {extends: 'dialog'});

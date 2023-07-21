@@ -8,7 +8,7 @@ export default class Shortcut extends HTMLDivElement {
         this.addEventListener('dblclick', config.open || (() => open(config.id, data)));
         this.classList.add('shortcut');
         this.innerHTML = `
-            <div class="icon ${config.icon || ''}"></div>
+            <div class="icon ${config.icon}"></div>
             <p>${config.name}</p>`;
         this.tabIndex = 1;
     }

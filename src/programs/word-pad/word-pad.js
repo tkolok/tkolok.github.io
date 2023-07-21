@@ -1,33 +1,11 @@
 import {open} from '../../os/programs.js';
-import Window from '../../os/Window.js';
+import Window from '../../os/window.js';
 
 const name = 'WordPad';
 
-export const config = {
-    icon: 'word-pad',
-    id: 'word-pad',
-    menu: [
-        {
-            children: [],
-            key: 'E',
-            name: 'Edit'
-        },
-        {
-            children: [],
-            key: 'V',
-            name: 'View'
-        },
-        {
-            key: 'H',
-            name: 'Help'
-        }
-    ],
-    name
-};
-
 export default class WordPad extends Window {
     constructor(data) {
-        super(config);
+        super();
 
         (async () => {
             this.main.attachShadow({mode: 'open'});
@@ -38,6 +16,40 @@ export default class WordPad extends Window {
         this.maximize();
         this.windowName = `${data.name} - ${name}`;
     }
+
+    //<editor-fold desc="Config">
+    static get icon() {
+        return 'word-pad';
+    }
+
+    static get id() {
+        return 'word-pad';
+    }
+
+    static get name() {
+        return name;
+    }
+
+    get menu() {
+        return [
+            {
+                children: [],
+                key: 'E',
+                name: 'Edit'
+            },
+            {
+                children: [],
+                key: 'V',
+                name: 'View'
+            },
+            {
+                key: 'H',
+                name: 'Help'
+            }
+        ];
+    }
+
+    //</editor-fold>
 }
 
 function redirect(anchor) {

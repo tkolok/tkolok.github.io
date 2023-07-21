@@ -1,21 +1,8 @@
 import {getFolder} from '../../os/folders.js';
-import Shortcut, {shortcutByPath} from '../../os/Shortcut.js';
-import Window from '../../os/Window.js';
+import Shortcut, {shortcutByPath} from '../../os/shortcut.js';
+import Window from '../../os/window.js';
 
 const id = 'explorer';
-export const config = {
-    icon: 'search-folder',
-    id,
-    menu: [],
-    name: 'Exploring',
-    template: `
-        <aside>
-            <span class="icon"></span>
-            <h1>Folder</h1>
-            <div class="rainbow"></div>
-        </aside>
-        <div class="folders"></div>`
-};
 
 // TODO add description part
 
@@ -25,7 +12,7 @@ export default class FileExplorer extends Window {
     #name;
 
     constructor(path = '') {
-        super(config);
+        super();
 
         this.#descIcon = this.main.querySelector('.icon');
         this.#folders = this.main.querySelector('.folders');
@@ -50,6 +37,31 @@ export default class FileExplorer extends Window {
                         : shortcutByPath(`${path}/${config.path}`)
                 ));
     }
+
+    //<editor-fold desc="Config">
+    static get icon() {
+        return 'search-folder';
+    }
+
+    static get id() {
+        return id;
+    }
+
+    static get name() {
+        return 'Exploring';
+    }
+
+    get template() {
+        return `
+            <aside>
+                <span class="icon"></span>
+                <h1>Folder</h1>
+                <div class="rainbow"></div>
+            </aside>
+            <div class="folders"></div>`;
+    }
+
+    //</editor-fold>
 }
 
 function defaultSort(a, b) {

@@ -1,33 +1,11 @@
-import Window from '../../os/Window.js';
-
-export const config = {
-    icon: 'ie',
-    id: 'ie',
-    menu: [
-        {
-            children: [],
-            key: 'E',
-            name: 'Edit'
-        },
-        {
-            children: [],
-            key: 'V',
-            name: 'View'
-        },
-        {
-            key: 'H',
-            name: 'Help'
-        }
-    ],
-    name: 'Internet Explorer'
-};
+import Window from '../../os/window.js';
 
 export default class InternetExplorer extends Window {
     #address = document.createElement('input');
     #iframe = document.createElement('iframe');
 
     constructor(url = 'https://www.google.com') {
-        super(config);
+        super();
 
         const addressBar = document.createElement('div');
         addressBar.append(
@@ -51,4 +29,38 @@ export default class InternetExplorer extends Window {
         this.#address.value = url;
         this.#iframe.src = url;
     }
+
+    //<editor-fold desc="Config">
+    static get icon() {
+        return 'ie';
+    }
+
+    static get id() {
+        return 'ie';
+    }
+
+    static get name() {
+        return 'Internet Explorer';
+    }
+
+    get menu() {
+        return [
+            {
+                children: [],
+                key: 'E',
+                name: 'Edit'
+            },
+            {
+                children: [],
+                key: 'V',
+                name: 'View'
+            },
+            {
+                key: 'H',
+                name: 'Help'
+            }
+        ];
+    }
+
+    //</editor-fold>
 }

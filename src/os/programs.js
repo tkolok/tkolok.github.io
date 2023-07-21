@@ -1,10 +1,10 @@
 const programs = new Map();
 
 export async function define(module) {
-    const {default: program, config} = await module;
+    const program = (await module).default;
 
-    customElements.define(`w-program-${config.id}`, program, {extends: 'dialog'});
-    programs.set(config.id, buildData(config, program));
+    customElements.define(`w-program-${program.id}`, program, {extends: 'dialog'});
+    programs.set(program.id, buildData(program));
 
     return module;
 }
@@ -17,10 +17,10 @@ export function open(id, data) {
     return programs.get(id).open(data);
 }
 
-function buildData(config, program) {
+function buildData(program) {
     let openProgram;
 
-    if (config.once) {
+    if (program.once) {
         let instance;
 
         openProgram = data => {
@@ -37,7 +37,11 @@ function buildData(config, program) {
     }
 
     return {
-        config,
+        config: {
+            icon: program.icon,
+            id: program.id,
+            name: program.name
+        },
         open: openProgram
     };
 }
