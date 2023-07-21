@@ -1,18 +1,5 @@
 import TaskbarButton from './taskbar-button.js';
 
-/* config
- * disableResize: boolean = false
- * icon: string
- * id: string
- * menu: menuitem[]
- * name: string
- * once: boolean = false
- * template: string = ''
- *
- * TODO
- *   mely ablak műveletek érhetőek el (hidden, disabled)
- */
-
 const dragImg = Object.assign(new Image(0, 0), {src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='});
 const windows = [];
 
