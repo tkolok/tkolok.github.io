@@ -4,8 +4,6 @@ import Window from '../../os/window.js';
 
 const id = 'explorer';
 
-// TODO add description part
-
 export default class FileExplorer extends Window {
     #descIcon;
     #folders;
