@@ -20,7 +20,9 @@ export default class Window extends HTMLDialogElement {
         this.innerHTML = `
             <header>
                 <span class="icon small ${this.constructor.icon}"></span>
-                <label draggable="true">${this.constructor.name}</label>
+                <label draggable="true">
+                    <span>${this.constructor.name}</span>
+                </label>
             </header>
             <main>${this.template}</main>`;
 
@@ -30,19 +32,19 @@ export default class Window extends HTMLDialogElement {
         this.#addTitleBarButton('close');
         this.#initDragging();
 
+        this.#initMenu();
+        this.setPosition();
+        this.active = true;
+        document.body.append(this);
+
         if (!this.constructor.disableResize) {
             this.querySelector('label').addEventListener('dblclick', this.maximize.bind(this));
             this.#addResizer('bottom', 'n', event => ({height: event.movementY}));
             this.#addResizer('left', 'e', event => ({left: event.movementX, width: -event.movementX}));
             this.#addResizer('right', 'e', event => ({width: event.movementX}));
             this.#addResizer('top', 'n', event => ({height: -event.movementY, top: event.movementY}));
+            Object.assign(this.style, {height: `${this.offsetHeight}px`, width: `${this.offsetWidth}px`});
         }
-
-        this.#initMenu();
-        this.setPosition();
-        this.active = true;
-        document.body.append(this);
-        Object.assign(this.style, {height: `${this.offsetHeight}px`, width: `${this.offsetWidth}px`});
     }
 
     close(returnValue) {

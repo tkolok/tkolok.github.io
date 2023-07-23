@@ -89,9 +89,9 @@ export default class Minesweeper extends Window {
     }
 
     //<editor-fold desc="Config">
-    // static get disableResize() {
-    //     return true;
-    // }
+    static get disableResize() {
+        return true;
+    }
 
     static get icon() {
         return 'minesweeper';
