@@ -1,16 +1,15 @@
 import Window from '../../os/window.js';
 
 export default class Minesweeper extends Window {
-    #field;
-    #height;
+    #height = 9;
+    #mines = 10;
     #table;
-    #width;
+    #width = 9;
 
     constructor() {
         super();
 
-        this.#field = this.main.querySelector('tbody');
-        this.#start(9, 9, 10);
+        this.#start();
     }
 
     #boom() {
@@ -47,13 +46,14 @@ export default class Minesweeper extends Window {
         }
     }
 
-    #start(height, width, mines) {
+    #start(height = this.#height, width = this.#width, mines = this.#mines) {
         const cells = [];
 
         this.#height = height;
+        this.#mines = mines;
         this.#width = width;
         this.#table = [];
-        this.#field.replaceChildren(...[...Array(width).keys()].map(() => {
+        this.querySelector('tbody').replaceChildren(...[...Array(width).keys()].map(() => {
             const row = [];
             const tr = document.createElement('tr');
 
@@ -89,9 +89,9 @@ export default class Minesweeper extends Window {
     }
 
     //<editor-fold desc="Config">
-    static get disableResize() {
-        return true;
-    }
+    // static get disableResize() {
+    //     return true;
+    // }
 
     static get icon() {
         return 'minesweeper';
@@ -114,6 +114,7 @@ export default class Minesweeper extends Window {
             {
                 children: [
                     {
+                        click: () => this.#start(),
                         key: 'N',
                         name: 'New'
                     },
@@ -121,15 +122,17 @@ export default class Minesweeper extends Window {
                     {
                         click: () => this.#start(9, 9, 10),
                         key: 'B',
-                        name: 'Beginner' // 81 tiles, 10 mines
+                        name: 'Beginner'
                     },
                     {
+                        click: () => this.#start(16, 16, 40),
                         key: 'I',
-                        name: 'Intermediate' // 256 tiles, 40 mines
+                        name: 'Intermediate'
                     },
                     {
+                        click: () => this.#start(24, 24, 99),
                         key: 'E',
-                        name: 'Expert' // 480 tiles, 99 mines
+                        name: 'Expert'
                     },
                     {
                         key: 'C',

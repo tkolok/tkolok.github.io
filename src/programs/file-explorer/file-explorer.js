@@ -5,16 +5,13 @@ import Window from '../../os/window.js';
 const id = 'explorer';
 
 export default class FileExplorer extends Window {
-    #descIcon;
-    #folders;
-    #name;
+    #descIcon = this.main.querySelector('.icon');
+    #folders = this.main.querySelector('.folders');
+    #name = this.main.querySelector('h1');
 
     constructor(path = '') {
         super();
 
-        this.#descIcon = this.main.querySelector('.icon');
-        this.#folders = this.main.querySelector('.folders');
-        this.#name = this.main.querySelector('h1');
         this.#open(path);
     }
 

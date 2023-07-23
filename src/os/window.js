@@ -228,6 +228,10 @@ function buildMenuitem(window, menu, menuitem) {
                 menu.blur();
             });
         }
+
+        if (!menuitem.click && !menuitem.children) {
+            li.classList.add('todo');
+        }
     } else {
         li.classList.add('menu-separator');
     }
