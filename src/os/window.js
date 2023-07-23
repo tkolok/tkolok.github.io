@@ -25,13 +25,13 @@ export default class Window extends HTMLDialogElement {
             <main>${this.template}</main>`;
 
         this.#main = this.querySelector('main');
-        this.querySelector('label').addEventListener('dblclick', this.maximize.bind(this));
         this.#addTitleBarButton('minimize');
         this.#addTitleBarButton('maximize');
         this.#addTitleBarButton('close');
         this.#initDragging();
 
         if (!this.constructor.disableResize) {
+            this.querySelector('label').addEventListener('dblclick', this.maximize.bind(this));
             this.#addResizer('bottom', 'n', event => ({height: event.movementY}));
             this.#addResizer('left', 'e', event => ({left: event.movementX, width: -event.movementX}));
             this.#addResizer('right', 'e', event => ({width: event.movementX}));
