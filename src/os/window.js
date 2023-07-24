@@ -168,8 +168,8 @@ export default class Window extends HTMLDialogElement {
         if (this.menu) {
             const menu = document.createElement('menu');
 
-            menu.addEventListener('blur', () => menu.classList.remove('opened'));
-            menu.addEventListener('focus', () => menu.classList.add('opened'));
+            menu.addEventListener('blur', () => menu.classList.remove('open'));
+            menu.addEventListener('focus', () => menu.classList.add('open'));
             menu.append(...this.menu.map(menuitem => buildMenuitem(this, menu, menuitem)));
             menu.tabIndex = 1;
 
