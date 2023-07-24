@@ -1,23 +1,77 @@
 import Window from '../../os/window.js';
 
 export default class Minesweeper extends Window {
-    #height = 9;
-    #mines = 10;
+    #height;
+    #hiddenCells;
+    #interval;
+    #mineNumbers = this.main.querySelectorAll('.mines .number');
+    #mines;
+    #mouseup;
     #table;
-    #width = 9;
+    #time;
+    #timerNumbers = this.main.querySelectorAll('.timer .number');
+    #width;
 
     constructor() {
         super();
 
-        this.#start();
+        this.#build(9, 9, 10);
+    }
+
+    close(returnValue) {
+        clearInterval(this.#interval);
+        super.close(returnValue);
     }
 
     #boom() {
+        clearInterval(this.#interval);
+        this.#mouseup = () => {};
         this.#table.forEach(row => row.forEach(cell => {
             if (cell.dataset.value === 'MINE') {
-                cell.classList.remove('hidden');
+                this.#revealCell(cell);
             }
         }));
+    }
+
+    #build(height = this.#height, width = this.#width, mines = this.#mines) {
+        clearInterval(this.#interval);
+
+        this.#height = height;
+        this.#hiddenCells = new Set();
+        this.#interval = null;
+        this.#mines = mines;
+        this.#mouseup = this.#start;
+        this.#table = [];
+        this.#time = 0;
+        this.#width = width;
+        this.#setNumbers(mines, this.#mineNumbers);
+        this.#setNumbers(this.#time, this.#timerNumbers);
+        this.querySelector('tbody').replaceChildren(...[...Array(width).keys()].map(() => {
+            const row = [];
+            const tr = document.createElement('tr');
+
+            this.#table.push(row);
+            tr.append(...[...Array(height).keys()].map(() => {
+                const td = document.createElement('td');
+
+                td.addEventListener('mouseup', event => this.#mouseup(event, td));
+                td.classList.add('hidden');
+                this.#hiddenCells.add(td);
+                row.push(td);
+
+                return td;
+            }));
+
+            return tr;
+        }));
+    }
+
+    #checkWin() {
+        if (this.#hiddenCells.size === this.#mines) {
+            clearInterval(this.#interval);
+            this.#mouseup = () => {};
+            [...this.#hiddenCells.values()].forEach(cell => cell.classList.add('flag'));
+        }
     }
 
     #iterateNeighbours(cell, fn) {
@@ -31,48 +85,51 @@ export default class Minesweeper extends Window {
         }
     }
 
-    #mouseup(cell) {
-        if (cell.classList.contains('hidden')) {
-            cell.classList.remove('hidden');
+    #reveal(event, cell) {
+        if (this.#hiddenCells.has(cell)) {
+            switch (event.button) {
+                case 0:
+                    this.#revealCell(cell);
 
-            switch (cell.dataset.value) {
-                case '0':
-                    this.#iterateNeighbours(cell, neighbour => this.#mouseup(neighbour));
+                    switch (cell.dataset.value) {
+                        case '0':
+                            this.#iterateNeighbours(cell, neighbour => this.#mouseup(event, neighbour));
+                            this.#checkWin();
+                            break;
+                        case 'MINE':
+                            cell.classList.add('boom');
+                            this.#boom();
+                            break;
+                        default:
+                            this.#checkWin();
+                    }
                     break;
-                case 'MINE':
-                    cell.classList.add('boom');
-                    this.#boom();
+                case 2:
+                    cell.classList.toggle('flag');
+                    this.#setNumbers(this.#mines - this.main.querySelectorAll('td.flag').length, this.#mineNumbers);
             }
         }
     }
 
-    #start(height = this.#height, width = this.#width, mines = this.#mines) {
-        const cells = [];
+    #revealCell(cell) {
+        cell.classList.remove('flag', 'hidden');
+        this.#hiddenCells.delete(cell);
+    }
 
-        this.#height = height;
-        this.#mines = mines;
-        this.#width = width;
-        this.#table = [];
-        this.querySelector('tbody').replaceChildren(...[...Array(width).keys()].map(() => {
-            const row = [];
-            const tr = document.createElement('tr');
+    #setNumbers(value, numbers) {
+        value = `${Math.max(value, 0)}`.padStart(3, '0').slice(-3);
+        numbers.forEach((number, index) => number.dataset.value = value[index]);
+    }
 
-            this.#table.push(row);
-            tr.append(...[...Array(height).keys()].map(() => {
-                const td = document.createElement('td');
+    #start(event, cell) {
+        if (event.button) {
+            return;
+        }
 
-                td.addEventListener('mouseup', this.#mouseup.bind(this, td));
-                td.classList.add('hidden');
-                cells.push(td);
-                row.push(td);
+        const cells = [...this.main.querySelectorAll('td')];
 
-                return td;
-            }));
-
-            return tr;
-        }));
-
-        for (let i = 0; i++ < mines;) {
+        cells.splice(cells.indexOf(cell), 1);
+        for (let i = 0; i++ < this.#mines;) {
             cells.splice(Math.floor(Math.random() * cells.length), 1)[0].dataset.value = 'MINE';
         }
 
@@ -86,6 +143,10 @@ export default class Minesweeper extends Window {
                 }
             });
         });
+
+        this.#interval = setInterval(() => this.#setNumbers(++this.#time, this.#timerNumbers), 1000);
+        this.#mouseup = this.#reveal;
+        this.#reveal(event, cell);
     }
 
     //<editor-fold desc="Config">
@@ -114,23 +175,23 @@ export default class Minesweeper extends Window {
             {
                 children: [
                     {
-                        click: () => this.#start(),
+                        click: () => this.#build(),
                         key: 'N',
                         name: 'New'
                     },
                     null,
                     {
-                        click: () => this.#start(9, 9, 10),
+                        click: () => this.#build(9, 9, 10),
                         key: 'B',
                         name: 'Beginner'
                     },
                     {
-                        click: () => this.#start(16, 16, 40),
+                        click: () => this.#build(16, 16, 40),
                         key: 'I',
                         name: 'Intermediate'
                     },
                     {
-                        click: () => this.#start(24, 24, 99),
+                        click: () => this.#build(24, 24, 99),
                         key: 'E',
                         name: 'Expert'
                     },
@@ -157,6 +218,18 @@ export default class Minesweeper extends Window {
 
     get template() {
         return `
+            <div class="info">
+                <div class="mines">
+                    <div class="number"></div>
+                    <div class="number"></div>
+                    <div class="number"></div>
+                </div>
+                <div class="timer">
+                    <div class="number"></div>
+                    <div class="number"></div>
+                    <div class="number"></div>
+                </div>
+            </div>
             <table>
                 <tbody></tbody>
             </table>`;

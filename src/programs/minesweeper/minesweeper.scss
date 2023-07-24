@@ -31,4 +31,34 @@ dialog.minesweeper {
             background-image: url('../assets/minesweeper/field-flag.svg');
         }
     }
+
+    .info {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .mines,
+    .timer {
+        display: flex;
+    }
+
+    .number {
+        background: #000 url(../assets/minesweeper/number-bg.svg);
+        height: 23px;
+        position: relative;
+        width: 13px;
+
+        &:after {
+            content: ' ';
+            height: 23px;
+            position: absolute;
+            width: 13px;
+        }
+
+        @each $value in (0, 1, 2, 3, 4, 5, 6, 7, 8, 9) {
+            &[data-value='#{$value}']:after {
+                background-image: url('../assets/minesweeper/number-#{$value}.svg');
+            }
+        }
+    }
 }

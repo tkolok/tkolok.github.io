@@ -4,6 +4,7 @@ import {shortcutById, shortcutByPath} from './shortcut.js';
 await Promise.all([new Promise(resolve => setTimeout(resolve, 3000)), initPrograms()]);
 initShortcuts();
 document.body.querySelector('#booting').remove();
+window.addEventListener('contextmenu', e => e.preventDefault());
 
 function initPrograms() {
     return [
