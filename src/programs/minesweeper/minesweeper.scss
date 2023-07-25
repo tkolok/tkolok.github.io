@@ -1,5 +1,7 @@
 @import 'mixins';
 
+$assetPath: '../assets/minesweeper';
+
 dialog.minesweeper {
     main {
         @include window-border(in, 3);
@@ -24,7 +26,7 @@ dialog.minesweeper {
 
         @each $value in ('1', '2', '3', '4', '5', '6', '7', '8', 'MINE') {
             &[data-value='#{$value}'] {
-                background-image: url('../assets/minesweeper/field-#{to-lower-case($value)}.svg');
+                background-image: url('#{$assetPath}/field-#{to-lower-case($value)}.svg');
             }
         }
 
@@ -34,18 +36,18 @@ dialog.minesweeper {
         }
 
         &.flag {
-            background-image: url('../assets/minesweeper/field-flag.svg');
+            background-image: url('#{$assetPath}/field-flag.svg');
         }
     }
 
     .face {
-        background: url(../assets/minesweeper/face.svg);
+        background: url('#{$assetPath}/face.svg');
         height: 25px;
         width: 25px;
 
         @each $value in (dead, win) {
             &.#{$value} {
-                background: url('../assets/minesweeper/face-#{$value}.svg');
+                background: url('#{$assetPath}/face-#{$value}.svg');
             }
         }
     }
@@ -65,7 +67,7 @@ dialog.minesweeper {
     }
 
     .number {
-        background: #000 url(../assets/minesweeper/number-bg.svg);
+        background: #000 url('#{$assetPath}/number-bg.svg');
         height: 23px;
         position: relative;
         width: 13px;
@@ -79,7 +81,7 @@ dialog.minesweeper {
 
         @each $value in (0, 1, 2, 3, 4, 5, 6, 7, 8, 9) {
             &[data-value='#{$value}']:after {
-                background-image: url('../assets/minesweeper/number-#{$value}.svg');
+                background-image: url('#{$assetPath}/number-#{$value}.svg');
             }
         }
     }
