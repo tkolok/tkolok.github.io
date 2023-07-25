@@ -1,7 +1,13 @@
 @import 'mixins';
 
 dialog.minesweeper {
+    main {
+        @include window-border(in, 3);
+        padding: 6px;
+    }
+
     table {
+        @include window-border(out, 3);
         border-spacing: 0;
     }
 
@@ -23,7 +29,7 @@ dialog.minesweeper {
         }
 
         &.hidden {
-            @include window-border(in, 2);
+            @include window-border(in);
             background: #ccc;
         }
 
@@ -32,13 +38,29 @@ dialog.minesweeper {
         }
     }
 
+    .face {
+        background: url(../assets/minesweeper/face.svg);
+        height: 25px;
+        width: 25px;
+
+        @each $value in (dead, win) {
+            &.#{$value} {
+                background: url('../assets/minesweeper/face-#{$value}.svg');
+            }
+        }
+    }
+
     .info {
+        @include window-border(out);
         display: flex;
         justify-content: space-between;
+        margin-bottom: 6px;
+        padding: 4px 5px;
     }
 
     .mines,
     .timer {
+        @include window-border(out, 1);
         display: flex;
     }
 

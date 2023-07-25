@@ -1,6 +1,7 @@
 import Window from '../../os/window.js';
 
 export default class Minesweeper extends Window {
+    #face = this.main.querySelector('.face');
     #height;
     #hiddenCells;
     #interval;
@@ -15,6 +16,7 @@ export default class Minesweeper extends Window {
     constructor() {
         super();
 
+        this.main.classList.add('no-border');
         this.#build(9, 9, 10);
     }
 
@@ -25,6 +27,7 @@ export default class Minesweeper extends Window {
 
     #boom() {
         clearInterval(this.#interval);
+        this.#face.classList.add('dead');
         this.#mouseup = () => {};
         this.#table.forEach(row => row.forEach(cell => {
             if (cell.dataset.value === 'MINE') {
@@ -36,6 +39,7 @@ export default class Minesweeper extends Window {
     #build(height = this.#height, width = this.#width, mines = this.#mines) {
         clearInterval(this.#interval);
 
+        this.#face.classList.remove('dead', 'win');
         this.#height = height;
         this.#hiddenCells = new Set();
         this.#interval = null;
@@ -69,6 +73,7 @@ export default class Minesweeper extends Window {
     #checkWin() {
         if (this.#hiddenCells.size === this.#mines) {
             clearInterval(this.#interval);
+            this.#face.classList.add('win');
             this.#mouseup = () => {};
             [...this.#hiddenCells.values()].forEach(cell => cell.classList.add('flag'));
         }
@@ -224,6 +229,7 @@ export default class Minesweeper extends Window {
                     <div class="number"></div>
                     <div class="number"></div>
                 </div>
+                <button class="face"></button>
                 <div class="timer">
                     <div class="number"></div>
                     <div class="number"></div>
