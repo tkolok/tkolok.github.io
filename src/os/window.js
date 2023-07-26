@@ -4,7 +4,6 @@ const dragImg = Object.assign(new Image(0, 0), {src: 'data:image/gif;base64,R0lG
 const windows = [];
 
 export default class Window extends HTMLDialogElement {
-    #icon;
     #main;
     #name;
     #taskbarButton;
@@ -12,7 +11,6 @@ export default class Window extends HTMLDialogElement {
     constructor() {
         super();
 
-        this.#icon = this.constructor.icon;
         this.#name = this.constructor.name;
         this.#taskbarButton = new TaskbarButton(this);
         this.addEventListener('focus', () => this.active = true);
@@ -56,7 +54,7 @@ export default class Window extends HTMLDialogElement {
 
     set active(value) {
         this.classList.toggle('active', value);
-        this.#taskbarButton.classList.toggle('active', value);
+        this.#taskbarButton.active = value;
 
         if (value) {
             const index = windows.indexOf(this);
@@ -72,16 +70,13 @@ export default class Window extends HTMLDialogElement {
         this.style.zIndex = `${10 + windows.indexOf(this)}`;
     }
 
-    get icon() {
-        return this.#icon;
-    }
-
     set icon(value) {
         const icon = this.querySelector('header .icon');
 
-        icon.classList.remove(this.#icon);
-        icon.classList.add(value);
-        this.#icon = value;
+        if (icon) {
+            icon.className = `icon small ${value}`;
+            this.#taskbarButton.icon = value;
+        }
     }
 
     get main() {
@@ -183,16 +178,21 @@ export default class Window extends HTMLDialogElement {
     #initTitleBar() {
         const header = document.createElement('header');
 
-        header.innerHTML = `
-            <span class="icon small ${this.constructor.icon}"></span>
-            <label draggable="true">
-                <span>${this.constructor.name}</span>
-            </label>`;
-        header.append(...['minimize', 'maximize', 'close'].map(key => this.#buildBarButton(key)).filter(button => button));
+        if (this.constructor.icon !== null) {
+            const icon = document.createElement('span');
+            icon.classList.add('icon', 'small', this.constructor.icon || null);
+            header.append(icon);
+        }
+
+        const label = document.createElement('label');
+        label.draggable = true;
+        label.innerHTML = `<span>${this.constructor.name}</span>`;
 
         if (!this.constructor.disableResize) {
-            header.querySelector('label').addEventListener('dblclick', this.maximize.bind(this));
+            label.addEventListener('dblclick', this.maximize.bind(this));
         }
+
+        header.append(label, ...['minimize', 'maximize', 'close'].map(key => this.#buildBarButton(key)).filter(button => button));
 
         this.append(header);
     }
@@ -202,6 +202,7 @@ export default class Window extends HTMLDialogElement {
         return false;
     }
 
+    // Ha null, akkor nem jelenik meg ikon
     static get icon() {
         return '';
     }
@@ -226,6 +227,21 @@ export default class Window extends HTMLDialogElement {
         return '';
     }
 
+    /**
+     * @typedef {"DISABLED" | "HIDDEN"} TitleBarButtonConfig
+     */
+
+    /**
+     * @typedef TitleBarButtonsConfig
+     * @type {Object}
+     * @property {TitleBarButtonConfig=} close
+     * @property {TitleBarButtonConfig=} maximize
+     * @property {TitleBarButtonConfig=} minimize
+     */
+
+    /**
+     * @return {null | TitleBarButtonsConfig}
+     */
     get titleBarButtons() {
         return null;
     }
