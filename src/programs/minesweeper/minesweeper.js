@@ -241,5 +241,11 @@ export default class Minesweeper extends Window {
             </table>`;
     }
 
+    get titleBarButtons() {
+        return {
+            maximize: 'DISABLED'
+        };
+    }
+
     //</editor-fold>
 }

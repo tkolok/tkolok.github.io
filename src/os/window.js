@@ -17,28 +17,17 @@ export default class Window extends HTMLDialogElement {
         this.#taskbarButton = new TaskbarButton(this);
         this.addEventListener('focus', () => this.active = true);
         this.classList.add(this.constructor.id);
-        this.innerHTML = `
-            <header>
-                <span class="icon small ${this.constructor.icon}"></span>
-                <label draggable="true">
-                    <span>${this.constructor.name}</span>
-                </label>
-            </header>
-            <main>${this.template}</main>`;
 
-        this.#main = this.querySelector('main');
-        this.#addTitleBarButton('minimize');
-        this.#addTitleBarButton('maximize');
-        this.#addTitleBarButton('close');
+        this.#initTitleBar();
+        this.#initMenu();
+        this.#initMain();
         this.#initDragging();
 
-        this.#initMenu();
         this.setPosition();
         this.active = true;
         document.body.append(this);
 
         if (!this.constructor.disableResize) {
-            this.querySelector('label').addEventListener('dblclick', this.maximize.bind(this));
             this.#addResizer('bottom', 'n', event => ({height: event.movementY}));
             this.#addResizer('left', 'e', event => ({left: event.movementX, width: -event.movementX}));
             this.#addResizer('right', 'e', event => ({width: event.movementX}));
@@ -142,12 +131,20 @@ export default class Window extends HTMLDialogElement {
         }
     }
 
-    #addTitleBarButton(buttonType) {
-        const button = document.createElement('button');
+    #buildBarButton(buttonType) {
+        const state = this.titleBarButtons?.[buttonType];
 
-        button.addEventListener('click', this[buttonType].bind(this));
-        button.classList.add(buttonType);
-        this.querySelector('header').append(button);
+        if (state === 'HIDDEN') {
+            return null;
+        } else {
+            const button = document.createElement('button');
+
+            button.addEventListener('click', this[buttonType].bind(this));
+            button.classList.add(buttonType);
+            button.disabled = state === 'DISABLED';
+
+            return button;
+        }
     }
 
     #initDragging() {
@@ -164,6 +161,12 @@ export default class Window extends HTMLDialogElement {
         });
     }
 
+    #initMain() {
+        this.#main = document.createElement('main');
+        this.#main.innerHTML = this.template;
+        this.append(this.#main);
+    }
+
     #initMenu() {
         if (this.menu) {
             const menu = document.createElement('menu');
@@ -173,8 +176,25 @@ export default class Window extends HTMLDialogElement {
             menu.append(...this.menu.map(menuitem => buildMenuitem(this, menu, menuitem)));
             menu.tabIndex = 1;
 
-            this.querySelector('header').after(menu);
+            this.append(menu);
         }
+    }
+
+    #initTitleBar() {
+        const header = document.createElement('header');
+
+        header.innerHTML = `
+            <span class="icon small ${this.constructor.icon}"></span>
+            <label draggable="true">
+                <span>${this.constructor.name}</span>
+            </label>`;
+        header.append(...['minimize', 'maximize', 'close'].map(key => this.#buildBarButton(key)).filter(button => button));
+
+        if (!this.constructor.disableResize) {
+            header.querySelector('label').addEventListener('dblclick', this.maximize.bind(this));
+        }
+
+        this.append(header);
     }
 
     // <editor-fold desc="Config">
@@ -204,6 +224,10 @@ export default class Window extends HTMLDialogElement {
 
     get template() {
         return '';
+    }
+
+    get titleBarButtons() {
+        return null;
     }
 
     // </editor-fold>
