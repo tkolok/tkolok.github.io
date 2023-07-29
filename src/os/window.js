@@ -168,7 +168,7 @@ export default class Window extends HTMLDialogElement {
 
             menu.addEventListener('blur', () => menu.classList.remove('open'));
             menu.addEventListener('focus', () => menu.classList.add('open'));
-            menu.append(...this.menu.map(menuitem => buildMenuitem(this, menu, menuitem)));
+            menu.append(...this.menu.map(menuitem => buildMenuitem(menu, menuitem)));
             menu.tabIndex = 1;
 
             this.append(menu);
@@ -228,7 +228,7 @@ export default class Window extends HTMLDialogElement {
     }
 
     /**
-     * @typedef {"DISABLED" | "HIDDEN"} TitleBarButtonConfig
+     * @typedef {'DISABLED' | 'HIDDEN'} TitleBarButtonConfig
      */
 
     /**
@@ -249,16 +249,26 @@ export default class Window extends HTMLDialogElement {
     // </editor-fold>
 }
 
-function buildMenuitem(window, menu, menuitem) {
+function buildMenuitem(menu, menuitem) {
     const li = document.createElement('li');
 
     if (menuitem) {
-        li.innerHTML = `<label>${menuitem.name.replace(new RegExp(menuitem.key), `<u>${menuitem.key}</u>`)}</label>`;
+        let innerHTML = menuitem.name.replace(new RegExp(menuitem.key), `<u>${menuitem.key}</u>`);
+
+        if (menuitem.radio) {
+            innerHTML = `
+                <input name="${menuitem.radio}"
+                       type="radio"
+                       ${menuitem.checked ? 'checked' : ''}>
+                ${innerHTML}`;
+        }
+
+        li.innerHTML = `<label>${innerHTML}</label>`;
 
         if (menuitem.children) {
             const ul = document.createElement('ul');
 
-            ul.append(...menuitem.children.map(child => buildMenuitem(window, menu, child)));
+            ul.append(...menuitem.children.map(child => buildMenuitem(menu, child)));
 
             li.append(ul);
         }
@@ -266,7 +276,7 @@ function buildMenuitem(window, menu, menuitem) {
         if (menuitem.click) {
             li.addEventListener('click', event => {
                 event.stopPropagation();
-                menuitem.click(window);
+                menuitem.click();
                 menu.blur();
             });
         }

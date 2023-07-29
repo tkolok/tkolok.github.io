@@ -1,3 +1,4 @@
+import {radioMenuItems} from '../../common/menu-builder.js';
 import Window from '../../os/window.js';
 
 export default class Minesweeper extends Window {
@@ -185,25 +186,27 @@ export default class Minesweeper extends Window {
                         name: 'New'
                     },
                     null,
-                    {
-                        click: () => this.#build(9, 9, 10),
-                        key: 'B',
-                        name: 'Beginner'
-                    },
-                    {
-                        click: () => this.#build(16, 16, 40),
-                        key: 'I',
-                        name: 'Intermediate'
-                    },
-                    {
-                        click: () => this.#build(24, 24, 99),
-                        key: 'E',
-                        name: 'Expert'
-                    },
-                    {
-                        key: 'C',
-                        name: 'Custom...'
-                    },
+                    ...radioMenuItems({},
+                        {
+                            click: () => this.#build(9, 9, 10),
+                            key: 'B',
+                            name: 'Beginner'
+                        },
+                        {
+                            click: () => this.#build(16, 16, 40),
+                            key: 'I',
+                            name: 'Intermediate'
+                        },
+                        {
+                            click: () => this.#build(24, 24, 99),
+                            key: 'E',
+                            name: 'Expert'
+                        },
+                        {
+                            key: 'C',
+                            name: 'Custom...'
+                        }
+                    ),
                     null,
                     {
                         click: () => this.close(),
