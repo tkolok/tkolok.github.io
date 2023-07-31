@@ -13,7 +13,12 @@ export default class FileExplorer extends Window {
     #history;
     #name = document.createElement('h1');
 
-    init(path = '') {
+    constructor(path = '') {
+        super();
+
+        this.initToolbar(this.#back, this.#forward);
+        this.#initContent();
+
         this.#back.innerHTML = 'Back';
         this.#back.addEventListener('click', () => this.#open(this.#history.previous(), false));
         this.#descIcon.classList.add('icon');
@@ -22,6 +27,16 @@ export default class FileExplorer extends Window {
         this.#forward.addEventListener('click', () => this.#open(this.#history.next(), false));
         this.#history = new History(path);
         this.#open(path, false);
+    }
+
+    #initContent() {
+        const aside = document.createElement('aside');
+        const rainbow = document.createElement('div');
+
+        rainbow.classList.add('rainbow');
+        aside.append(this.#descIcon, this.#name, rainbow);
+
+        super.initContent(aside, this.#folders);
     }
 
     #open(path, add = true) {
@@ -60,20 +75,6 @@ export default class FileExplorer extends Window {
 
     static get name() {
         return 'Exploring';
-    }
-
-    get content() {
-        const aside = document.createElement('aside');
-        const rainbow = document.createElement('div');
-
-        rainbow.classList.add('rainbow');
-        aside.append(this.#descIcon, this.#name, rainbow);
-
-        return [aside, this.#folders];
-    }
-
-    get toolbar() {
-        return [this.#back, this.#forward];
     }
 
     //</editor-fold>

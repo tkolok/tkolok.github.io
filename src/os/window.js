@@ -4,39 +4,33 @@ const dragImg = Object.assign(new Image(0, 0), {src: 'data:image/gif;base64,R0lG
 const windows = [];
 
 export default class Window extends HTMLDialogElement {
-    #main;
+    #main = document.createElement('main');
     #name;
     #taskbarButton;
 
-    constructor(...args) {
+    constructor() {
         super();
 
-        setTimeout(() => {
-            this.#name = this.constructor.name;
-            this.#taskbarButton = new TaskbarButton(this);
-            this.addEventListener('focus', () => this.active = true);
-            this.classList.add(this.constructor.id);
+        this.#name = this.constructor.name;
+        this.#taskbarButton = new TaskbarButton(this);
+        this.addEventListener('focus', () => this.active = true);
+        this.classList.add(this.constructor.id);
 
-            this.#initTitleBar();
-            this.#initMenu();
-            this.#initToolbar();
-            this.#initMain();
-            this.#initDragging();
+        this.#initTitleBar();
+        this.append(this.#main);
+        this.#initDragging();
 
-            this.setPosition();
-            this.active = true;
-            document.body.append(this);
+        this.setPosition();
+        this.active = true;
+        document.body.append(this);
 
-            if (!this.constructor.disableResize) {
-                this.#addResizer('bottom', 'n', event => ({height: event.movementY}));
-                this.#addResizer('left', 'e', event => ({left: event.movementX, width: -event.movementX}));
-                this.#addResizer('right', 'e', event => ({width: event.movementX}));
-                this.#addResizer('top', 'n', event => ({height: -event.movementY, top: event.movementY}));
-                Object.assign(this.style, {height: `${this.offsetHeight}px`, width: `${this.offsetWidth}px`});
-            }
-
-            this.init(...args);
-        });
+        if (!this.constructor.disableResize) {
+            this.#addResizer('bottom', 'n', event => ({height: event.movementY}));
+            this.#addResizer('left', 'e', event => ({left: event.movementX, width: -event.movementX}));
+            this.#addResizer('right', 'e', event => ({width: event.movementX}));
+            this.#addResizer('top', 'n', event => ({height: -event.movementY, top: event.movementY}));
+            Object.assign(this.style, {height: `${this.offsetHeight}px`, width: `${this.offsetWidth}px`});
+        }
     }
 
     close(returnValue) {
@@ -45,7 +39,27 @@ export default class Window extends HTMLDialogElement {
         this.#taskbarButton.remove();
     }
 
-    init() {}
+    initContent(...nodes) {
+        this.#main.append(...nodes);
+    }
+
+    initMenu(menuItems) {
+        const menu = document.createElement('menu');
+
+        menu.addEventListener('blur', () => menu.classList.remove('open'));
+        menu.addEventListener('focus', () => menu.classList.add('open'));
+        menu.append(...menuItems.map(menuitem => buildMenuitem(menu, menuitem)));
+        menu.tabIndex = 1;
+
+        this.querySelector('header').after(menu);
+    }
+
+    initToolbar(...nodes) {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('toolbar');
+        wrapper.append(...nodes);
+        this.#main.before(wrapper);
+    }
 
     maximize() {
         this.classList.toggle('full', !this.classList.contains('full'));
@@ -163,30 +177,6 @@ export default class Window extends HTMLDialogElement {
         });
     }
 
-    #initMain() {
-        const {content} = this;
-        this.#main = document.createElement('main');
-
-        if (content) {
-            this.#main.append(...(content instanceof Array ? content : [content]));
-        }
-
-        this.append(this.#main);
-    }
-
-    #initMenu() {
-        if (this.menu) {
-            const menu = document.createElement('menu');
-
-            menu.addEventListener('blur', () => menu.classList.remove('open'));
-            menu.addEventListener('focus', () => menu.classList.add('open'));
-            menu.append(...this.menu.map(menuitem => buildMenuitem(menu, menuitem)));
-            menu.tabIndex = 1;
-
-            this.append(menu);
-        }
-    }
-
     #initTitleBar() {
         const header = document.createElement('header');
 
@@ -207,17 +197,6 @@ export default class Window extends HTMLDialogElement {
         header.append(label, ...['minimize', 'maximize', 'close'].map(key => this.#buildBarButton(key)).filter(button => button));
 
         this.append(header);
-    }
-
-    #initToolbar() {
-        const {toolbar} = this;
-
-        if (toolbar) {
-            const wrapper = document.createElement('div');
-            wrapper.classList.add('toolbar');
-            wrapper.append(...(toolbar instanceof Array ? toolbar : [toolbar]));
-            this.append(wrapper);
-        }
     }
 
     // <editor-fold desc="Config">
@@ -242,33 +221,6 @@ export default class Window extends HTMLDialogElement {
         return false;
     }
 
-    get content() {
-        return null;
-    }
-
-    get menu() {
-        return null;
-    }
-
-    get toolbar() {
-        return null;
-    }
-
-    /**
-     * @typedef {'DISABLED' | 'HIDDEN'} TitleBarButtonConfig
-     */
-
-    /**
-     * @typedef TitleBarButtonsConfig
-     * @type {Object}
-     * @property {TitleBarButtonConfig=} close
-     * @property {TitleBarButtonConfig=} maximize
-     * @property {TitleBarButtonConfig=} minimize
-     */
-
-    /**
-     * @return {null | TitleBarButtonsConfig}
-     */
     get titleBarButtons() {
         return null;
     }

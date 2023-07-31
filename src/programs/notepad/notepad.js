@@ -3,32 +3,24 @@ import Window from '../../os/window.js';
 const name = 'Notepad';
 
 export default class Notepad extends Window {
-    init() {
+    constructor() {
+        super();
+
+        this.#initMenu();
+        this.#initContent();
         this.maximize();
         this.windowName = `Untitled - ${name}`;
     }
 
-    //<editor-fold desc="Config">
-    static get icon() {
-        return 'notepad';
-    }
-
-    static get id() {
-        return 'notepad';
-    }
-
-    static get name() {
-        return name;
-    }
-
-    get content() {
+    #initContent() {
         const textarea = document.createElement('textarea');
         textarea.spellcheck = false;
-        return textarea;
+
+        this.initContent(textarea);
     }
 
-    get menu() {
-        return [
+    #initMenu() {
+        this.initMenu([
             {
                 children: [],
                 key: 'F',
@@ -47,7 +39,20 @@ export default class Notepad extends Window {
                 key: 'H',
                 name: 'Help'
             }
-        ];
+        ]);
+    }
+
+    //<editor-fold desc="Config">
+    static get icon() {
+        return 'notepad';
+    }
+
+    static get id() {
+        return 'notepad';
+    }
+
+    static get name() {
+        return name;
     }
 
     //</editor-fold>

@@ -15,7 +15,12 @@ export default class Minesweeper extends Window {
     #timerNumbers = [...new Array(3)].map(() => document.createElement('div'));
     #width;
 
-    init() {
+    constructor() {
+        super();
+
+        this.#initMenu();
+        this.#initContent();
+
         this.#face.classList.add('face');
         [...this.#mineNumbers, ...this.#timerNumbers].forEach(element => element.classList.add('number'));
         this.main.classList.add('no-border');
@@ -79,6 +84,74 @@ export default class Minesweeper extends Window {
             this.#mouseup = () => {};
             [...this.#hiddenCells.values()].forEach(cell => cell.classList.add('flag'));
         }
+    }
+
+    #initContent() {
+        const info = document.createElement('div');
+        info.classList.add('info');
+
+        const mines = document.createElement('div');
+        mines.classList.add('mines');
+        mines.append(...this.#mineNumbers);
+
+        const timer = document.createElement('div');
+        timer.classList.add('timer');
+        timer.append(...this.#timerNumbers);
+
+        info.append(mines, this.#face, timer);
+
+        const table = document.createElement('table');
+        table.append(this.#board);
+
+        this.initContent(info, table);
+    }
+
+    #initMenu() {
+        this.initMenu([
+            {
+                children: [
+                    {
+                        click: () => this.#build(),
+                        key: 'N',
+                        name: 'New'
+                    },
+                    null,
+                    ...radioMenuItems({},
+                        {
+                            click: () => this.#build(9, 9, 10),
+                            key: 'B',
+                            name: 'Beginner'
+                        },
+                        {
+                            click: () => this.#build(16, 16, 40),
+                            key: 'I',
+                            name: 'Intermediate'
+                        },
+                        {
+                            click: () => this.#build(24, 24, 99),
+                            key: 'E',
+                            name: 'Expert'
+                        },
+                        {
+                            key: 'C',
+                            name: 'Custom...'
+                        }
+                    ),
+                    null,
+                    {
+                        click: () => this.close(),
+                        key: 'X',
+                        name: 'Exit'
+                    }
+                ],
+                key: 'G',
+                name: 'Game'
+            },
+            {
+                key: 'H',
+                name: 'Help'
+            }
+        ]);
     }
 
     #iterateNeighbours(cell, fn) {
@@ -175,74 +248,6 @@ export default class Minesweeper extends Window {
 
     static get once() {
         return true;
-    }
-
-    get menu() {
-        return [
-            {
-                children: [
-                    {
-                        click: () => this.#build(),
-                        key: 'N',
-                        name: 'New'
-                    },
-                    null,
-                    ...radioMenuItems({},
-                        {
-                            click: () => this.#build(9, 9, 10),
-                            key: 'B',
-                            name: 'Beginner'
-                        },
-                        {
-                            click: () => this.#build(16, 16, 40),
-                            key: 'I',
-                            name: 'Intermediate'
-                        },
-                        {
-                            click: () => this.#build(24, 24, 99),
-                            key: 'E',
-                            name: 'Expert'
-                        },
-                        {
-                            key: 'C',
-                            name: 'Custom...'
-                        }
-                    ),
-                    null,
-                    {
-                        click: () => this.close(),
-                        key: 'X',
-                        name: 'Exit'
-                    }
-                ],
-                key: 'G',
-                name: 'Game'
-            },
-            {
-                key: 'H',
-                name: 'Help'
-            }
-        ];
-    }
-
-    get content() {
-        const info = document.createElement('div');
-        info.classList.add('info');
-
-        const mines = document.createElement('div');
-        mines.classList.add('mines');
-        mines.append(...this.#mineNumbers);
-
-        const timer = document.createElement('div');
-        timer.classList.add('timer');
-        timer.append(...this.#timerNumbers);
-
-        info.append(mines, this.#face, timer);
-
-        const table = document.createElement('table');
-        table.append(this.#board);
-
-        return [info, table];
     }
 
     get titleBarButtons() {
