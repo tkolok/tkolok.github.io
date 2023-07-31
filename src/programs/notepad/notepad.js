@@ -3,9 +3,7 @@ import Window from '../../os/window.js';
 const name = 'Notepad';
 
 export default class Notepad extends Window {
-    constructor() {
-        super();
-
+    init() {
         this.maximize();
         this.windowName = `Untitled - ${name}`;
     }
@@ -21,6 +19,12 @@ export default class Notepad extends Window {
 
     static get name() {
         return name;
+    }
+
+    get content() {
+        const textarea = document.createElement('textarea');
+        textarea.spellcheck = false;
+        return textarea;
     }
 
     get menu() {
@@ -44,10 +48,6 @@ export default class Notepad extends Window {
                 name: 'Help'
             }
         ];
-    }
-
-    get template() {
-        return '<textarea spellcheck="false"></textarea>';
     }
 
     //</editor-fold>

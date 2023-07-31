@@ -2,21 +2,22 @@ import {radioMenuItems} from '../../common/menu-builder.js';
 import Window from '../../os/window.js';
 
 export default class Minesweeper extends Window {
-    #face = this.main.querySelector('.face');
+    #board = document.createElement('tbody');
+    #face = document.createElement('button');
     #height;
     #hiddenCells;
     #interval;
-    #mineNumbers = this.main.querySelectorAll('.mines .number');
+    #mineNumbers = [...new Array(3)].map(() => document.createElement('div'));
     #mines;
     #mouseup;
     #table;
     #time;
-    #timerNumbers = this.main.querySelectorAll('.timer .number');
+    #timerNumbers = [...new Array(3)].map(() => document.createElement('div'));
     #width;
 
-    constructor() {
-        super();
-
+    init() {
+        this.#face.classList.add('face');
+        [...this.#mineNumbers, ...this.#timerNumbers].forEach(element => element.classList.add('number'));
         this.main.classList.add('no-border');
         this.#build(9, 9, 10);
     }
@@ -51,7 +52,7 @@ export default class Minesweeper extends Window {
         this.#width = width;
         this.#setNumbers(mines, this.#mineNumbers);
         this.#setNumbers(this.#time, this.#timerNumbers);
-        this.querySelector('tbody').replaceChildren(...[...Array(width).keys()].map(() => {
+        this.#board.replaceChildren(...[...Array(width).keys()].map(() => {
             const row = [];
             const tr = document.createElement('tr');
 
@@ -112,7 +113,7 @@ export default class Minesweeper extends Window {
                     break;
                 case 2:
                     cell.classList.toggle('flag');
-                    this.#setNumbers(this.#mines - this.main.querySelectorAll('td.flag').length, this.#mineNumbers);
+                    this.#setNumbers(this.#mines - this.#board.querySelectorAll('td.flag').length, this.#mineNumbers);
             }
         }
     }
@@ -132,7 +133,7 @@ export default class Minesweeper extends Window {
             return;
         }
 
-        const cells = [...this.main.querySelectorAll('td')];
+        const cells = [...this.#board.querySelectorAll('td')];
 
         cells.splice(cells.indexOf(cell), 1);
         for (let i = 0; i++ < this.#mines;) {
@@ -224,24 +225,24 @@ export default class Minesweeper extends Window {
         ];
     }
 
-    get template() {
-        return `
-            <div class="info">
-                <div class="mines">
-                    <div class="number"></div>
-                    <div class="number"></div>
-                    <div class="number"></div>
-                </div>
-                <button class="face"></button>
-                <div class="timer">
-                    <div class="number"></div>
-                    <div class="number"></div>
-                    <div class="number"></div>
-                </div>
-            </div>
-            <table>
-                <tbody></tbody>
-            </table>`;
+    get content() {
+        const info = document.createElement('div');
+        info.classList.add('info');
+
+        const mines = document.createElement('div');
+        mines.classList.add('mines');
+        mines.append(...this.#mineNumbers);
+
+        const timer = document.createElement('div');
+        timer.classList.add('timer');
+        timer.append(...this.#timerNumbers);
+
+        info.append(mines, this.#face, timer);
+
+        const table = document.createElement('table');
+        table.append(this.#board);
+
+        return [info, table];
     }
 
     get titleBarButtons() {

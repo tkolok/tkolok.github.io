@@ -8,30 +8,35 @@ export default class Window extends HTMLDialogElement {
     #name;
     #taskbarButton;
 
-    constructor() {
+    constructor(...args) {
         super();
 
-        this.#name = this.constructor.name;
-        this.#taskbarButton = new TaskbarButton(this);
-        this.addEventListener('focus', () => this.active = true);
-        this.classList.add(this.constructor.id);
+        setTimeout(() => {
+            this.#name = this.constructor.name;
+            this.#taskbarButton = new TaskbarButton(this);
+            this.addEventListener('focus', () => this.active = true);
+            this.classList.add(this.constructor.id);
 
-        this.#initTitleBar();
-        this.#initMenu();
-        this.#initMain();
-        this.#initDragging();
+            this.#initTitleBar();
+            this.#initMenu();
+            this.#initToolbar();
+            this.#initMain();
+            this.#initDragging();
 
-        this.setPosition();
-        this.active = true;
-        document.body.append(this);
+            this.setPosition();
+            this.active = true;
+            document.body.append(this);
 
-        if (!this.constructor.disableResize) {
-            this.#addResizer('bottom', 'n', event => ({height: event.movementY}));
-            this.#addResizer('left', 'e', event => ({left: event.movementX, width: -event.movementX}));
-            this.#addResizer('right', 'e', event => ({width: event.movementX}));
-            this.#addResizer('top', 'n', event => ({height: -event.movementY, top: event.movementY}));
-            Object.assign(this.style, {height: `${this.offsetHeight}px`, width: `${this.offsetWidth}px`});
-        }
+            if (!this.constructor.disableResize) {
+                this.#addResizer('bottom', 'n', event => ({height: event.movementY}));
+                this.#addResizer('left', 'e', event => ({left: event.movementX, width: -event.movementX}));
+                this.#addResizer('right', 'e', event => ({width: event.movementX}));
+                this.#addResizer('top', 'n', event => ({height: -event.movementY, top: event.movementY}));
+                Object.assign(this.style, {height: `${this.offsetHeight}px`, width: `${this.offsetWidth}px`});
+            }
+
+            this.init(...args);
+        });
     }
 
     close(returnValue) {
@@ -39,6 +44,8 @@ export default class Window extends HTMLDialogElement {
         this.remove();
         this.#taskbarButton.remove();
     }
+
+    init() {}
 
     maximize() {
         this.classList.toggle('full', !this.classList.contains('full'));
@@ -157,8 +164,13 @@ export default class Window extends HTMLDialogElement {
     }
 
     #initMain() {
+        const {content} = this;
         this.#main = document.createElement('main');
-        this.#main.innerHTML = this.template;
+
+        if (content) {
+            this.#main.append(...(content instanceof Array ? content : [content]));
+        }
+
         this.append(this.#main);
     }
 
@@ -197,6 +209,17 @@ export default class Window extends HTMLDialogElement {
         this.append(header);
     }
 
+    #initToolbar() {
+        const {toolbar} = this;
+
+        if (toolbar) {
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('toolbar');
+            wrapper.append(...(toolbar instanceof Array ? toolbar : [toolbar]));
+            this.append(wrapper);
+        }
+    }
+
     // <editor-fold desc="Config">
     static get disableResize() {
         return false;
@@ -219,12 +242,16 @@ export default class Window extends HTMLDialogElement {
         return false;
     }
 
+    get content() {
+        return null;
+    }
+
     get menu() {
         return null;
     }
 
-    get template() {
-        return '';
+    get toolbar() {
+        return null;
     }
 
     /**

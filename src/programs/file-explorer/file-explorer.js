@@ -6,19 +6,19 @@ import Window from '../../os/window.js';
 const id = 'explorer';
 
 export default class FileExplorer extends Window {
-    #back;
-    #descIcon = this.main.querySelector('.icon');
-    #folders = this.main.querySelector('.folders');
-    #forward;
+    #back = document.createElement('button');
+    #descIcon = document.createElement('span');
+    #folders = document.createElement('div');
+    #forward = document.createElement('button');
     #history;
-    #name = this.main.querySelector('h1');
+    #name = document.createElement('h1');
 
-    constructor(path = '') {
-        super();
-
-        this.#back = this.querySelector('.toolbar button:first-child');
+    init(path = '') {
+        this.#back.innerHTML = 'Back';
         this.#back.addEventListener('click', () => this.#open(this.#history.previous(), false));
-        this.#forward = this.querySelector('.toolbar button:last-child');
+        this.#descIcon.classList.add('icon');
+        this.#folders.classList.add('folders');
+        this.#forward.innerHTML = 'Forward';
         this.#forward.addEventListener('click', () => this.#open(this.#history.next(), false));
         this.#history = new History(path);
         this.#open(path, false);
@@ -62,14 +62,18 @@ export default class FileExplorer extends Window {
         return 'Exploring';
     }
 
-    get template() {
-        return `
-            <aside>
-                <span class="icon"></span>
-                <h1>Folder</h1>
-                <div class="rainbow"></div>
-            </aside>
-            <div class="folders"></div>`;
+    get content() {
+        const aside = document.createElement('aside');
+        const rainbow = document.createElement('div');
+
+        rainbow.classList.add('rainbow');
+        aside.append(this.#descIcon, this.#name, rainbow);
+
+        return [aside, this.#folders];
+    }
+
+    get toolbar() {
+        return [this.#back, this.#forward];
     }
 
     //</editor-fold>

@@ -1,13 +1,10 @@
 import Window from '../../os/window.js';
 
 export default class extends Window {
-    constructor(data) {
-        super();
+    #img = document.createElement('img');
 
-        const img = document.createElement('img');
-        img.src = `/assets/images/${data.src}`;
-        this.main.append(img);
-
+    init(data) {
+        this.#img.src = `/assets/images/${data.src}`;
         this.maximize();
     }
 
@@ -22,6 +19,10 @@ export default class extends Window {
 
     static get name() {
         return 'Imaging';
+    }
+
+    get content() {
+        return this.#img;
     }
 
     //</editor-fold>

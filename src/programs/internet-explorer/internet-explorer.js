@@ -4,23 +4,13 @@ export default class InternetExplorer extends Window {
     #address = document.createElement('input');
     #iframe = document.createElement('iframe');
 
-    constructor(url = 'https://www.google.com') {
-        super();
-
-        const addressBar = document.createElement('div');
-        addressBar.append(
-            Object.assign(document.createElement('span'), {innerHTML: 'Address'}),
-            this.#address
-        );
-        addressBar.className = 'address-bar';
-
+    init(url = 'https://www.google.com') {
         this.#address.addEventListener('keypress', event => {
             if (event.code === 'Enter') {
                 this.#setAddress();
             }
         });
 
-        this.main.append(addressBar, this.#iframe);
         this.#setAddress(url);
         this.maximize();
     }
@@ -41,6 +31,17 @@ export default class InternetExplorer extends Window {
 
     static get name() {
         return 'Internet Explorer';
+    }
+
+    get content() {
+        const addressBar = document.createElement('div');
+        addressBar.append(
+            Object.assign(document.createElement('span'), {innerHTML: 'Address'}),
+            this.#address
+        );
+        addressBar.className = 'address-bar';
+
+        return [addressBar, this.#iframe];
     }
 
     get menu() {
