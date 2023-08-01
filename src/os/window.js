@@ -1,3 +1,4 @@
+import {combinedTemplate} from '../common/template-utils.js';
 import TaskbarButton from './taskbar-button.js';
 
 const dragImg = Object.assign(new Image(0, 0), {src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='});
@@ -39,8 +40,8 @@ export default class Window extends HTMLDialogElement {
         this.#taskbarButton.remove();
     }
 
-    initContent(...nodes) {
-        this.#main.append(...nodes);
+    initContent(strings, ...nodes) {
+        this.#main.append(...combinedTemplate(strings, nodes));
     }
 
     initMenu(menuItems) {
@@ -54,10 +55,10 @@ export default class Window extends HTMLDialogElement {
         this.querySelector('header').after(menu);
     }
 
-    initToolbar(...nodes) {
+    initToolbar(strings, ...nodes) {
         const wrapper = document.createElement('div');
         wrapper.classList.add('toolbar');
-        wrapper.append(...nodes);
+        wrapper.append(...combinedTemplate(strings, nodes));
         this.#main.before(wrapper);
     }
 

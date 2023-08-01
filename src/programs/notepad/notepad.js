@@ -7,16 +7,9 @@ export default class Notepad extends Window {
         super();
 
         this.#initMenu();
-        this.#initContent();
+        this.initContent`<textarea spellcheck="false"></textarea>`;
         this.maximize();
         this.windowName = `Untitled - ${name}`;
-    }
-
-    #initContent() {
-        const textarea = document.createElement('textarea');
-        textarea.spellcheck = false;
-
-        this.initContent(textarea);
     }
 
     #initMenu() {

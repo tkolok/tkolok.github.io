@@ -60,8 +60,7 @@ dialog.minesweeper {
         padding: 4px 5px;
     }
 
-    .mines,
-    .timer {
+    .number-block {
         @include window-border(out, 1);
         display: flex;
     }

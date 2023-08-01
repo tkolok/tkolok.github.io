@@ -4,14 +4,8 @@ export default class extends Window {
     constructor(data) {
         super();
 
-        this.#initContent(data);
+        this.initContent`<img alt="" src="/assets/images/${data.src}">`;
         this.maximize();
-    }
-
-    #initContent(data) {
-        const img = document.createElement('img');
-        img.src = `/assets/images/${data.src}`;
-        this.initContent(img);
     }
 
     //<editor-fold desc="Config">

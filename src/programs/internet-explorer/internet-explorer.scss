@@ -1,7 +1,4 @@
-.ie main {
-    display: flex;
-    flex-direction: column;
-
+.ie {
     .address-bar {
         display: flex;
         gap: 4px;
@@ -14,5 +11,9 @@
 
     iframe {
         flex: 1;
+    }
+
+    main {
+        display: flex;
     }
 }

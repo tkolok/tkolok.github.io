@@ -7,51 +7,31 @@ export default class InternetExplorer extends Window {
     constructor(url = 'https://www.google.com') {
         super();
 
-        this.#initMenu();
-        this.#initContent();
-        this.#address.addEventListener('keypress', event => {
-            if (event.code === 'Enter') {
-                this.#setAddress();
-            }
-        });
-
+        this.#initToolbar();
+        this.initContent`${this.#iframe}`;
         this.#setAddress(url);
         this.maximize();
     }
 
-    #initContent() {
-        const addressBar = document.createElement('div');
-        addressBar.append(
-            Object.assign(document.createElement('span'), {innerHTML: 'Address'}),
-            this.#address
-        );
-        addressBar.className = 'address-bar';
+    #initToolbar() {
+        this.#address.addEventListener('keypress', this.#typeAddress.bind(this));
 
-        super.initContent(addressBar, this.#iframe);
-    }
-
-    #initMenu() {
-        this.initMenu([
-            {
-                children: [],
-                key: 'E',
-                name: 'Edit'
-            },
-            {
-                children: [],
-                key: 'V',
-                name: 'View'
-            },
-            {
-                key: 'H',
-                name: 'Help'
-            }
-        ]);
+        this.initToolbar`
+            <div class="address-bar">
+                <span>Address</span>
+                ${this.#address}
+            </div>`;
     }
 
     #setAddress(url = this.#address.value) {
         this.#address.value = url;
         this.#iframe.src = url;
+    }
+
+    #typeAddress(event) {
+        if (event.code === 'Enter') {
+            this.#setAddress();
+        }
     }
 
     //<editor-fold desc="Config">
