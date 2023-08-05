@@ -8,6 +8,7 @@ window.addEventListener('contextmenu', e => e.preventDefault());
 
 function initPrograms() {
     return [
+        import('../common/popup-window.js'),
         import('../programs/file-explorer/file-explorer.js'),
         import('../programs/imaging/imaging.js'),
         import('../programs/internet-explorer/internet-explorer.js'),

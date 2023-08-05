@@ -7,17 +7,18 @@ const windows = [];
 export default class Window extends HTMLDialogElement {
     #main = document.createElement('main');
     #name;
+    #parent;
     #taskbarButton;
 
-    constructor() {
+    constructor(config = {}) {
         super();
 
         this.#name = this.constructor.name;
-        this.#taskbarButton = new TaskbarButton(this);
+        this.#parent = config.parent;
         this.addEventListener('focus', () => this.active = true);
-        this.classList.add(this.constructor.id);
+        this.className = `${this.constructor.id} ${config.className || ''}`;
 
-        this.#initTitleBar();
+        this.#initTitleBar(config);
         this.append(this.#main);
         this.#initDragging();
 
@@ -25,23 +26,34 @@ export default class Window extends HTMLDialogElement {
         this.active = true;
         document.body.append(this);
 
-        if (!this.constructor.disableResize) {
+        if (!config.disableResize) {
             this.#addResizer('bottom', 'n', event => ({height: event.movementY}));
             this.#addResizer('left', 'e', event => ({left: event.movementX, width: -event.movementX}));
             this.#addResizer('right', 'e', event => ({width: event.movementX}));
             this.#addResizer('top', 'n', event => ({height: -event.movementY, top: event.movementY}));
             Object.assign(this.style, {height: `${this.offsetHeight}px`, width: `${this.offsetWidth}px`});
         }
+
+        if (config.mainNoBorder) {
+            this.#main.classList.add('no-border');
+        }
+
+        if (!config.popup) {
+            this.#taskbarButton = new TaskbarButton(this);
+        }
     }
 
     close(returnValue) {
         windows.splice(windows.indexOf(this), 1);
         this.remove();
-        this.#taskbarButton.remove();
+        this.#taskbarButton?.remove();
+        if (this.#parent) {
+            this.#parent.active = true;
+        }
     }
 
     initContent(strings, ...nodes) {
-        this.#main.append(...combinedTemplate(strings, nodes));
+        this.#main.append(...combinedTemplate(strings, ...nodes));
     }
 
     initMenu(menuItems) {
@@ -58,7 +70,7 @@ export default class Window extends HTMLDialogElement {
     initToolbar(strings, ...nodes) {
         const wrapper = document.createElement('div');
         wrapper.classList.add('toolbar');
-        wrapper.append(...combinedTemplate(strings, nodes));
+        wrapper.append(...combinedTemplate(strings, ...nodes));
         this.#main.before(wrapper);
     }
 
@@ -76,7 +88,10 @@ export default class Window extends HTMLDialogElement {
 
     set active(value) {
         this.classList.toggle('active', value);
-        this.#taskbarButton.active = value;
+
+        if (this.#taskbarButton) {
+            this.#taskbarButton.active = value;
+        }
 
         if (value) {
             const index = windows.indexOf(this);
@@ -97,7 +112,10 @@ export default class Window extends HTMLDialogElement {
 
         if (icon) {
             icon.className = `icon small ${value}`;
-            this.#taskbarButton.icon = value;
+
+            if (this.#taskbarButton) {
+                this.#taskbarButton.icon = value;
+            }
         }
     }
 
@@ -112,7 +130,9 @@ export default class Window extends HTMLDialogElement {
     set windowName(value) {
         this.#name = value;
         this.querySelector('header label').innerHTML = value;
-        this.#taskbarButton.windowName = value;
+        if (this.#taskbarButton) {
+            this.#taskbarButton.windowName = value;
+        }
     }
 
     #addResizer(className, direction, resize) {
@@ -148,9 +168,7 @@ export default class Window extends HTMLDialogElement {
         }
     }
 
-    #buildBarButton(buttonType) {
-        const state = this.titleBarButtons?.[buttonType];
-
+    #buildBarButton(buttonType, state) {
         if (state === 'HIDDEN') {
             return null;
         } else {
@@ -178,7 +196,7 @@ export default class Window extends HTMLDialogElement {
         });
     }
 
-    #initTitleBar() {
+    #initTitleBar(config) {
         const header = document.createElement('header');
 
         if (this.constructor.icon !== null) {
@@ -191,20 +209,16 @@ export default class Window extends HTMLDialogElement {
         label.draggable = true;
         label.innerHTML = `<span>${this.constructor.name}</span>`;
 
-        if (!this.constructor.disableResize) {
+        if (!config.disableResize) {
             label.addEventListener('dblclick', this.maximize.bind(this));
         }
 
-        header.append(label, ...['minimize', 'maximize', 'close'].map(key => this.#buildBarButton(key)).filter(button => button));
+        header.append(label, ...['minimize', 'maximize', 'close'].map(key => this.#buildBarButton(key, config[key])).filter(button => button));
 
         this.append(header);
     }
 
     // <editor-fold desc="Config">
-    static get disableResize() {
-        return false;
-    }
-
     // Ha null, akkor nem jelenik meg ikon
     static get icon() {
         return '';
@@ -220,10 +234,6 @@ export default class Window extends HTMLDialogElement {
 
     static get once() {
         return false;
-    }
-
-    get titleBarButtons() {
-        return null;
     }
 
     // </editor-fold>
@@ -244,6 +254,7 @@ function buildMenuitem(menu, menuitem) {
         }
 
         li.innerHTML = `<label>${innerHTML}</label>`;
+        li.querySelector('input')?.addEventListener('click', event => event.stopPropagation());
 
         if (menuitem.children) {
             const ul = document.createElement('ul');

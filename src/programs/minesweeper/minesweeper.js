@@ -1,5 +1,13 @@
 import {radioMenuItems} from '../../common/menu-builder.js';
+import {noop} from '../../common/utils.js';
 import Window from '../../os/window.js';
+import {MinesweeperCustom} from './minesweeper-custom.js';
+
+const config = {
+    disableResize: true,
+    mainNoBorder: true,
+    maximize: 'DISABLED'
+};
 
 export default class Minesweeper extends Window {
     #board = document.createElement('tbody');
@@ -16,12 +24,10 @@ export default class Minesweeper extends Window {
     #width;
 
     constructor() {
-        super();
+        super(config);
 
         this.#initMenu();
         this.#initContent();
-
-        this.main.classList.add('no-border');
         this.#build(9, 9, 10);
     }
 
@@ -33,7 +39,7 @@ export default class Minesweeper extends Window {
     #boom() {
         clearInterval(this.#interval);
         this.#face.classList.add('dead');
-        this.#mouseup = () => {};
+        this.#mouseup = noop;
         this.#table.forEach(row => row.forEach(cell => {
             if (cell.dataset.value === 'MINE') {
                 this.#revealCell(cell);
@@ -41,7 +47,7 @@ export default class Minesweeper extends Window {
         }));
     }
 
-    #build(height = this.#height, width = this.#width, mines = this.#mines) {
+    #build(width = this.#width, height = this.#height, mines = this.#mines) {
         clearInterval(this.#interval);
 
         this.#face.classList.remove('dead', 'win');
@@ -55,12 +61,12 @@ export default class Minesweeper extends Window {
         this.#width = width;
         this.#setNumbers(mines, this.#mineNumbers);
         this.#setNumbers(this.#time, this.#timerNumbers);
-        this.#board.replaceChildren(...[...Array(width).keys()].map(() => {
+        this.#board.replaceChildren(...[...Array(height)].map(() => {
             const row = [];
             const tr = document.createElement('tr');
 
             this.#table.push(row);
-            tr.append(...[...Array(height).keys()].map(() => {
+            tr.append(...[...Array(width)].map(() => {
                 const td = document.createElement('td');
 
                 td.addEventListener('mouseup', event => this.#mouseup(event, td));
@@ -79,12 +85,19 @@ export default class Minesweeper extends Window {
         if (this.#hiddenCells.size === this.#mines) {
             clearInterval(this.#interval);
             this.#face.classList.add('win');
-            this.#mouseup = () => {};
+            this.#mouseup = noop;
             [...this.#hiddenCells.values()].forEach(cell => cell.classList.add('flag'));
         }
     }
 
+    #clickFace() {
+        if (this.#mouseup === noop) {
+            this.#build();
+        }
+    }
+
     #initContent() {
+        this.#face.addEventListener('click', this.#clickFace.bind(this));
         this.#face.classList.add('face');
         [...this.#mineNumbers, ...this.#timerNumbers].forEach(element => element.classList.add('number'));
 
@@ -130,6 +143,7 @@ export default class Minesweeper extends Window {
                             name: 'Expert'
                         },
                         {
+                            click: () => MinesweeperCustom(this.#build.bind(this), this),
                             key: 'C',
                             name: 'Custom...'
                         }
@@ -143,10 +157,6 @@ export default class Minesweeper extends Window {
                 ],
                 key: 'G',
                 name: 'Game'
-            },
-            {
-                key: 'H',
-                name: 'Help'
             }
         ]);
     }
@@ -227,10 +237,6 @@ export default class Minesweeper extends Window {
     }
 
     //<editor-fold desc="Config">
-    static get disableResize() {
-        return true;
-    }
-
     static get icon() {
         return 'minesweeper';
     }
@@ -245,12 +251,6 @@ export default class Minesweeper extends Window {
 
     static get once() {
         return true;
-    }
-
-    get titleBarButtons() {
-        return {
-            maximize: 'DISABLED'
-        };
     }
 
     //</editor-fold>
