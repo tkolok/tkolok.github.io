@@ -87,9 +87,22 @@ dialog.minesweeper {
 }
 
 .minesweeper-custom {
-    table {
-        input {
-            width: 4em;
+    main {
+        padding: 4px;
+
+        button {
+            text-align: center;
+            width: 78px;
         }
+
+        div {
+            margin-top: 4px;
+            text-align: right;
+        }
+    }
+
+    input {
+        margin: 0 0 4px 20px;
+        width: 6em;
     }
 }

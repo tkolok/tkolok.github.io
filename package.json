@@ -6,6 +6,6 @@
     },
     "devDependencies": {
         "sass": "1.62.1",
-        "win98-style": "0.0.5"
+        "win98-style": "0.0.6"
     }
 }
