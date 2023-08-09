@@ -2,7 +2,7 @@
     "name": "win98-cv",
     "version": "0.0.1",
     "scripts": {
-        "build": "sass --no-source-map -I node_modules/win98-style/scss style.scss style/style.css -s compressed"
+        "build": "sass --no-source-map -I node_modules/win98-style/scss style.scss style/style.css -s compressed && sass --no-source-map src/files/cv-style.scss style/cv-style.css -s compressed"
     },
     "devDependencies": {
         "sass": "1.62.1",

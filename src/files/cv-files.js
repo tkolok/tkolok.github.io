@@ -78,7 +78,7 @@ export const hu = build('hu');
 function build(lang) {
     const translation = translations[lang];
     const style = document.createElement('style');
-    style.innerHTML = '@import "./src/files/style.css";';
+    style.innerHTML = '@import "./style/cv-style.css";';
 
     const body = document.createElement('div');
     body.className = 'flex flex-row flex-start';
