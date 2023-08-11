@@ -12,6 +12,7 @@ export default class FileExplorer extends Window {
     #forward = document.createElement('button');
     #history;
     #name = document.createElement('h1');
+    #up = document.createElement('button');
 
     constructor(path = '') {
         super();
@@ -39,7 +40,9 @@ export default class FileExplorer extends Window {
         this.#back.addEventListener('click', () => this.#open(this.#history.previous(), false));
         this.#forward.innerHTML = 'Forward';
         this.#forward.addEventListener('click', () => this.#open(this.#history.next(), false));
-        this.initToolbar`${this.#back}${this.#forward}`;
+        this.#up.innerHTML = 'Up';
+        this.#up.addEventListener('click', () => this.#open(this.#history.current.replace(/[^/]+\/$/, '')));
+        this.initToolbar`${this.#back}${this.#forward}${this.#up}`;
     }
 
     #open(path, add = true) {
@@ -56,13 +59,14 @@ export default class FileExplorer extends Window {
 
         this.#back.disabled = this.#history.isFirst;
         this.#forward.disabled = this.#history.isLast;
+        this.#up.disabled = !this.#history.current;
 
         this.#folders.replaceChildren(
             ...folder.children
                 .sort(defaultSort)
                 .map(config =>
                     config.id === id
-                        ? new Shortcut({...config, open: () => this.#open(`${path}/${config.path}`)})
+                        ? new Shortcut({...config, open: () => this.#open(`${path}${config.path}/`)})
                         : shortcutByPath(`${path}/${config.path}`)
                 ));
     }
