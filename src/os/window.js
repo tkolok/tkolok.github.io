@@ -5,12 +5,12 @@ const dragImg = Object.assign(new Image(0, 0), {src: 'data:image/gif;base64,R0lG
 const windows = [];
 
 export default class Window extends HTMLDialogElement {
-    #main = document.createElement('main');
     #name;
     #parent;
     #taskbarButton;
 
     constructor(config = {}) {
+        const main = document.createElement('main');
         super();
 
         this.#name = this.constructor.name;
@@ -19,8 +19,12 @@ export default class Window extends HTMLDialogElement {
         this.className = `${this.constructor.id} ${config.className || ''}`;
 
         this.#initTitleBar(config);
-        this.append(this.#main);
+        this.append(main);
         this.#initDragging();
+
+        if (!config.popup) {
+            this.#taskbarButton = new TaskbarButton(this);
+        }
 
         this.setPosition();
         this.active = true;
@@ -35,11 +39,7 @@ export default class Window extends HTMLDialogElement {
         }
 
         if (config.mainNoBorder) {
-            this.#main.classList.add('no-border');
-        }
-
-        if (!config.popup) {
-            this.#taskbarButton = new TaskbarButton(this);
+            main.classList.add('no-border');
         }
     }
 
@@ -53,7 +53,7 @@ export default class Window extends HTMLDialogElement {
     }
 
     initContent(strings, ...nodes) {
-        this.#main.append(...combinedTemplate(strings, ...nodes));
+        this.querySelector('main').append(...combinedTemplate(strings, ...nodes));
     }
 
     initMenu(menuItems) {
@@ -71,7 +71,7 @@ export default class Window extends HTMLDialogElement {
         const wrapper = document.createElement('div');
         wrapper.classList.add('toolbar');
         wrapper.append(...combinedTemplate(strings, ...nodes));
-        this.#main.before(wrapper);
+        this.querySelector('main').before(wrapper);
     }
 
     maximize() {
@@ -117,10 +117,6 @@ export default class Window extends HTMLDialogElement {
                 this.#taskbarButton.icon = value;
             }
         }
-    }
-
-    get main() {
-        return this.#main;
     }
 
     get windowName() {
