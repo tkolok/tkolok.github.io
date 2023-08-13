@@ -6,12 +6,12 @@ import Window from '../../os/window.js';
 const id = 'explorer';
 
 export default class FileExplorer extends Window {
+    #address = document.createElement('input');
     #back = document.createElement('button');
     #descIcon = document.createElement('span');
     #folders = document.createElement('div');
     #forward = document.createElement('button');
     #history;
-    #input = document.createElement('input');
     #name = document.createElement('h1');
     #up = document.createElement('button');
 
@@ -37,20 +37,20 @@ export default class FileExplorer extends Window {
     }
 
     #initToolbar() {
+        this.#address.addEventListener('click', () => this.#address.select());
+        this.#address.addEventListener('keypress', this.#jump.bind(this));
         this.#back.innerHTML = 'Back';
         this.#back.addEventListener('click', () => this.#open(this.#history.previous(), false));
         this.#forward.innerHTML = 'Forward';
         this.#forward.addEventListener('click', () => this.#open(this.#history.next(), false));
-        this.#input.addEventListener('click', () => this.#input.select());
-        this.#input.addEventListener('keypress', this.#jump.bind(this));
         this.#up.innerHTML = 'Up';
         this.#up.addEventListener('click', () => this.#open(this.#history.current.replace(/[^/]+\/$/, '')));
-        this.initToolbar`${this.#back}${this.#forward}${this.#up}${this.#input}`;
+        this.initToolbar`${this.#back}${this.#forward}${this.#up}${this.#address}`;
     }
 
     #jump(event) {
         if (event.keyCode === 13) {
-            this.#open(this.#input.value);
+            this.#open(this.#address.value);
         }
     }
 
@@ -69,7 +69,7 @@ export default class FileExplorer extends Window {
 
             this.#back.disabled = this.#history.isFirst;
             this.#forward.disabled = this.#history.isLast;
-            this.#input.value = this.#history.current;
+            this.#address.value = this.#history.current;
             this.#up.disabled = !this.#history.current;
 
             this.#folders.replaceChildren(
