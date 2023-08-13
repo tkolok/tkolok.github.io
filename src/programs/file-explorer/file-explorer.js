@@ -24,6 +24,12 @@ export default class FileExplorer extends Window {
         this.#open(path, false);
     }
 
+    #go(event) {
+        if (event.keyCode === 13) {
+            this.#open(this.#address.value);
+        }
+    }
+
     #initContent() {
         this.#descIcon.classList.add('icon');
         this.#folders.classList.add('folders');
@@ -38,20 +44,23 @@ export default class FileExplorer extends Window {
 
     #initToolbar() {
         this.#address.addEventListener('click', () => this.#address.select());
-        this.#address.addEventListener('keypress', this.#jump.bind(this));
+        this.#address.addEventListener('keypress', this.#go.bind(this));
         this.#back.innerHTML = 'Back';
         this.#back.addEventListener('click', () => this.#open(this.#history.previous(), false));
         this.#forward.innerHTML = 'Forward';
         this.#forward.addEventListener('click', () => this.#open(this.#history.next(), false));
         this.#up.innerHTML = 'Up';
         this.#up.addEventListener('click', () => this.#open(this.#history.current.replace(/[^/]+\/$/, '')));
-        this.initToolbar`${this.#back}${this.#forward}${this.#up}${this.#address}`;
-    }
-
-    #jump(event) {
-        if (event.keyCode === 13) {
-            this.#open(this.#address.value);
-        }
+        this.initToolbar`
+            <div>
+                ${this.#back}
+                ${this.#forward}
+                ${this.#up}
+            </div>
+            <div>
+                <span>Address</span>
+                ${this.#address}
+            </div>`;
     }
 
     #open(path, add = true) {

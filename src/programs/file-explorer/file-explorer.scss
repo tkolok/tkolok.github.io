@@ -1,3 +1,5 @@
+@import 'selectors';
+
 .explorer {
     height: 400px;
     width: 500px;
@@ -14,7 +16,7 @@
         margin: 10px 0;
     }
 
-    main {
+    #{$WINDOW_CONTENT} {
         background-color: #fff;
         display: flex;
     }
@@ -34,5 +36,17 @@
         background: linear-gradient(90deg, #f30, #f30 25%, #fc0 50%, #6c3 75%, #09f);
         height: 1px;
         margin: 0 0 24px -15px;
+    }
+
+    #{$WINDOW_TOOLBAR} {
+        div {
+            align-items: center;
+            display: flex;
+            gap: 4px;
+        }
+
+        input {
+            flex: 1;
+        }
     }
 }
