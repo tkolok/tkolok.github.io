@@ -1,5 +1,5 @@
-import {popup} from '../../common/popup-window.js';
 import {buildList, combinedTemplate} from '../../common/template-utils.js';
+import {popup} from '../../components/popup-window.js';
 
 export function MinesweeperCustom(okClick, parent) {
     const ok = document.createElement('button');

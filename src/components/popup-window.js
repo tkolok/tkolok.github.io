@@ -1,4 +1,4 @@
-import Window from '../components/window.js';
+import Window from './window.js';
 
 const defaultConfig = {
     disableResize: true,
