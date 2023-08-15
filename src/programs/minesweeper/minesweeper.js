@@ -1,6 +1,6 @@
 import {radioMenuItems} from '../../common/menu-builder.js';
 import {noop} from '../../common/utils.js';
-import Window from '../../os/window.js';
+import Window from '../../components/window.js';
 import {MinesweeperCustom} from './minesweeper-custom.js';
 
 const config = {

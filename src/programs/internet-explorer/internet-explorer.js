@@ -1,4 +1,4 @@
-import Window from '../../os/window.js';
+import Window from '../../components/window.js';
 
 export default class InternetExplorer extends Window {
     #address = document.createElement('input');

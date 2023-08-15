@@ -1,5 +1,5 @@
+import {shortcutById, shortcutByPath} from '../components/shortcut.js';
 import {define} from './programs.js';
-import {shortcutById, shortcutByPath} from './shortcut.js';
 
 await Promise.all([new Promise(resolve => setTimeout(resolve, 3000)), initPrograms()]);
 initShortcuts();

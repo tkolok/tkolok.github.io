@@ -1,5 +1,5 @@
+import Window from '../../components/window.js';
 import {open} from '../../os/programs.js';
-import Window from '../../os/window.js';
 
 const name = 'WordPad';
 

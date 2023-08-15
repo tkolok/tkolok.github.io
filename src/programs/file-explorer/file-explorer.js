@@ -1,7 +1,7 @@
 import History from '../../common/history.js';
+import Shortcut, {shortcutByPath} from '../../components/shortcut.js';
+import Window from '../../components/window.js';
 import {getFolder} from '../../os/folders.js';
-import Shortcut, {shortcutByPath} from '../../os/shortcut.js';
-import Window from '../../os/window.js';
 
 const id = 'explorer';
 

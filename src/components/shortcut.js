@@ -1,5 +1,5 @@
-import {getFolder} from './folders.js';
-import {getConfig, open} from './programs.js';
+import {getFolder} from '../os/folders.js';
+import {getConfig, open} from '../os/programs.js';
 
 export default class Shortcut extends HTMLDivElement {
     constructor(config, data) {
