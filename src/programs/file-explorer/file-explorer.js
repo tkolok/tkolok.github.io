@@ -64,6 +64,10 @@ export default class FileExplorer extends Window {
     }
 
     #open(path, add = true) {
+        if (!path.endsWith('/')) {
+            path += '/';
+        }
+
         const folder = getFolder(path);
 
         if (folder) {
