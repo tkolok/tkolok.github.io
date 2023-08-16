@@ -64,7 +64,7 @@ export default class FileExplorer extends Window {
     }
 
     #open(path, add = true) {
-        if (!path.endsWith('/')) {
+        if (path && !path.endsWith('/')) {
             path += '/';
         }
 
