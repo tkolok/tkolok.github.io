@@ -1,6 +1,7 @@
 import {radioMenuItems} from '../../common/menu-builder.js';
 import {noop} from '../../common/utils.js';
 import Window from '../../components/window.js';
+import {MinesweeperBestTimes} from './minesweeper-best-times.js';
 import {MinesweeperCustom} from './minesweeper-custom.js';
 
 const config = {
@@ -150,6 +151,12 @@ export default class Minesweeper extends Window {
                     ),
                     null,
                     {
+                        click: () => this.#openBestTimes(),
+                        key: 'T',
+                        name: 'Best Times...'
+                    },
+                    null,
+                    {
                         click: () => this.close(),
                         key: 'X',
                         name: 'Exit'
@@ -170,6 +177,10 @@ export default class Minesweeper extends Window {
                 fn(this.#table[y][x], x, y);
             }
         }
+    }
+
+    #openBestTimes() {
+        MinesweeperBestTimes(this);
     }
 
     #reveal(event, cell) {
