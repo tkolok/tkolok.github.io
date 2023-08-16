@@ -3,6 +3,17 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2023. 08. 16.',
+                    text: `
+                        Kicsit eseménydúsabb heteken vagyok túl. Augusztus 1-én megszületett Bíróéknak a kislánya. Ő is és anyuka is jól vannak, szóval pár
+                        napon belül haza is engedték őket. Már várom, hogy élőben is láthassam a kicsit! :) Majd az egyik hétvégén hazautaztam, és megkaptam
+                        eddigi életem legszebb ajándékát. Mercike egy papírra "írt", majd mikor megkérdeztem tőle, hogy mi van rajta, azt mondta, hogy "Nagyon
+                        szeretlek és soha nem hagylak el!". Azóta is a pénztárcámban van a papír. Múlt héten pedig végleg véget ért a munkaszerződésem, és ezt
+                        egy egész hétvégén át ünnepeltük Sunciékkal. Nagyjából ennyit szerettem volna megosztani, de pár perce kaptam egy hívást, amit még le
+                        kell írnom, mert kifejezetten feldobta a napomat. Felkértek, hogy legyek az SOS Gyermekfalvak egyik nagykövete, mert már nagyon régóta
+                        támogatom őket.`
+                },
+                {
                     date: '2023. 07. 19.',
                     text: `
                         Az elmúlt közel 1 hónapban nem sok izgalmas történt velem. Persze, voltam sok helyen, de nagyon említésre méltó nem történt.
