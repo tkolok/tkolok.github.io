@@ -1,7 +1,7 @@
 import {buildList, combinedTemplate} from '../../common/template-utils.js';
 import {popup} from '../../components/popup-window.js';
 
-export function MinesweeperCustom(okClick, parent) {
+export function MinesweeperCustom(parent) {
     const ok = document.createElement('button');
     ok.innerHTML = 'Ok';
 
@@ -16,12 +16,9 @@ export function MinesweeperCustom(okClick, parent) {
         </div>`;
 
     const ret = popup('Custom difficulty', content, {className: 'minesweeper-custom', parent});
-    const inputs = [...ret.querySelectorAll('input')];
+    const inputs = [...ret.element.querySelectorAll('input')];
 
-    ok.addEventListener('click', () => {
-        okClick(...inputs.map(input => input.valueAsNumber));
-        ret.close();
-    });
+    ok.addEventListener('click', () => ret.close([...inputs.map(input => input.valueAsNumber), 'Custom']));
 
     return ret;
 }

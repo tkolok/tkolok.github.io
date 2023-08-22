@@ -115,3 +115,16 @@ dialog.minesweeper {
         width: 6em;
     }
 }
+
+.minesweeper-win {
+    width: 228px;
+
+    input {
+        margin: 8px 0;
+        width: 100%;
+    }
+
+    main {
+        padding: 12px;
+    }
+}

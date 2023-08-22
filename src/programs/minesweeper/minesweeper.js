@@ -1,13 +1,32 @@
+import {asNumber, save} from '../../common/memory.js';
 import {radioMenuItems} from '../../common/menu-builder.js';
 import {noop} from '../../common/utils.js';
 import Window from '../../components/window.js';
 import {MinesweeperBestTimes} from './minesweeper-best-times.js';
 import {MinesweeperCustom} from './minesweeper-custom.js';
+import {MinesweeperWin} from './minesweeper-win.js';
 
 const config = {
     disableResize: true,
     mainNoBorder: true,
     maximize: 'DISABLED'
+};
+const levels = {
+    Beginner: {
+        height: 9,
+        mines: 10,
+        width: 9
+    },
+    Expert: {
+        height: 24,
+        mines: 99,
+        width: 24
+    },
+    Intermediate: {
+        height: 16,
+        mines: 40,
+        width: 16
+    }
 };
 
 export default class Minesweeper extends Window {
@@ -16,6 +35,7 @@ export default class Minesweeper extends Window {
     #height;
     #hiddenCells;
     #interval;
+    #level;
     #mineNumbers = [...new Array(3)].map(() => document.createElement('div'));
     #mines;
     #mouseup;
@@ -29,7 +49,7 @@ export default class Minesweeper extends Window {
 
         this.#initMenu();
         this.#initContent();
-        this.#build(9, 9, 10);
+        this.#buildLevel('Beginner');
     }
 
     close(returnValue) {
@@ -48,13 +68,14 @@ export default class Minesweeper extends Window {
         }));
     }
 
-    #build(width = this.#width, height = this.#height, mines = this.#mines) {
+    #build(width = this.#width, height = this.#height, mines = this.#mines, level = this.#level) {
         clearInterval(this.#interval);
 
         this.#face.classList.remove('dead', 'win');
         this.#height = height;
         this.#hiddenCells = new Set();
         this.#interval = null;
+        this.#level = level;
         this.#mines = mines;
         this.#mouseup = this.#start;
         this.#table = [];
@@ -82,12 +103,24 @@ export default class Minesweeper extends Window {
         }));
     }
 
-    #checkWin() {
+    #buildLevel(level) {
+        const config = levels[level];
+
+        this.#build(config.width, config.height, config.mines, level);
+    }
+
+    async #checkWin() {
         if (this.#hiddenCells.size === this.#mines) {
             clearInterval(this.#interval);
             this.#face.classList.add('win');
             this.#mouseup = noop;
             [...this.#hiddenCells.values()].forEach(cell => cell.classList.add('flag'));
+
+            if (levels.hasOwnProperty(this.#level) && this.#time < asNumber(`minesweeper${this.#level}Score`, 999)) {
+                save(`minesweeper${this.#level}Player`, await MinesweeperWin(this.#level, this).promise);
+                save(`minesweeper${this.#level}Score`, this.#time);
+                this.#openBestTimes();
+            }
         }
     }
 
@@ -129,22 +162,22 @@ export default class Minesweeper extends Window {
                     null,
                     ...radioMenuItems({},
                         {
-                            click: () => this.#build(9, 9, 10),
+                            click: () => this.#buildLevel('Beginner'),
                             key: 'B',
                             name: 'Beginner'
                         },
                         {
-                            click: () => this.#build(16, 16, 40),
+                            click: () => this.#buildLevel('Intermediate'),
                             key: 'I',
                             name: 'Intermediate'
                         },
                         {
-                            click: () => this.#build(24, 24, 99),
+                            click: () => this.#buildLevel('Expert'),
                             key: 'E',
                             name: 'Expert'
                         },
                         {
-                            click: () => MinesweeperCustom(this.#build.bind(this), this),
+                            click: async () => this.#build(...await MinesweeperCustom(this).promise),
                             key: 'C',
                             name: 'Custom...'
                         }
@@ -158,7 +191,7 @@ export default class Minesweeper extends Window {
                     null,
                     {
                         click: () => this.close(),
-                        key: 'X',
+                        key: 'x',
                         name: 'Exit'
                     }
                 ],

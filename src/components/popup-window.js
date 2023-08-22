@@ -30,5 +30,15 @@ export default class PopupWindow extends Window {
 }
 
 export function popup(name, content, config = {}) {
-    return new PopupWindow({name, content, ...config});
+    const element = new PopupWindow({name, content, ...config});
+    let resolveFunc;
+
+    return {
+        close(value) {
+            element.close();
+            resolveFunc(value);
+        },
+        element,
+        promise: new Promise(resolve => resolveFunc = resolve)
+    };
 }
