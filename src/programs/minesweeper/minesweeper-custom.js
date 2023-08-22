@@ -1,24 +1,14 @@
-import {buildList, combinedTemplate} from '../../common/template-utils.js';
+import {buildList} from '../../common/template-utils.js';
 import {popup} from '../../components/popup-window.js';
 
-export function MinesweeperCustom(parent) {
-    const ok = document.createElement('button');
-    ok.innerHTML = 'Ok';
+export function MinesweeperCustom(parent, build) {
+    const ret = popup('Custom difficulty', content(), {className: 'minesweeper-custom', parent});
+    const inputs = [...ret.querySelectorAll('input')];
 
-    const content = combinedTemplate`
-        <table>
-            <tbody>
-                ${buildList(['Width', 'Height', 'Mines'], buildRow)}
-            </tbody>
-        </table>
-        <div>
-            ${ok}
-        </div>`;
-
-    const ret = popup('Custom difficulty', content, {className: 'minesweeper-custom', parent});
-    const inputs = [...ret.element.querySelectorAll('input')];
-
-    ok.addEventListener('click', () => ret.close([...inputs.map(input => input.valueAsNumber), 'Custom']));
+    ret.querySelector('main button').addEventListener('click', () => {
+        ret.close();
+        build(...inputs.map(input => input.valueAsNumber), 'Custom');
+    });
 
     return ret;
 }
@@ -36,4 +26,16 @@ function buildRow(key) {
                        type="number">
             </td>
         </tr>`;
+}
+
+function content() {
+    return `
+        <table>
+            <tbody>
+                ${buildList(['Width', 'Height', 'Mines'], buildRow)}
+            </tbody>
+        </table>
+        <div>
+            <button>Ok</button>
+        </div>`;
 }

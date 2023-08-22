@@ -117,9 +117,7 @@ export default class Minesweeper extends Window {
             [...this.#hiddenCells.values()].forEach(cell => cell.classList.add('flag'));
 
             if (levels.hasOwnProperty(this.#level) && this.#time < asNumber(`minesweeper${this.#level}Score`, 999)) {
-                save(`minesweeper${this.#level}Player`, await MinesweeperWin(this.#level, this).promise);
-                save(`minesweeper${this.#level}Score`, this.#time);
-                this.#openBestTimes();
+                MinesweeperWin(this.#level, this, this.#saveBestTime.bind(this));
             }
         }
     }
@@ -177,7 +175,7 @@ export default class Minesweeper extends Window {
                             name: 'Expert'
                         },
                         {
-                            click: async () => this.#build(...await MinesweeperCustom(this).promise),
+                            click: () => MinesweeperCustom(this, this.#build.bind(this)),
                             key: 'C',
                             name: 'Custom...'
                         }
@@ -245,6 +243,12 @@ export default class Minesweeper extends Window {
     #revealCell(cell) {
         cell.classList.remove('flag', 'hidden');
         this.#hiddenCells.delete(cell);
+    }
+
+    #saveBestTime(player) {
+        save(`minesweeper${this.#level}Player`, player);
+        save(`minesweeper${this.#level}Score`, this.#time);
+        this.#openBestTimes();
     }
 
     #setNumbers(value, numbers) {

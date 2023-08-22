@@ -1,9 +1,12 @@
 import {popup} from '../../components/popup-window.js';
 
-export function MinesweeperWin(level, parent) {
+export function MinesweeperWin(level, parent, ok) {
     const ret = popup('Congratulations', content(level), {className: 'minesweeper-win', parent});
 
-    ret.element.querySelector('main button').addEventListener('click', () => ret.close(ret.element.querySelector('input').value));
+    ret.querySelector('main button').addEventListener('click', () => {
+        ret.close();
+        ok(ret.querySelector('input').value);
+    });
 
     return ret;
 }
