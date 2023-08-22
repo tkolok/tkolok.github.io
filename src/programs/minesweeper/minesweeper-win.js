@@ -15,7 +15,7 @@ function content(level) {
     return `
         <div>You have the fastest time for ${level} level. Please type your name:</div>
         <input>
-        <div>
+        <div class="text-right">
             <button>Ok</button>
         </div>`;
 }

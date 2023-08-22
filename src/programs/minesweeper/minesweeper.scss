@@ -87,11 +87,18 @@ dialog.minesweeper {
 }
 
 .minesweeper-best-times {
-    div {
-        display: grid;
-        gap: 8px 32px;
-        grid-template: repeat(3, 1fr) / repeat(3, auto);
-        margin: 12px;
+    fieldset {
+        margin-bottom: 8px;
+
+        div {
+            display: grid;
+            gap: 8px 32px;
+            grid-template: repeat(3, 1fr) / repeat(3, auto);
+        }
+    }
+
+    main {
+        padding: 8px 12px;
     }
 }
 
@@ -99,14 +106,8 @@ dialog.minesweeper {
     main {
         padding: 4px;
 
-        button {
-            text-align: center;
-            width: 78px;
-        }
-
         div {
             margin-top: 4px;
-            text-align: right;
         }
     }
 
