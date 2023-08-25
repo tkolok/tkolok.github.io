@@ -26,7 +26,13 @@ export default class Window extends HTMLDialogElement {
             this.#taskbarButton = new TaskbarButton(this);
         }
 
-        this.setPosition();
+        if (this.#parent) {
+            const {x, y} = this.#parent.getBoundingClientRect();
+
+            this.setPosition(x + 25, y + 25);
+        } else {
+            this.setPosition();
+        }
         this.active = true;
         document.body.append(this);
 
