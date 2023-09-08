@@ -33,7 +33,7 @@ export default class Tab extends HTMLDivElement {
         }
 
         tab.classList.add('active');
-        this.#content.replaceChildren(this.#tabs.get(tab));
+        this.#content.replaceChildren(...this.#tabs.get(tab));
     }
 }
 

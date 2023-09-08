@@ -1,9 +1,11 @@
 import query from '../common/query.js';
+import {openDateTimeProperties} from './popups/date-time-properties.js';
 import {open} from './programs.js';
 
 const {dateAndTime, startButton, startMenu} = query(document.body.querySelector('#taskbar'));
 const dateFormatter = new Intl.DateTimeFormat(undefined, {timeStyle: 'short'});
 
+dateAndTime.addEventListener('dblclick', openDateTimeProperties);
 startButton.addEventListener('blur', blur);
 startButton.addEventListener('click', () => toggleStartMenu());
 updateTime();

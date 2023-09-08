@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="127" height="127">
+    <defs>
+        <g id="sub">
+            <path d="M0 0v2h1v-1h1v-1" fill="#808080"/>
+            <path d="M1 2v1h2v-2h-1v1" fill="#fff"/>
+        </g>
+        <g id="main">
+            <rect fill="#000" height="5" width="5"/>
+            <rect fill="#0ff" height="4" width="4"/>
+            <rect fill="#008080" height="3" x="1" y="1" width="3"/>
+        </g>
+    </defs>
+    <use href="#main" x="61"/>
+    <use href="#sub" x="68" y="1"/>
+    <use href="#sub" x="75" y="2"/>
+    <use href="#sub" x="81" y="4"/>
+    <use href="#sub" x="87" y="6"/>
+    <use href="#main" x="91" y="8"/>
+    <use href="#sub" x="98" y="13"/>
+    <use href="#sub" x="103" y="17"/>
+    <use href="#sub" x="107" y="21"/>
+    <use href="#sub" x="111" y="26"/>
+    <use href="#main" x="114" y="31"/>
+    <use href="#sub" x="118" y="37"/>
+    <use href="#sub" x="120" y="43"/>
+    <use href="#sub" x="122" y="49"/>
+    <use href="#sub" x="123" y="56"/>
+    <use href="#main" x="122" y="61"/>
+    <use href="#sub" x="123" y="68"/>
+    <use href="#sub" x="122" y="75"/>
+    <use href="#sub" x="120" y="81"/>
+    <use href="#sub" x="118" y="87"/>
+    <use href="#main" x="114" y="91"/>
+    <use href="#sub" x="111" y="98"/>
+    <use href="#sub" x="107" y="103"/>
+    <use href="#sub" x="103" y="107"/>
+    <use href="#sub" x="98" y="111"/>
+    <use href="#main" x="91" y="114"/>
+    <use href="#sub" x="87" y="118"/>
+    <use href="#sub" x="81" y="120"/>
+    <use href="#sub" x="75" y="122"/>
+    <use href="#sub" x="68" y="123"/>
+    <use href="#main" x="61" y="122"/>
+    <use href="#sub" x="56" y="123"/>
+    <use href="#sub" x="49" y="122"/>
+    <use href="#sub" x="43" y="120"/>
+    <use href="#sub" x="37" y="118"/>
+    <use href="#main" x="30" y="114"/>
+    <use href="#sub" x="26" y="111"/>
+    <use href="#sub" x="21" y="107"/>
+    <use href="#sub" x="17" y="103"/>
+    <use href="#sub" x="13" y="98"/>
+    <use href="#main" x="8" y="91"/>
+    <use href="#sub" x="6" y="87"/>
+    <use href="#sub" x="4" y="81"/>
+    <use href="#sub" x="2" y="75"/>
+    <use href="#sub" x="1" y="68"/>
+    <use href="#main" y="61"/>
+    <use href="#sub" x="1" y="56"/>
+    <use href="#sub" x="2" y="49"/>
+    <use href="#sub" x="4" y="43"/>
+    <use href="#sub" x="6" y="37"/>
+    <use href="#main" x="8" y="31"/>
+    <use href="#sub" x="13" y="26"/>
+    <use href="#sub" x="17" y="21"/>
+    <use href="#sub" x="21" y="17"/>
+    <use href="#sub" x="26" y="13"/>
+    <use href="#main" x="31" y="8"/>
+    <use href="#sub" x="37" y="6"/>
+    <use href="#sub" x="43" y="4"/>
+    <use href="#sub" x="49" y="2"/>
+    <use href="#sub" x="56" y="1"/>
+</svg>

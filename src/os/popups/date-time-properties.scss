@@ -1,0 +1,77 @@
+@import 'abstarcts/mixins';
+
+.date-time-properties {
+    .tab-content {
+        display: grid;
+        gap: 10px;
+        grid: 202px 1fr/184px 184px;
+    }
+
+    .today {
+        align-items: center;
+        background-color: var(--win-selected-bg);
+        color: #fff;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+    }
+}
+
+#dateCalendar {
+    @include window-border(out);
+    background-color: #fff;
+    min-width: 158px;
+}
+
+#dateDayNames,
+#dateDays {
+    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(7, 22px);
+    padding: 0 2px;
+    text-align: center;
+}
+
+#dateDayNames {
+    background-color: var(--win-default-bg-dark);
+    color: var(--win-default-bg);
+    height: 18px;
+}
+
+#dateDays {
+    grid-template-rows: repeat(6, 18px);
+}
+
+#dateTime {
+    &Clock {
+        background: url(../../../assets/time_properties/background.svg) no-repeat center;
+        height: 128px;
+        position: relative;
+        width: 128px;
+    }
+
+    &Second {
+        background: #808080;
+        height: 50px;
+        left: 63px;
+        position: absolute;
+        transform-origin: bottom center;
+        top: 13px;
+        width: 1px;
+    }
+
+    &Time {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &TimeZone {
+        grid-area: 2/1/3/3;
+    }
+}
+
+#dateTimeTime input {
+    width: 80px;
+}

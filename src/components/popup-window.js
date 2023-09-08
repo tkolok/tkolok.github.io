@@ -1,3 +1,4 @@
+import {noop} from '../common/utils.js';
 import Window from './window.js';
 
 const defaultConfig = {
@@ -9,11 +10,20 @@ const defaultConfig = {
 };
 
 export default class PopupWindow extends Window {
+    #close;
+
     constructor(config) {
         super({...defaultConfig, ...config});
 
         this.initContent`${config.content}`;
         this.windowName = config.name;
+        this.#close = config.close || noop;
+        config.init?.();
+    }
+
+    close(returnValue) {
+        super.close(returnValue);
+        this.#close();
     }
 
     static get icon() {
