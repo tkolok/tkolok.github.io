@@ -1,7 +1,12 @@
 import query from '../../common/query.js';
 import {buildList, combinedTemplate} from '../../common/template-utils.js';
+import {capitalize} from '../../common/utils.js';
+import {Dropdown} from '../../components/dropdown.js';
 import {popup} from '../../components/popup-window.js';
+import SpinBox from '../../components/spin-box.js';
 import Tab from '../../components/tab.js';
+
+const monthFormatter = new Intl.DateTimeFormat('default', {month: 'long'});
 
 export function openDateTimeProperties() {
     const content = buildContent();
@@ -26,11 +31,22 @@ export function openDateTimeProperties() {
 }
 
 function buildContent() {
+    const month = new Dropdown({
+        options: [...new Array(12)].map((v, index) => ({value: capitalize(monthFormatter.format(new Date(`2000-${index + 1}-1`)))}))
+    });
+    month.disabled = true;
+
+    const year = new SpinBox();
+    year.disabled = true;
+    year.value = new Date().getFullYear();
+
     return new Tab([{
         content: combinedTemplate`
             <fieldset>
                 <legend>Date</legend>
                 <div id="dateCalendarWrapper">
+                    ${month}
+                    ${year}
                     <div id="dateCalendar">
                         <div id="dateDayNames">
                             ${buildList(['S', 'M', 'T', 'W', 'T', 'F', 'S'], day => `<span>${day}</span>`)}
