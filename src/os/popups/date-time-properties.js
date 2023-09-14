@@ -26,7 +26,7 @@ export function openDateTimeProperties() {
     function tick() {
         const time = new Date();
 
-        hour.style.transform = `rotate(${(time.getHours() % 12) * 6}deg)`;
+        hour.style.transform = `rotate(${(time.getHours() % 12 * 30) + Math.floor(time.getMinutes() / 12) * 6}deg)`;
         minute.style.transform = `rotate(${time.getMinutes() * 6}deg)`;
         second.style.transform = `rotate(${time.getSeconds() * 6}deg)`;
         timeInput.value = time.toLocaleTimeString();
