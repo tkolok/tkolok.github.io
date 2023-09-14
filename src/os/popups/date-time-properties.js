@@ -18,21 +18,26 @@ export function openDateTimeProperties() {
         className: 'date-time-properties',
         init: tick
     };
-    const {dateTimeSecond: second, timeInput} = query(content, {timeInput: '#dateTimeTime input'});
+    const {hour, minute, dateTimeSecond: second, timeInput} =
+        query(content, {hour: '#dateTimeHour div', minute: '#dateTimeMinute div', timeInput: '#dateTimeTime input'});
 
     return popup('Date/Time Properties', content, config);
 
     function tick() {
         const time = new Date();
 
+        hour.style.transform = `rotate(${(time.getHours() % 12) * 6}deg)`;
+        minute.style.transform = `rotate(${time.getMinutes() * 6}deg)`;
         second.style.transform = `rotate(${time.getSeconds() * 6}deg)`;
         timeInput.value = time.toLocaleTimeString();
     }
 }
 
 function buildContent() {
+    const options = [...new Array(12)].map((v, index) => ({value: capitalize(monthFormatter.format(new Date(`2000-${index + 1}-1`)))}));
     const month = new Dropdown({
-        options: [...new Array(12)].map((v, index) => ({value: capitalize(monthFormatter.format(new Date(`2000-${index + 1}-1`)))}))
+        active: options[new Date().getMonth()].value,
+        options
     });
     month.disabled = true;
 
@@ -58,8 +63,12 @@ function buildContent() {
             <fieldset id="dateTimeTime">
                 <legend>Time</legend>
                 <div id="dateTimeClock">
-                    <div id="dateTimeHour"></div>
-                    <div id="dateTimeMinute"></div>
+                    <div id="dateTimeHour">
+                        <div></div>
+                    </div>
+                    <div id="dateTimeMinute">
+                        <div></div>
+                    </div>
                     <div id="dateTimeSecond"></div>
                 </div>
                 <input disabled>

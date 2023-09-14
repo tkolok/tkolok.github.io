@@ -61,6 +61,36 @@
         width: 128px;
     }
 
+    &Hour {
+        filter: drop-shadow(2px 2px #808080);
+        left: 58px;
+        position: absolute;
+        top: 26px;
+
+        div {
+            background: #008080;
+            clip-path: path('M5 0L0 38L5 45L10 38');
+            height: 45px;
+            transform-origin: center 38px;
+            width: 10px;
+        }
+    }
+
+    &Minute {
+        filter: drop-shadow(2px 2px #808080);
+        left: 59px;
+        position: absolute;
+        top: 16px;
+
+        div {
+            background: #008080;
+            clip-path: path('M4 0L0 47L5 58L8 47');
+            height: 58px;
+            transform-origin: center 47px;
+            width: 8px;
+        }
+    }
+
     &Second {
         background: #808080;
         height: 50px;
