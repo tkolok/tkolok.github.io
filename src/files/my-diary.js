@@ -3,6 +3,24 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2023. 09. 23.',
+                    text: `
+                        A múltkor pár egyáltalán nem elhanyagolható dolgot kifelejtettem a bejegyzésemből. Zsolti eljegyezte Rékát, Patrik eljegyezte Vivient.
+                        Ráadásul Mercike most már oviba jár.`
+                },
+                {
+                    date: '2023. 09. 21.',
+                    text: `
+                        Az elmúlt egy hónapban volt Felsőnyárádon Angyalka házát kitakarítani. Kimerítő volt, de legalább szép emlékekkel távoztam onnan.
+                        Remélem mihamarabb partizni megyünk oda, és nem takarítani. Az azt követő hetekben pedig Bíróéknak segítettem kerítést építeni. Az sem
+                        volt egy leányálom, de sokkal tűrhetőbb volt (gondolom az időjárás miatt). Az elmúlt pár hétben kiborítottam a legos zsákot, és próbálom
+                        összerakni a régi készleteket. Sajnos nagyon sok elem hiányzik, de így legalább kreatívkodhatok. Nemrég pedig Kingáék rendhagyó
+                        esküvőjén voltam. Az esküvőt megelőző héten hozta el Kinga a meghívót, és mellé készített nekem egy adag töltött káposztát, mert a
+                        lagzin az nem volt. Hétfőn voltam a Láthatatlan Iskolában, mert szeretnék ott tanárkodni. Szombaton lesz a folytatás. Tegnap pedig
+                        végleg kiköltözött Cupákos. Még némi takarítás vár rám, de már nagyjából rendben van a szoba. És a legfontosabbat hagytam a végére.
+                        Szombaton végre személyesen is láthatom Lorát!`
+                },
+                {
                     date: '2023. 08. 16.',
                     text: `
                         Kicsit eseménydúsabb heteken vagyok túl. Augusztus 1-én megszületett Bíróéknak a kislánya. Ő is és anyuka is jól vannak, szóval pár
