@@ -105,24 +105,6 @@ function build(lang) {
                     <h2>${translation.contacts}</h2>
                     <ul>
                         <li>
-                            <div class="contact flex flex-row flex-start">
-                                <i class="fa fa-home"></i>
-                                <span>4028, Debrecen Gáborjáni Szabó Kálmán utca 5. 13. ajtó</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="contact flex flex-row flex-start">
-                                <i class="fa fa-phone"></i>
-                                <a href="tel:+36706205150">+(36) 70/620-5150</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="contact flex flex-row flex-start">
-                                <i class="fa fa-envelope"></i>
-                                <a href="mailto:hadastk@gmail.com">hadastk@gmail.com</a>
-                            </div>
-                        </li>
-                        <li>
                             <div class="contact text-center">
                                 <a href="https://tkolok.github.io/">
                                     <i class="fa fa-link"></i>
