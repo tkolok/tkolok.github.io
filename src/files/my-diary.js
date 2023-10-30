@@ -3,6 +3,17 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2023. 10. 30.',
+                    text: `
+                        Most direkt húztam az időt, hogy egy nagy bejegyzésben írhassak mindenről, de már most tudom, hogy hamarosan egy új bejegyzésre is
+                        számíthatsz. A legfontosabb, hogy megszületett Tamiék, Bariék és Viktorék gyereke is. Bariék kislánya koraszülöttként jött világra, de
+                        szerencsére egészséges, csak híznia kell még. Egyébként a legjobb tudomásom szerint mind a három lány és anyuka jól van. Nemrég új
+                        virágokat ültettem pár letört növényszárból. És eljutottam Dittáékhoz egy halloweeni házibuliba, ahol befizetetlen csekként jelentem
+                        meg, mert az igazán ijesztő. Végül pedig ma volt az első tanításom a Láthatatlan Iskolán keresztül. Amilyen balfasz vagyok, elhoztam 2
+                        kulcsot is, szóval holnap reggel viszem vissza. Ha minden igaz, akkor jövő héten kezdik a fürdőszoba felújítást. Meg most már van munka,
+                        aminek a szerződéseit szintén jövő héten kell aláírnom.`
+                },
+                {
                     date: '2023. 09. 23.',
                     text: `
                         A múltkor pár egyáltalán nem elhanyagolható dolgot kifelejtettem a bejegyzésemből. Zsolti eljegyezte Rékát, Patrik eljegyezte Vivient.
