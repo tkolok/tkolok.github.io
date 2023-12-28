@@ -3,6 +3,34 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2023. 12. 28.',
+                    text: `
+                        Az elmúlt időszakban rengeteg dolog történt. A legfontosabb, hogy megszületett keresztfiam, Vilmos. Hosszú vajúdás volt, de szerencsére
+                        mindenki jól van, már otthon ünnepelték a Karácsonyt. Azt kell, hogy mondjam, hogy bolondos embereket ismerek, mert Suna egyik nap
+                        leszedte a Grafikában a zárat, hogy ne tudjanak bezárni. Egyik hétvégén leugrottam Jancsicskóékhoz Zsombóra, és átmentünk Szegedre
+                        megkóstolni a Mátyás keserűt és a csótányos burgert. Aztán a következő héten voltam rocksulis eseményen, ahol Tsipáné és Babó léptek
+                        fel. Onnan azonnal indultam továbbra Pestre, ahol Nagyszeműéknél szálltam meg. Pénteken volt egy céges buli valami retro játékokkal
+                        tömött helyen, ahol kifejezetten jól éreztem magam. Majd szombaton találkoztam Kiszel Tündével, akivel 7 naptárt is dedikáltattam.
+                        Kicsit söröztünk, majd taxival elvitt a Nyugatihoz, így már 2:00 körül itthon voltam. Az ünnepeket természetesen otthon töltöttem és azt
+                        kell mondjam, hogy Merci most már nagy lány. Nem mindig azt csinálja, amit akar, hanem azt is meghallgatja, hogyha kérünk tőle valamit.
+                        Az egyik este szóba jött, hogy meginnánk egy pálinkát, és ő kiszaladt a konyhába és behozott egy üveggel.`
+                },
+                {
+                    date: '2023. 12. 05.',
+                    text: `
+                        Kezdjük a legfontosabbal. Bariék kislányát hazaengedték. Szerencsére nincs semmi baja a kicsinek. Ezenkívül tegnap Viktorék kislányát is
+                        láttam, aki szinte ki se nyitotta a szemét, amíg ott voltam. A legutóbbi írásom óta végre velem is történtek dolgok. Voltam Anna
+                        válóbuliján, akinek a legelső dolga az volt, hogy vett magának egy válógyűrűt. Ezenkívül elkezdtem az új munkát, ahol eddig mindenki
+                        szimpatikus. Még az is lehet, hogy Viktor is átjön oda. Azalatt a pár nap alatt, amíg Pesten voltam Zsófinál laktam, akivel megállás
+                        nélkül Survivort néztünk. Közben itthon is elkezdődött a fürdőszoba felújítás. 2 hétig Babónál laktam, akinek hetente egy pengetővel
+                        fizettem. A 2 hét után még nem teljesen ért véget nálam a felújítás, de már lakható volt a ház, szóval visszaköltöztem. Némi takarítani
+                        való még mindig van, de amúgy már rendben. Marikáéknál megnéztünk egy Bollywoodi filmet, ami élvezhetőbb volt, mint gondoltam. Majd egy
+                        hétre rá megint náluk láthattam élete első pelenkatortáját egy babaváró buli keretein belül. Zsoltiék meg elköltöztek Dunaszerdahelyre,
+                        és ezt úgy ünnepeltük meg, hogy az egyik pénteken az Ibolyából dolgoztunk. A Bíróval összekötött szülinapjukat meg egy röpke 20 órás
+                        bulival ünnepeltük meg. Ráadásul Jancsicskóék is év végéig itt lesznek Magyarországon, szóval a hétvégén az a terv, hogy meglátogatom
+                        őket. Ezt meg már csak mellékesen jegyzem meg, hogy kimostam a mosógépben egy pár papucsomat és az egyik fele eltűnt.`
+                },
+                {
                     date: '2023. 10. 30.',
                     text: `
                         Most direkt húztam az időt, hogy egy nagy bejegyzésben írhassak mindenről, de már most tudom, hogy hamarosan egy új bejegyzésre is
