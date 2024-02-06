@@ -3,6 +3,18 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2024. 02. 06.',
+                    text: `
+                        Sok nagy változásról nem fogok tudni beszámolni, de azért történtek kisebb-nagyobb dolgok. Szilveszter előtt nagyon megtoltuk az egyik
+                        estét, aminek az lett az eredménye, hogy 15:00 körül keltünk a Susiban Lacussal. Valamikor ezt is ki kellett próbálnom. A szilveszter
+                        nyugis, koccintgatós este volt. Bár mindenki felhördült, amikor az újévi köszöntőben Novák Katalin 2 perc után Brüsszelről kezdett el
+                        beszélni. Végre volt alkalmam Tamiék kislányát látni, de sajnos nem sok időnk volt. Mercinek is megünnepeltük a 4. születésnapját, és
+                        nagyon örült a játék laptopjának és a táncszőnyegnek. Ezen kívül nem tudom mennyi idő után elkészült tesóm honlapja (
+                        https://hadasutepker.hu/ ). Az utolsó két hétvégém pedig a Heavy Brainsről szólt. 1 hete a Susiban hallgattuk meg az új számaikat, a
+                        hétvégén pedig Pesten, az Akváriumban... bár az Akváriumban elég hamar kidőltem. Múlt héten együtt utaztunk fel Pestre Viktorral, mert
+                        ott kezdett dolgozni, ahol most vagyok. Parkolás közben sikerült meghúznia a kocsit.`
+                },
+                {
                     date: '2023. 12. 28.',
                     text: `
                         Az elmúlt időszakban rengeteg dolog történt. A legfontosabb, hogy megszületett keresztfiam, Vilmos. Hosszú vajúdás volt, de szerencsére
