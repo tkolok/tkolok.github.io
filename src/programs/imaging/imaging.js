@@ -4,7 +4,7 @@ export default class extends Window {
     constructor(data) {
         super();
 
-        this.initContent`<img alt="" src="/assets/images/${data.src}">`;
+        this.initContent`<img alt="" src="${data.src}">`;
         this.maximize();
     }
 

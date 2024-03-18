@@ -58,7 +58,7 @@ const folders = folder(
                 'imaging',
                 {
                     data: {
-                        src: 'cv.jpg'
+                        src: 'https://lh3.googleusercontent.com/pw/AP1GczNVDZusaZ5XL5lTZq4Yy0uUIlhe6i1iKZ0q-JSUrVVI5OViDOR65rUMdDmO2NIKUK7dMbXRV3_sV5Rn04OYRxXSrNCTYz8zkJ0EnciLUoIrTnsnR3gmFRxj9xdpQ_pbeWpRLqfg3RPhCB3McGYmLsHn=w1215-h911-s-no-gm'
                     },
                     name: 'New York selfie'
                 }
