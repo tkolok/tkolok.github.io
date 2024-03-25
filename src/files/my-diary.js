@@ -3,6 +3,22 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2024. 03. 25.',
+                    text: `
+                        Elég sok mindent történt az elmúlt hetekben, szóval lesz mit mesélnem. Kezdjük a legfontosabbal, tegnap, virágvasárnapon, ismét
+                        keresztapa lettem. Bíborkát kérték fel, hogy keresztelje meg Vilmoskát, és ami szerintem egy nagyon szép gesztus volt tőle, hogy ő a
+                        Jordán folyóból hozott vízzel tette ezt meg. A kicsi végig nagyon jól tűrte az ünnepséget. Ezen kívül voltunk 4 napig Lengyelországban
+                        síelni, és ismét rá kellett jönnöm, hogy a síelés nem a kedvenc sportom. Megkaptam életem első csillagát az egyik github repomra, még
+                        hozzá az oktatásosra. Azóta kicsit jobban nekifeküdtem annak a projektnek. Kingával átraktunk az oktatást a Malterbe, de eddig még csak
+                        egy alkalom volt, mert mindig volt valami. Az első intuiteches town hall megbeszélésen is túl vagyok, ahol egy emberrel ismerkedtem
+                        össze, akiről kiderült, hogy Debrecenben él, de amúgy naményi. Sajnos Rajmiék elköltöztek a Szivárvány CSÁO-ból, így őt már nem tudom
+                        tovább tanítani. Egyelőre még nem találtak senkit, akivel foglalkozhatnék, de reméljük mihamarabb eljön annak is az ideje. A jubileumi
+                        10. sörest is megrendezésre került, ahol Carlosszal úgy meggyötört minket a chili, hogy haza is kellett mennünk. Végre megvettem az
+                        airfryert, amivel a próbaidőm lejártát ünnepeltem meg. Eddig meg vagyok elégedve vele. Az egyik Susi kvízben az én nevem is a megoldások
+                        között volt. Szombaton ünnepeltük meg anyu szülinapját, és egy pár napos wellness hétvégét kaptak tőlünk. Zárásképpen pedig Mercivel
+                        sütöttünk nagyon finom palacsintát.`
+                },
+                {
                     date: '2024. 02. 06.',
                     text: `
                         Sok nagy változásról nem fogok tudni beszámolni, de azért történtek kisebb-nagyobb dolgok. Szilveszter előtt nagyon megtoltuk az egyik
