@@ -3,6 +3,21 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2024. 05. 01.',
+                    text: `
+                        Amióta nem írtam, azóta voltam egy több, mint 100000 fős tüntetésen Pesten. Pár nem várt, de nekem kifejezetten tetsző gondolatot is
+                        megemlítettek. Aztán másnap Mikiékkel bejártuk a Piac utca egy részét, és felmértük az üzletek kihasználtságát. Már várom, hogy mi lesz
+                        az eredménye. Végre lecserélték a vízórát is, már csak a számlát kell valamikor kifizetni. Anyuéknak szerveztünk Miskolctapolcára egy
+                        kisebb üdülést. Azt mondták, hogy nagyon jól érezték magukat, és már rájuk is fért egy kis pihi. Azóta elkészítettem 2 Tiktok videómat
+                        is, de majd csak akkor publikálom őket, ha már legalább 5 lesz. A hétvégén Szegeden megünnepeltük Tsipa 35. szülinapját. Először a
+                        Malátában egy kulturáltabb vacsora, koccintás, majd onnan kocsma keresés, meg közben egy nagy wimpi felfalása. Végül a Takában
+                        telepedtünk le, ahol kipörgettünk egy undorító rózsaszín tollat. Másnap pedig Babó testépítő versenyét néztük meg, ami sokkal
+                        izgalmasabb volt, mint hittem. A fiú sikeresen elhozott egy 3. és 6. helyezést. Tegnap vettem át az új útlevelemet, aminek a
+                        készítésénél épp meghalt az országos rendszer. Úgyhogy hamarosan Angliába látogatok. Ráadásul tegnap este szóltak, hogy Krisztián utolsó
+                        bulija van, mielőtt kiutazna Japánba, szóval oda már csak rohanva tudtam megérkezni. Jóltelt az este, és a tombolán 2-szer is nyertünk,
+                        összesen 15000 Ft értékű piakupont.`
+                },
+                {
                     date: '2024. 03. 25.',
                     text: `
                         Elég sok mindent történt az elmúlt hetekben, szóval lesz mit mesélnem. Kezdjük a legfontosabbal, tegnap, virágvasárnapon, ismét
