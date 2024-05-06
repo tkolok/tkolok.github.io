@@ -62,6 +62,15 @@ const folders = folder(
                     },
                     name: 'New York selfie'
                 }
+            ),
+            file(
+                'imaging',
+                {
+                    data: {
+                        src: 'https://lh3.googleusercontent.com/pw/AP1GczMR4LVa90NSr232l3TkORRWNw_1sEwwKtrqK8oZhjVjAorixDKAmxJRiEsiudztHiHdNEMGQeUVbKYtrNRYEhi0qZX--uqk2_Ns2CIHy0lEtv5r9AtqXnkp-3ihRHd8FQWdzKu0Nn4WtKRzDJUu1l6h=w1222-h629-s-no-gm'
+                    },
+                    name: 'Demonstration'
+                }
             )
         ),
         folder(
