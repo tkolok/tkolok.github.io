@@ -3,6 +3,20 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2024. 06. 11.',
+                    text: `
+                        Amióta nem írtam velem olyan sok minden nem is történt, sokkal inkább politikai front volt. Voltunk egy partizános műsoron, ahol a
+                        tömegben kiszúrtunk egy sunyi fidelitasos csávót. Másnap egy Tisza pártos tüntetésen voltunk. Azon a Telex engem arcba kamerázott
+                        (<a href="https://youtu.be/KXa5VDHLmEk?t=275">link</a>). Nem sokkal később meglátogattuk Jancsicskóékat. Első nap Londonban megnéztük a
+                        Science és a Natural History múzeumokat, majd egy röpke egyórás várakozás után hajókáztunk 15 percet. Másnap Brightonban néztünk szét,
+                        és ettem churrost a mólón, ami egy tök átlagos péksüti. De a legjobb az volt, amikor megleptek egy szülinapi tortával. Utolsó napon meg
+                        útitársam úgy megvágta magát kígyógyümölcs bontása közben, hogy kórházba is kellett menni. Szerencsére nem lett komolyabb baja, és még a
+                        repülőt is elértük. Sőt, közben megismerkedtünk egy kolumbiai gyerekkel is. Aztán az utcában voltam MKKP-s négyszín festésen. Majd volt
+                        egy nagy M1-es "vita", amit sikerült a Grafikában megnézni. Másnap indultunk Szlovákiába, ahol grillezést terveztünk, de az idő sajnos
+                        nem kedvezett számunkra. Így végül csak iszogattunk és kicsit strandoltunk a Dragon Ballos fürdőgatyákban, ahol Sunci egy elképesztően
+                        fokhagymás lángost kapott. Pár napja pedig a Malterban vártuk az EP választás eredményét.`
+                },
+                {
                     date: '2024. 05. 01.',
                     text: `
                         Amióta nem írtam, azóta voltam egy több, mint 100000 fős tüntetésen Pesten. Pár nem várt, de nekem kifejezetten tetsző gondolatot is
@@ -40,10 +54,10 @@ export default (() =>
                         estét, aminek az lett az eredménye, hogy 15:00 körül keltünk a Susiban Lacussal. Valamikor ezt is ki kellett próbálnom. A szilveszter
                         nyugis, koccintgatós este volt. Bár mindenki felhördült, amikor az újévi köszöntőben Novák Katalin 2 perc után Brüsszelről kezdett el
                         beszélni. Végre volt alkalmam Tamiék kislányát látni, de sajnos nem sok időnk volt. Mercinek is megünnepeltük a 4. születésnapját, és
-                        nagyon örült a játék laptopjának és a táncszőnyegnek. Ezen kívül nem tudom mennyi idő után elkészült tesóm honlapja (
-                        https://hadasutepker.hu/ ). Az utolsó két hétvégém pedig a Heavy Brainsről szólt. 1 hete a Susiban hallgattuk meg az új számaikat, a
-                        hétvégén pedig Pesten, az Akváriumban... bár az Akváriumban elég hamar kidőltem. Múlt héten együtt utaztunk fel Pestre Viktorral, mert
-                        ott kezdett dolgozni, ahol most vagyok. Parkolás közben sikerült meghúznia a kocsit.`
+                        nagyon örült a játék laptopjának és a táncszőnyegnek. Ezen kívül nem tudom mennyi idő után elkészült tesóm honlapja
+                        (<a href="https://hadasutepker.hu/">link</a>). Az utolsó két hétvégém pedig a Heavy Brainsről szólt. 1 hete a Susiban hallgattuk meg az
+                        új számaikat, a hétvégén pedig Pesten, az Akváriumban... bár az Akváriumban elég hamar kidőltem. Múlt héten együtt utaztunk fel Pestre
+                        Viktorral, mert ott kezdett dolgozni, ahol most vagyok. Parkolás közben sikerült meghúznia a kocsit.`
                 },
                 {
                     date: '2023. 12. 28.',
@@ -197,10 +211,10 @@ export default (() =>
                         Svájcba. Nagyon meghatódott a fiú. Aznap este megkóstoltuk a surströmming nevű halat, ami iszonyatosan büdös, ízre meg rohadt sós. A
                         plüss unikornist (Merlinát) végül Zoli kapta meg. Majd másnap utaztam haza, hogy megünnepelhessük Mercikének a 3. születésnapját. Végre
                         úgy tudtam vele fotózkodni, hogy nem mászott el sehova. Vasárnap Antiával együtt utaztam Debrecenig, és egy kellemes 70 perces késéssel
-                        érkezett a vonat Nyíregyre. Tegnap elmentem életem első közmeghallgatására, és ha ez mindig ilyen, akkor sokat fogok járni (kis ízelítő:
-                        https://www.youtube.com/watch?v=SriXKUWpTZ0 ). A debreceni akkumulátor gyárról beszéltek, de már úgy is el van döntve az egész, szóval
-                        nagy haszna nem volt. Azért remélem, hogy legalább pár dolgot valóra fognak váltani a javaslatok közül. Pénteken pedig megtartjuk Miki
-                        2. búcsúbuliját.`
+                        érkezett a vonat Nyíregyre. Tegnap elmentem életem első közmeghallgatására, és ha ez mindig ilyen, akkor sokat fogok járni
+                        (<a href="https://www.youtube.com/watch?v=SriXKUWpTZ0">kis ízelítő</a>). A debreceni akkumulátor gyárról beszéltek, de már úgy is el van
+                        döntve az egész, szóval nagy haszna nem volt. Azért remélem, hogy legalább pár dolgot valóra fognak váltani a javaslatok közül. Pénteken
+                        pedig megtartjuk Miki 2. búcsúbuliját.`
                 },
                 {
                     date: '2022. 12. 04.',
