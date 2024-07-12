@@ -3,6 +3,15 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2024. 07. 12.',
+                    text: `
+                        Velem sok izgalmas dolog nem történt az elmúlt egy hónapban, viszont történt pár annál fontosabb dolog. Először is megszületett Zolikáék
+                        kisfia, és Jancsicskóék is bejelentették, hogy úton az újabb picur. A napokban pedig megkaptam az esküvői meghívót Vivitől. Most már
+                        jöhetnek a kisebb volumenű dolgok. Végre elkezdtem a Malter progot, összesen 4 ember számára. Majd megünnepeltük Krisztián hazatérését
+                        egy tartalmas élménybeszámoló keretein belül. Végül pedig olyan másfél év után visszavittem a könyvtárba a Meme által rám bízott
+                        könyveket. És ennyi is volt a mostani napló bejegyzésem.`
+                },
+                {
                     date: '2024. 06. 11.',
                     text: `
                         Amióta nem írtam velem olyan sok minden nem is történt, sokkal inkább politikai front volt. Voltunk egy partizános műsoron, ahol a
