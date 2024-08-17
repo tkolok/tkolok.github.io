@@ -3,6 +3,17 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2024. 08. 17.',
+                    text: `
+                        Az előző bejegyzést követően nem sokkal indultam egy társasjáték táborba. Odafele úton az egyik megállónál átültették hozzánk egy másik
+                        vonat utasait, mert az túlmelegedett. Erre Krisztiánék szálltak fel, akik az Efottra mentek, szóval a magányos utazásból tátrateázás
+                        lett. Talán ez is rájátszott, hogy leestem a metróban a mozgólépcsőn. Maga a tábor jó volt, bár az az egy hét nekem kicsit sok volt.
+                        Kipróbáltam egy olyan játékot, ami még csak tervezés alatt van, 2-szer felültem az ivós buszra, végül tombolán nyertem egy Jungle
+                        Speedet. Több, mint egy év után végre letudtam a vízórával kapcsolatban mindent. A hétvégén ünnepeltük meg Anita 50. szülinapját
+                        Tatabányától nem messze. És nemrégiben végre elindítottam a <a href="https://www.tiktok.com/@milyenemberaz">tiktok</a> és
+                        <a href="https://www.youtube.com/@milyenemberaz">youtube</a> csatornámat.`
+                },
+                {
                     date: '2024. 07. 12.',
                     text: `
                         Velem sok izgalmas dolog nem történt az elmúlt egy hónapban, viszont történt pár annál fontosabb dolog. Először is megszületett Zolikáék
