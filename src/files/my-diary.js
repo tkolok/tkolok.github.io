@@ -230,7 +230,7 @@ export default (() =>
                         befizetni a számlákat, szóval kíváncsi leszek, hogy utána mennyi marad. Zolinak szerveztünk egy búcsúbulit, mert január végén megy
                         Svájcba. Nagyon meghatódott a fiú. Aznap este megkóstoltuk a surströmming nevű halat, ami iszonyatosan büdös, ízre meg rohadt sós. A
                         plüss unikornist (Merlinát) végül Zoli kapta meg. Majd másnap utaztam haza, hogy megünnepelhessük Mercikének a 3. születésnapját. Végre
-                        úgy tudtam vele fotózkodni, hogy nem mászott el sehova. Vasárnap Antiával együtt utaztam Debrecenig, és egy kellemes 70 perces késéssel
+                        úgy tudtam vele fotózkodni, hogy nem mászott el sehova. Vasárnap Anitával együtt utaztam Debrecenig, és egy kellemes 70 perces késéssel
                         érkezett a vonat Nyíregyre. Tegnap elmentem életem első közmeghallgatására, és ha ez mindig ilyen, akkor sokat fogok járni
                         (<a href="https://www.youtube.com/watch?v=SriXKUWpTZ0">kis ízelítő</a>). A debreceni akkumulátor gyárról beszéltek, de már úgy is el van
                         döntve az egész, szóval nagy haszna nem volt. Azért remélem, hogy legalább pár dolgot valóra fognak váltani a javaslatok közül. Pénteken
