@@ -5,13 +5,15 @@ export default (() =>
                 {
                     date: '2024. 09. 16.',
                     text: `
-                        Oké, hogy szoktam kaszinóba járni, de akkor is meglepett, hogy Dénes szólt, hogy legyek már ott, amikor Lise szülinapján elveszti
-                        kaszinószüzességét. Sajnos a pókert nem tudtuk kipróbálni, de szerintem így is játszottunk vagy 2 órát. Ezentúl véget értek az idei
-                        Hadas-napok. Én már kedden elkezdtem, amikor megünnepeltük, hogy Réka doktornéni lett. Hogy mi volt idén? +5000 Ft-os kaszinókiszálló.
-                        3 szülinapot egyszerre megtartó péntek. Kocsmatúrázás, ahol Ervin lolás kulcstartót nyert, Réka baráti kézfogást, Babó meg elvitte a
-                        fődíjnak szánt töltött káposztás fuxot. Végül bográcsolás, ami kissé már családinappá vált, mert hozták a babákat is, és ahol Sunci
-                        főzött, mégis 2-szer elaludt a földön. És mint megtudtam Tsipa 2016 óta először dobta ki a taccsot. Viszont ezen a hétvégén újra láttam
-                        Vilmoskát, és egy kicsit rendszeresíteni is szeretném, hogy gyakrabban látogassam meg őket.`
+                        Kezdjük egy kis rossz hírrel: elbúcsúztattuk Szabit... kétszer is. Egyszer céges buli keretein belül, egyszer robbanó cicásan. Most egy
+                        jó darabig Dániában fognak élni, bár ő ennek annyira nem örül. Az meg oké, hogy szoktam kaszinóba járni, de akkor is meglepett, hogy
+                        Dénes szólt, hogy legyek már ott, amikor Lise szülinapján elveszti kaszinószüzességét. Sajnos a pókert nem tudtuk kipróbálni, de
+                        szerintem így is játszottunk vagy 2 órát. Ezentúl véget értek az idei Hadas-napok. Én már kedden elkezdtem, amikor megünnepeltük, hogy
+                        Réka doktornéni lett. Hogy mi volt idén? +5000 Ft-os kaszinókiszálló. 3 szülinapot egyszerre megtartó péntek. Kocsmatúrázás, ahol Ervin
+                        lolás kulcstartót nyert, Réka baráti kézfogást, Babó meg elvitte a fődíjnak szánt töltött káposztás fuxot. Végül bográcsolás, ami kissé
+                        már családinappá vált, mert hozták a babákat is, és ahol Sunci főzött, mégis 2-szer elaludt a földön. És mint megtudtam Tsipa 2016 óta
+                        először dobta ki a taccsot. Viszont ezen a hétvégén újra láttam Vilmoskát, és egy kicsit rendszeresíteni is szeretném, hogy gyakrabban
+                        látogassam meg őket.`
                 },
                 {
                     date: '2024. 08. 17.',
