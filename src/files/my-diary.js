@@ -3,6 +3,19 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2024. 11. 24.',
+                    text: `
+                        Ne haragudj, hogy így eltűntem, és még írni se fogok sokat. Igaz volt pár izgalmas dolog, de nem olyan sok. Megtartottuk Máté
+                        búcsúbuliját, ahol egy autót szétvertünk. Annyira beleéltem magam, hogy a nadrágom is elszakadt. Azóta rendszeresek lettek a
+                        felmondások, úgyhogy mindig van ok Pestre utazni. Mivel az orvosi eredményeim jók lettek (egy kis B-vitamin hiányom van), ezért már én
+                        is új munka felé kacsintgatok, bár kétlem, hogy idén találnék másikat. Megünnepeltük Réka diplomaosztóját is, ahol az öccse Rékája (de
+                        jó lenne, ha nem ugyanaz lenne a nevük) bejelentette, hogy úton az első baba. Viviék esküvője meg igazából egy nagy buli volt, mintsem
+                        egy szokványos esküvő. Szabi dániai távolléte miatt egy plüss Szabival érkeztünk az eseményre. Jancsicskóék hazaköltöztek, és hamarosan
+                        jöhet a tejfakasztó. Végre megint van diákom a Láthatatlan Iskolában. A Malterban voltam tombolasorsoláson, ahol 5 tombolából 4-gyel
+                        nyertem. Nemrégiben egy hosszú pesti hétvégét éltem túl, amiben volt búcsúbuli, szabadulószoba, Grafika, Kis Sarok. És végül pedig 4
+                        napomba telt, de (remélem) sikeresen átültettem az egyik virágot, és megtakarítottam a többit.`
+                },
+                {
                     date: '2024. 09. 16.',
                     text: `
                         Kezdjük egy kis rossz hírrel: elbúcsúztattuk Szabit... kétszer is. Egyszer céges buli keretein belül, egyszer robbanó cicásan. Most egy
