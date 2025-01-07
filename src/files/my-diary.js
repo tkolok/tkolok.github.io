@@ -3,6 +3,20 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2025. 01. 07.',
+                    text: `
+                        Megint elhanyagoltalak egy kicsit. Kezdjük a három legfontosabb dologgal. Jancsicskóék egy kislánnyal bővültek. Szerencsére mindenki jól
+                        van, pár nap után haza is kerültek a lányok a kórházból. Természetesen a tejfakasztó sem maradhatott el, aminek köszönhetően elkészült
+                        ez a <a href="https://www.youtube.com/shorts/hhcfZcozXWM">videóm</a>. Ezen kívül Viviéknél is úton a baba. Összeültünk társasozni (igaz,
+                        semmivel sem játszottunk), és Vivi szólt, hogy játszunk egyet a Robbanó Cicákkal. Erre a dobozban volt a kicsi röntgenképe. Ráadásul
+                        Vilmoskának is megtartottuk az első szülinapját, ami inkább csak egy beszélgetős találka volt. A sok babahír után jöhetnek a sima
+                        hétköznapi örömök. B2-től kaptam indokolatlanul egy virágot, de ahogy látom, sajnos nem fogja sokáig húzni. A Szóda bárnak lett egy
+                        saját söre, ami nekem kifejezetten ízlik is. Megtartottuk a 15 éves osztálytalálkozónkat, aminek a vége az lett, hogy ott is aludtam
+                        Sóstón a szállodában, mert lekéstem az utolsó vonatom. Réka eltörte Babó Hadas-napokos poharát, szóval most csináltatnom kell 2-t: az
+                        egyiket Babónak, a másikat Rékának, hogy azt nyugodtan el tudja törni. És végre teljesítettem az új évi fogadalmam, így tavaly egyszer
+                        sem hánytam piától Magyarországon (sem).`
+                },
+                {
                     date: '2024. 11. 24.',
                     text: `
                         Ne haragudj, hogy így eltűntem, és még írni se fogok sokat. Igaz volt pár izgalmas dolog, de nem olyan sok. Megtartottuk Máté
