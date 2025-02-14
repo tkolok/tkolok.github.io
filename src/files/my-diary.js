@@ -3,6 +3,20 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2025. 02. 14.',
+                    text: `
+                        Egy nagyon fontos dolog történt az elmúlt pár hétben. Mercike 5 éves lett. Nagyon aranyosan számon kért, hogy miért nem vittem neki
+                        ajándékot, de szerencsére meg tudtuk beszélni, hogy papáékkal közösen vettük neki a babát. Ezen kívül volt egy interjúm. Ez eddig
+                        teljesen átlagos, de később utánajártunk a munkahelynek, és valószínűleg azt képviselik, amit én egyáltalán nem szeretnék, ezért
+                        visszautasítottam. Másnap jött egy meglepő, de jóleső hívás, hogy milyen jó, hogy ennyire kiállok az elveim mellett. Tsipával egy nap
+                        alatt megnéztük, hogy milyen hely a Blackwood és az új Mókaváros. Sikerült egy beszélgetést leszerveznem az AKE-sokkal az önkéntes
+                        weboldallal kapcsolatban, és elképesztően jó ötleteik voltak, szóval ez nagyon sokat segített. Volt egy mézeskalács kekszem, amit még az
+                        egyetemről kaptam, fogalmam sincs, hogy miért. Tejjel nagyon finom volt. A Susiban felírtak engem a "társkereső poháralátétekre", amin
+                        az szerepel, hogy "Vicces vagyok az 5 éves keresztlányom szerint". Pár nappal később jött is egy SMS, hogy "Szia! A 12 éves
+                        keresztlányom szerint én is vicces vagyok". És végül végre láthattam a helyi akkugyárakat egy kellemes, de szerintem erőtlen tüntetés
+                        keretein belül.`
+                },
+                {
                     date: '2025. 01. 07.',
                     text: `
                         Megint elhanyagoltalak egy kicsit. Kezdjük a három legfontosabb dologgal. Jancsicskóék egy kislánnyal bővültek. Szerencsére mindenki jól
