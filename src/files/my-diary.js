@@ -3,6 +3,17 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2022. 04. 11.',
+                    text: `
+                        Az elmúlt közel 2 hónapban végre velem is történtek dolgok, nem csak reagáltam a történésekre. Először is Tsipával és Dórival
+                        meglátogattuk a Momo bárt, ahol van dupla kacsa. Aztán egy hétvége alatt voltam Food Not Bombson B2-vel, és az MKKP-sokkal ételt is
+                        osztottunk. Aztán volt egy kiadós kiruccanás Pesten, ahol voltunk a Heavy Brains utolsó koncertjén (azóta amúgy már voltam egy újabb
+                        koncertjükön), meg könnyesre röhögtük magunkat a Kőleves étteremben. Március 15-én mentünk volna Pestre tüntetni B2-vel, de "pont"
+                        felsővezeték szakadás volt. Most már hivatalosan is kijelenhetem, hogy Tisza sziget tag vagyok, mert voltam egy gyűlésükön és már
+                        pultozni is voltam. És a legfontosabb maradt a végére. Megünnepltük anyu szülinapját egy kézilabda meccs megnézésével, egy kiadós
+                        vacsorával és egy rövid látogatással a Szódában.`
+                },
+                {
                     date: '2025. 02. 14.',
                     text: `
                         Egy nagyon fontos dolog történt az elmúlt pár hétben. Mercike 5 éves lett. Nagyon aranyosan számon kért, hogy miért nem vittem neki
