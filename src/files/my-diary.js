@@ -3,7 +3,21 @@ export default (() =>
             style(),
             ...[
                 {
-                    date: '2022. 04. 11.',
+                    date: '2025. 06. 03.',
+                    text: `
+                        Tudom, hogy kicsit elhanyagoltalak, de cserébe van is nagy csomó jó hírem. Kezdjük azzal, hogy Angiéknál megszületett az első kislány.
+                        És már hivatalosan bejelenthető az is, hogy Mercinek is lesz kistesója. Ezenkívül pedig összefutottam az egyik nap a Jánnyal, akinek épp
+                        aznap volt az esküvője, és már a baba náluk is úton van. Vilmoskát is meglátogattam nemrég, aki már egy igazi nagy legény, bár velem
+                        sokat nem akart játszani. Na, de ennyit a gyerkőcös hírekből. Megtartottuk az utolsó Sic!kvízt, amit nem is kicsit nyertünk meg. Amikor
+                        Húsvétkor utaztam haza, akkor beültem Nyíregyen a Tomi Pubban, ahol már kora délután szólt a cigány zene, és táncoltak az emberek. Egyik
+                        este pedig kizártam magam a lakásból. A kulcsot az egyik szomszéd rakta el, csak sajnos félórával azután adta vissza, miután már
+                        szétfúrták az ajtó zárját. A hétvégén pultoztam a Láthatatlan Iskola színeiben a Közös Város programban, ahol különböző civil
+                        szervezetek mutatták meg magukat. És végül pedig az
+                        <a href="https://www.tiktok.com/@milyenemberaz/video/7505847057882598678">állatbántalmazásról szóló TikTok videóm</a> elérte a 100
+                        kedvelést.`
+                },
+                {
+                    date: '2025. 04. 11.',
                     text: `
                         Az elmúlt közel 2 hónapban végre velem is történtek dolgok, nem csak reagáltam a történésekre. Először is Tsipával és Dórival
                         meglátogattuk a Momo bárt, ahol van dupla kacsa. Aztán egy hétvége alatt voltam Food Not Bombson B2-vel, és az MKKP-sokkal ételt is
