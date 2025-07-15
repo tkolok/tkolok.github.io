@@ -3,6 +3,16 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2025. 07. 15.',
+                    text: `
+                        Kicsit hamarabb szerettem volna írni, de pont a hónap eleje volt sűrű. Véget ért a tanév, így az utolsó tanításomon is túl vagyok a
+                        Láthatatlan Iskolán belül. Ezt egy fogadással ünnepeltem meg, hogy júniusban nem iszok alkoholt, és meg is nyertem azt. Igaz, én nem
+                        ittam a múlt hónapban, de cserébe az Erzsébet kert tulajdonosát megleptem egy üveg Unicummal. Volt egy nagyon emlékezetes vonatutam egy
+                        félzsiráfról és a pikk 4-esről. Megtartottuk a 10. Hadas-napokat a Szuszban, aminek keretein belül megkaptam Zsoltiéktől az esküvői
+                        meghívót. És a fontos fejlemény a végére: Attiláék elköltöztek. Szerintem nagyon jól berendezték a házat. És megvolt az első ottalvós
+                        bulink Mercivel, ami sajnos nem sikerült olyan jól.`
+                },
+                {
                     date: '2025. 06. 03.',
                     text: `
                         Tudom, hogy kicsit elhanyagoltalak, de cserébe van is nagy csomó jó hírem. Kezdjük azzal, hogy Angiéknál megszületett az első kislány.
