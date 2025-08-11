@@ -3,6 +3,14 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2025. 08. 11.',
+                    text: `
+                        Nem sok, de annál fontosabb dolgok történtek az elmúlt pár hétben. Először is megszületett Viviék kislánya. Szerencsére mindenki jól
+                        van, és ami még jobb, hogy Vivi küld is bőven képeket, videókat a kicsiről. Ezen kívül megkaptam Csabitól az esküvői meghívót, amiről
+                        valószínűleg a következő bejegyzésemben fogok írni. Végül pedig Babótól indokolatlanul kaptam egy hordozható hangszórót, amit meg is
+                        ünnepeltünk.`
+                },
+                {
                     date: '2025. 07. 15.',
                     text: `
                         Kicsit hamarabb szerettem volna írni, de pont a hónap eleje volt sűrű. Véget ért a tanév, így az utolsó tanításomon is túl vagyok a
