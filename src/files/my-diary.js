@@ -3,6 +3,15 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2025. 09. 12.',
+                    text: `
+                        Az elmúlt egy hónapban történt pár nagyobb esemény körülöttem. A legfontosabb, hogy megszületett Krisztiánék kisfia. Ha minden igaz,
+                        akkor holnap már mehetnek is haza. Ezenkívül megtartottuk Zsolti legénybúcsúját Siófokon, Pesten és Debrecenben. Sirokban
+                        összeházasodtak Csabiék, akinek a mostoha bátyjával másnap véletlenül találkoztunk. Majd Zsoltiék is összeházasodtak Bősön, ahol 3 nap
+                        alatt törzsvendégekké avanzsáltunk az egyik étteremben. Részemről pedig végre találtam új munkát, úgyhogy októberben kezdek a
+                        gyógyszeriparban.`
+                },
+                {
                     date: '2025. 08. 11.',
                     text: `
                         Nem sok, de annál fontosabb dolgok történtek az elmúlt pár hétben. Először is megszületett Viviék kislánya. Szerencsére mindenki jól
