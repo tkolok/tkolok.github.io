@@ -3,6 +3,16 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2025. 10. 21.',
+                    text: `
+                        Ezt a bejegyzésemet is baba hírekkel kezdem. Megszületett Attiláéknál megszületett az első kisfiú, Tamiéknál pedig a 2. kislány.
+                        Szerencsére mindenki jól van, és azóta már kis Atit személyesen is láthattam. Nagyon imádnivalóak, amikor Merci a karjaiban tartja.
+                        Ezenkívül ott lehettem Zsoltiék első házas veszekedésénél is. Nemrégiben pedig Déneséknek segítettem szétverni a lakást, hogy ezzel is
+                        spóroljanak a felújítás költségein. Nikivel kijutottunk a Red Bull Showrunra. A végére pár személyesebb dolog. Elkezdtem az új
+                        munkahelyemen dolgozni, és végre kiküldtem az e-mailt a szervezeteknek, hogy nézzék meg a honlapomat. Ezenkívül Niki személyében egy új
+                        lakótársam is lett egy kis időre.`
+                },
+                {
                     date: '2025. 09. 12.',
                     text: `
                         Az elmúlt egy hónapban történt pár nagyobb esemény körülöttem. A legfontosabb, hogy megszületett Krisztiánék kisfia. Ha minden igaz,
