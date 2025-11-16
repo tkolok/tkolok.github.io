@@ -63,16 +63,16 @@ ul {
 /* body */
 aside {
     background-color: #eee;
+    gap: 1rem;
     padding: 2.5rem 1rem;
+    position: relative;
     width: 35%;
-
-    > *:not(:last-child) {
-        margin-bottom: 1rem;
-    }
 }
 
 img {
+    align-self: center;
     border-radius: 9999px;
+    margin-bottom: 1rem;
     max-height: 245px;
     max-width: 245px;
 }
@@ -114,14 +114,8 @@ main {
     min-width: 1.5rem;
 }
 
-.fa {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 1em;
-}
-
-@each $value in ('envelope', 'github', 'home', 'link', 'linkedin-square', 'phone') {
-    .fa-#{$value} {
-        background-image: url('#{$assetPath}/#{$value}.svg');
-    }
+#pictureText {
+    left: 9px;
+    position: absolute;
+    top: 12px;
 }
