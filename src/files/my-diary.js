@@ -3,6 +3,15 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2025. 12. 28.',
+                    text: `
+                        Az év utolsó bejegyzésével jelentkezem a két ünnep között. Miután munkát váltottam, elkezdtem szakállt növeszteni. Merci meg is
+                        jegyezte, hogy meg sem ismert úgy. B2-vel meglátogattuk Jancsicskóékat, és a kislány is egy tünemény. Végre elkezdtem szétosztogatni a
+                        felesleges ruhadarabjaimat, és az első adag cipőt a Tisza kapta. Egy emléklappal köszönték meg, hogy 10. alkalommal voltam vért adni.
+                        Bíróék házavatójára elsőként érkeztem még úgy is, hogy teljesen rossz helyen szálltam le. Végül pedig megünnepeltük Vilmos 2.
+                        születésnapját.`
+                },
+                {
                     date: '2025. 10. 21.',
                     text: `
                         Ezt a bejegyzésemet is baba hírekkel kezdem. Megszületett Attiláéknál megszületett az első kisfiú, Tamiéknál pedig a 2. kislány.
