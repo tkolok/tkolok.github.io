@@ -3,6 +3,14 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2026. 02. 10.',
+                    text: `
+                        Mondhatnám, hogy évek óta nem írtam, mert idén 2 szilvesztert is megünnepeltünk. Zsoltiéknál megünnepeltük az eredetit, majd Babó
+                        kocsijában 2-szer is megünnepeltük a kocsija gyártási évét, mert az is épp akkor váltott. Nem sokkal később Merci 6. szülinapját
+                        ünnepltük, aki mostanság nagyon rákapott a Legokra. Egy nappal a baltás támadás után sikerült eljutnom az első kopogtatásomra. Az 5.
+                        Food Not Bombson is részt vettem, így már jogosult vagyok egy matricára.`
+                },
+                {
                     date: '2025. 12. 28.',
                     text: `
                         Az év utolsó bejegyzésével jelentkezem a két ünnep között. Miután munkát váltottam, elkezdtem szakállt növeszteni. Merci meg is
