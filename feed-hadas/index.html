@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Etesd meg Tomit!</title>
+    <style>
+        :root {
+            --object-size: 75px;
+            --throwing-speed: 1s;
+        }
+
+        body {
+            align-items: center;
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            justify-content: center;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        button {
+            background-color: #27ae60;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px 25px;
+
+            &:hover {
+                background-color: #2ecc71;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .object {
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            height: var(--object-size);
+            padding: 0;
+            position: fixed;
+            transition: transform .1s linear;
+            user-select: none;
+            width: var(--object-size);
+
+            &.throwing {
+                height: 5px;
+                left: 50% !important;
+                transition: height var(--throwing-speed) linear, left var(--throwing-speed) cubic-bezier(0.4, 0, 1, 1), top var(--throwing-speed) cubic-bezier(0.4, 0, 1, 1), width var(--throwing-speed) linear;
+                top: 50% !important;
+                width: 5px;
+            }
+        }
+
+        #lives {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 9999px;
+            display: flex;
+            font-size: 1.5rem;
+            gap: .1em;
+            height: 2rem;
+            justify-content: flex-end;
+            padding: 5px;
+            position: fixed;
+            right: 15px;
+            top: 15px;
+            width: 6.5rem;
+            z-index: 1;
+        }
+
+        #menu {
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            padding: 50px;
+            z-index: 1;
+        }
+
+        #score {
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 9999px;
+            color: black;
+            display: flex;
+            font-size: 1.5rem;
+            font-weight: bold;
+            height: 2rem;
+            justify-content: center;
+            left: 15px;
+            min-width: 2rem;
+            padding: 5px;
+            position: fixed;
+            top: 15px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="score"
+         class="hidden"></div>
+    <div id="lives"
+         class="hidden"></div>
+    <div id="menu">
+        <div class="hidden"
+             id="finalScore"></div>
+        <div id="highScore"></div>
+        <button id="startButton">Kezdődjön a játék!</button>
+    </div>
+    <script>
+        const ACCELERATION_INCREASE = .25;
+        const ACCELERATION_TIMEOUT = 5000;
+        const BAD_OBJECT_SOURCES = ['ant.svg', 'fly.svg', 'ladybug.svg', 'moth.svg', 'spider.svg'];
+        const GOOD_OBJECT_SOURCES = ['apple.svg', 'grape.svg', 'pear.svg', 'strawberry.svg', 'watermelon.svg'];
+        const HIGH_SCORE_KEY = 'loveHighScore';
+        const MAX_OBJECTS = 5;
+        const OBJECT_SIZE = +getCSSVariable('--object-size').match(/\d+/)[0];
+        const THROWING_SPEED = +getCSSVariable('--throwing-speed').match(/\d+/)[0] * 1000;
+
+        class FallingObject {
+            /** @type number */
+            #acceleration;
+            #created = performance.now();
+            #element = this.#buildElement();
+            /** @type boolean */
+            #isGood;
+            /** @type {function(FallingObject)} */
+            #onTouch;
+            /** @type number */
+            #x;
+            #y = -OBJECT_SIZE;
+
+            /**
+             * @param {Object} config
+             * @param {number} config.acceleration
+             * @param {boolean} config.isGood
+             * @param {function(FallingObject)} [config.onTouch]
+             */
+            constructor(config) {
+                this.#acceleration = config.acceleration / 1000;
+                this.#onTouch = config.onTouch;
+                this.isGood = config.isGood;
+                this.x = Math.floor(Math.random() * (window.innerWidth - OBJECT_SIZE));
+
+                document.body.appendChild(this.#element);
+                setTimeout(() => this.#element.classList.remove('hidden'));
+            }
+
+            touch() {
+                this.#onTouch?.(this);
+
+                if (this.isGood) {
+                    this.#element.classList.add('throwing');
+
+                    setTimeout(() => this.remove(), THROWING_SPEED);
+                } else {
+                    this.remove();
+                }
+            }
+
+            remove() {
+                this.#element.remove();
+            }
+
+            render(timestamp) {
+                if (timestamp < this.#created) {
+                    return;
+                }
+
+                this.y += (timestamp - this.#created) * this.#acceleration;
+            }
+
+            #buildElement() {
+                const element = document.createElement('div');
+
+                element.addEventListener('mousedown', () => this.touch());
+                element.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    this.touch();
+                });
+                element.classList.add('hidden', 'object');
+
+                return element;
+            }
+
+            get isGood() {
+                return this.#isGood;
+            }
+
+            set isGood(value) {
+                const sources = value ? GOOD_OBJECT_SOURCES : BAD_OBJECT_SOURCES;
+
+                this.#isGood = value;
+                this.#element.style.backgroundImage = `url(assets/${sources[Math.floor(Math.random() * sources.length)]})`;
+            }
+
+            get x() {
+                return this.#x;
+            }
+
+            set x(value) {
+                this.#x = value;
+                this.#element.style.left = `${value}px`;
+            }
+
+            get y() {
+                return this.#y;
+            }
+
+            set y(value) {
+                this.#y = value;
+                this.#element.style.top = `${value}px`;
+            }
+        }
+
+        class Publisher {
+            #subscribes = [];
+            #value;
+
+            constructor(value) {
+                this.value = value;
+            }
+
+            subscribe(subscriber) {
+                this.#subscribes.push(subscriber);
+                subscriber(this.value);
+            }
+
+            get value() {
+                return this.#value;
+            }
+
+            set value(value) {
+                this.#value = value;
+
+                for (const subscriber of this.#subscribes) {
+                    subscriber(value);
+                }
+            }
+        }
+
+        function getCSSVariable(key) {
+            return getComputedStyle(document.documentElement).getPropertyValue(key);
+        }
+
+        /** @type Set<FallingObject> */
+        const fallingObjects = new Set();
+        const finalScoreElement = document.getElementById('finalScore');
+        const highScore = new Publisher(+localStorage.getItem(HIGH_SCORE_KEY) || 0);
+        const highScoreElement = document.getElementById('highScore');
+        const lives = new Publisher(0);
+        const livesElement = document.getElementById('lives');
+        const menu = document.getElementById('menu');
+        const score = new Publisher(0);
+        const scoreElement = document.getElementById('score');
+        const startButton = document.getElementById('startButton');
+        let acceleration = 1;
+        let accelerationInterval;
+        let animationFrameId;
+        let isPlaying = false;
+        let spawnTimeout;
+
+        highScore.subscribe(value => {
+            highScoreElement.innerText = `Legjobb eredmény: ${value}`;
+            localStorage.setItem(HIGH_SCORE_KEY, value);
+        });
+        lives.subscribe(value => livesElement.innerHTML = `<span>❤️</span>`.repeat(value));
+        score.subscribe(value => {
+            finalScoreElement.innerText = `Elért eredmény: ${value}`;
+            scoreElement.innerText = value;
+        });
+        startButton.addEventListener('click', startGame);
+
+        function startGame() {
+            for (const obj of fallingObjects) {
+                obj.remove();
+            }
+
+            acceleration = 1;
+            fallingObjects.clear();
+            isPlaying = true;
+            lives.value = 3;
+            score.value = 0;
+
+            livesElement.classList.remove('hidden');
+            menu.classList.add('hidden');
+            scoreElement.classList.remove('hidden');
+
+            accelerationInterval = setInterval(() => acceleration += ACCELERATION_INCREASE, ACCELERATION_TIMEOUT);
+            spawnObject();
+            gameLoop();
+        }
+
+        function spawnObject() {
+            spawnTimeout = setTimeout(spawnObject, 250 + Math.random() * 750);
+
+            if (!isPlaying || fallingObjects.size >= MAX_OBJECTS) {
+                return;
+            }
+
+            const isGood = Math.random() > 0.3;
+
+            fallingObjects.add(new FallingObject({
+                acceleration: acceleration + Math.random() * ACCELERATION_INCREASE,
+                isGood,
+                onTouch: isGood ? touchGood : touchBad
+            }));
+        }
+
+        function touchBad(obj) {
+            fallingObjects.delete(obj);
+            lives.value--;
+        }
+
+        function touchGood(obj) {
+            fallingObjects.delete(obj);
+            score.value++;
+        }
+
+        function gameLoop(timestamp = performance.now()) {
+            if (!isPlaying) {
+                return;
+            }
+
+            const maxHeight = window.innerHeight;
+
+            for (const obj of fallingObjects) {
+                if (obj.y > maxHeight) {
+                    fallingObjects.delete(obj);
+                    obj.remove();
+
+                    if (obj.isGood) {
+                        lives.value--;
+                    }
+                } else {
+                    obj.render(timestamp);
+                }
+            }
+
+            if (lives.value <= 0) {
+                endGame();
+            }
+
+            animationFrameId = requestAnimationFrame(gameLoop);
+        }
+
+        function endGame() {
+            isPlaying = false;
+            highScore.value = Math.max(highScore.value, score.value);
+            clearInterval(accelerationInterval);
+            clearTimeout(spawnTimeout);
+            cancelAnimationFrame(animationFrameId);
+
+            finalScoreElement.classList.remove('hidden');
+            livesElement.classList.add('hidden');
+            menu.classList.remove('hidden');
+            scoreElement.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
