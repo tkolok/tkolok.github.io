@@ -127,7 +127,6 @@
         const BAD_OBJECT_SOURCES = ['ant.svg', 'fly.svg', 'ladybug.svg', 'moth.svg', 'spider.svg'];
         const GOOD_OBJECT_SOURCES = ['apple.svg', 'grape.svg', 'pear.svg', 'strawberry.svg', 'watermelon.svg'];
         const HIGH_SCORE_KEY = 'loveHighScore';
-        const MAX_OBJECTS = 5;
         const OBJECT_SIZE = +getCSSVariable('--object-size').match(/\d+/)[0];
         const THROWING_SPEED = +getCSSVariable('--throwing-speed').match(/\d+/)[0] * 1000;
 
@@ -162,14 +161,9 @@
 
             touch() {
                 this.#onTouch?.(this);
+                this.#element.classList.add('throwing');
 
-                if (this.isGood) {
-                    this.#element.classList.add('throwing');
-
-                    setTimeout(() => this.remove(), THROWING_SPEED);
-                } else {
-                    this.remove();
-                }
+                setTimeout(() => this.remove(), THROWING_SPEED);
             }
 
             remove() {
@@ -308,7 +302,7 @@
         function spawnObject() {
             spawnTimeout = setTimeout(spawnObject, 250 + Math.random() * 750);
 
-            if (!isPlaying || fallingObjects.size >= MAX_OBJECTS) {
+            if (!isPlaying) {
                 return;
             }
 
