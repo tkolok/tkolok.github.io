@@ -3,6 +3,18 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2026. 06. 26.',
+                    text: `
+                        Most nagyon sok idő telt el, mióta nem írtam, úgyhogy lesz miről beszámolnom. Kezdjük a baba hírekkel. Végre találkozhattam Viviék
+                        kislányával, és Viktorék is bejelentették, hogy jön az újabb csöppség. Innentől pedig menjünk időrendben. 10 éves lett a telefonom.
+                        Megismertem azt a bácsit, aki az Erzsébet kertet gondozza, és azóta már párszor koccintottunk is. Aznap, mikor Viviék kislányával
+                        először találkozhattam, akkor titokban Szabi is megjelent, és kiderült, hogy hazaköltözött. Újra bekerültem az
+                        <a href="https://www.youtube.com/watch?v=_grD482lbA8">internetbe</a>. Sikerült a kormányváltás, úgyhogy egyelőre letettem a tiszás
+                        lantot. Tsipa születésnapját Békésszentandráson töltöttük, ahol az első este egy kondérnyi kajával engedtek minket haza a kocsmából.
+                        Niki is kiköltözött pár hete. Nemrég pedig Merci elballagott az oviból. És a végére hagyom a legnagyobb változást: összejöttünk
+                        Esztivel, aki azóta már az államvizsgáján is túl van. Jövőhéten pedig ott leszek az első sorban a diplomaosztóján.`
+                },
+                {
                     date: '2026. 02. 10.',
                     text: `
                         Mondhatnám, hogy évek óta nem írtam, mert idén 2 szilvesztert is megünnepeltünk. Zsoltiéknál megünnepeltük az eredetit, majd Babó
