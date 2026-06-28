@@ -127,6 +127,13 @@
     <script>
         const ACCELERATION_INCREASE = .25;
         const ACCELERATION_TIMEOUT = 5000;
+        const ACTION_LIST = ['disgusting', 'waiting', 'tasty', 'default'];
+        const ACTION_MAP = {
+            default: 3,
+            disgusting: 0,
+            tasty: 2,
+            waiting: 1
+        };
         const BAD_OBJECT_SOURCES = ['ant.svg', 'fly.svg', 'ladybug.svg', 'moth.svg', 'spider.svg'];
         const GOOD_OBJECT_SOURCES = ['apple.svg', 'grape.svg', 'pear.svg', 'strawberry.svg', 'watermelon.svg'];
         const HIGH_SCORE_KEY = 'loveHighScore';
@@ -138,7 +145,7 @@
             /** @type number */
             #acceleration;
             /** @type {function(FallingObject)} */
-            #afterTouchEnded;
+            #afterEating;
             #created = performance.now();
             #element = this.#buildElement();
             /** @type boolean */
@@ -152,13 +159,13 @@
             /**
              * @param {Object} config
              * @param {number} config.acceleration
-             * @param {function(FallingObject)} [config.afterTouchEnded]
+             * @param {function(FallingObject)} [config.afterEating]
              * @param {boolean} config.isGood
              * @param {function(FallingObject)} [config.onTouch]
              */
             constructor(config) {
                 this.#acceleration = config.acceleration / 1000;
-                this.#afterTouchEnded = config.afterTouchEnded;
+                this.#afterEating = config.afterEating;
                 this.#onTouch = config.onTouch;
                 this.isGood = config.isGood;
                 this.x = Math.floor(Math.random() * (window.innerWidth - OBJECT_SIZE));
@@ -170,11 +177,12 @@
             touch() {
                 this.#onTouch?.(this);
                 this.#element.classList.add('throwing');
-                setBackground('waiting');
+                addAction(ACTION_MAP.waiting);
 
                 setTimeout(() => {
                     this.remove();
-                    this.#afterTouchEnded(this);
+                    this.#afterEating(this);
+                    removeAction(ACTION_MAP.waiting);
                 }, THROWING_SPEED);
             }
 
@@ -263,6 +271,8 @@
             return getComputedStyle(document.documentElement).getPropertyValue(key);
         }
 
+        /** @type number[] */
+        const actions = [];
         /** @type Set<FallingObject> */
         const fallingObjects = new Set();
         const finalScoreElement = document.getElementById('finalScore');
@@ -291,24 +301,50 @@
         });
         startButton.addEventListener('click', startGame);
 
-        function afterTouchEndedBad() {
-            setBackground('disgusting');
-            setTimeout(() => setBackground(), 500);
+        /**
+         * @param {number} action
+         */
+        function addAction(action) {
+            actions.push(action);
+            actions.sort((a, b) => a - b);
+
+            refreshBackground();
         }
 
-        function afterTouchEndedGood() {
-            setBackground('tasty');
-            setTimeout(() => setBackground(), 500);
+        /**
+         * @param {number} action
+         */
+        function removeAction(action) {
+            actions.splice(actions.indexOf(action), 1);
+
+            refreshBackground();
+        }
+
+        function afterEatingBad() {
+            addAction(ACTION_MAP.disgusting);
+            lives.value--;
+            setTimeout(() => removeAction(ACTION_MAP.disgusting), 1000);
+        }
+
+        function afterEatingGood() {
+            addAction(ACTION_MAP.tasty);
+            score.value++;
+            setTimeout(() => removeAction(ACTION_MAP.tasty), 500);
         }
 
         function endGame() {
             isPlaying = false;
+
+            for (const obj of fallingObjects) {
+                obj.remove();
+            }
+
             highScore.value = Math.max(highScore.value, score.value);
             clearInterval(accelerationInterval);
             clearTimeout(spawnTimeout);
             cancelAnimationFrame(animationFrameId);
 
-            body.style.backgroundImage = '';
+            removeAction(ACTION_MAP.default);
             finalScoreElement.classList.remove('hidden');
             livesElement.classList.add('hidden');
             menu.classList.remove('hidden');
@@ -342,8 +378,12 @@
             animationFrameId = requestAnimationFrame(gameLoop);
         }
 
-        function setBackground(url = 'default') {
-            body.style.backgroundImage = isPlaying ? `url(assets/${url}.webp)` : 'url(assets/default.webp)';
+        function onTouch(obj) {
+            fallingObjects.delete(obj);
+        }
+
+        function refreshBackground() {
+            body.style.backgroundImage = isPlaying ? `url(assets/${ACTION_LIST[actions[0]]}.webp)` : '';
         }
 
         function spawnObject() {
@@ -357,17 +397,13 @@
 
             fallingObjects.add(new FallingObject({
                 acceleration: acceleration + Math.random() * ACCELERATION_INCREASE,
-                afterTouchEnded: isGood ? afterTouchEndedGood : afterTouchEndedBad,
+                afterEating: isGood ? afterEatingGood : afterEatingBad,
                 isGood,
-                onTouch: isGood ? touchGood : touchBad
+                onTouch
             }));
         }
 
         function startGame() {
-            for (const obj of fallingObjects) {
-                obj.remove();
-            }
-
             acceleration = 1;
             fallingObjects.clear();
             isPlaying = true;
@@ -377,21 +413,11 @@
             livesElement.classList.remove('hidden');
             menu.classList.add('hidden');
             scoreElement.classList.remove('hidden');
-            setBackground();
+            addAction(ACTION_MAP.default);
 
             accelerationInterval = setInterval(() => acceleration += ACCELERATION_INCREASE, ACCELERATION_TIMEOUT);
             spawnObject();
             gameLoop();
-        }
-
-        function touchBad(obj) {
-            fallingObjects.delete(obj);
-            lives.value--;
-        }
-
-        function touchGood(obj) {
-            fallingObjects.delete(obj);
-            score.value++;
         }
     </script>
 </body>
