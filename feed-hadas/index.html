@@ -343,7 +343,7 @@
         }
 
         function setBackground(url = 'default') {
-            body.style.backgroundImage = `url(assets/${url}.webp)`;
+            body.style.backgroundImage = isPlaying ? `url(assets/${url}.webp)` : 'url(assets/default.webp)';
         }
 
         function spawnObject() {
