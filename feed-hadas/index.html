@@ -78,6 +78,13 @@
             }
         }
 
+        #introButton {
+            inset: 0;
+            opacity: 0;
+            position: fixed;
+            z-index: 1000;
+        }
+
         #lives {
             background: rgba(255, 255, 255, 0.8);
             border-radius: 9999px;
@@ -99,7 +106,7 @@
             background-repeat: no-repeat;
             background-size: contain;
             inset: 0;
-            /*opacity: 0;*/
+            opacity: 0;
             position: fixed;
             transition: opacity .5s;
         }
@@ -112,7 +119,7 @@
             flex-direction: column;
             gap: 10px;
             justify-content: center;
-            /*opacity: 0;*/
+            opacity: 0;
             padding: 50px;
             transition: opacity .5s;
             z-index: 1;
@@ -138,14 +145,18 @@
     </style>
 </head>
 <body>
-    <div id="me"></div>
+    <button id="introButton"></button>
+    <div id="me"
+         style="background-image: url(assets/images/hi.webp);">
+    </div>
     <div id="score"
          class="hidden">
     </div>
     <div id="lives"
          class="hidden">
     </div>
-    <div id="menu">
+    <div id="menu"
+         class="hidden">
         <div class="hidden"
              id="finalScore"></div>
         <div id="highScore"></div>
@@ -306,6 +317,7 @@
         const finalScoreElement = document.getElementById('finalScore');
         const highScore = new Publisher(+localStorage.getItem(HIGH_SCORE_KEY) || 0);
         const highScoreElement = document.getElementById('highScore');
+        const introButton = document.getElementById('introButton');
         const lives = new Publisher(0);
         const livesElement = document.getElementById('lives');
         const me = document.getElementById('me');
@@ -323,8 +335,8 @@
         let spawnTimeout;
 
         audio.addEventListener('ended', () => audioTimeout = setTimeout(() => audioIsAvailable = true, 10000));
-        // body.addEventListener('mousedown', startIntro);
-        // body.addEventListener('touchstart', startIntro);
+        introButton.addEventListener('mousedown', startIntro);
+        introButton.addEventListener('touchstart', startIntro);
         highScore.subscribe(value => {
             highScoreElement.innerText = `Legjobb eredmény: ${value}`;
             localStorage.setItem(HIGH_SCORE_KEY, value);
@@ -529,30 +541,32 @@
             gameLoop();
         }
 
-        // function startIntro() {
-        //     me.style.opacity = '1';
-        //     body.removeEventListener('mousedown', startIntro);
-        //     body.removeEventListener('touchstart', startIntro);
-        //
-        //     playSound('hi', {
-        //         afterEnded: () => {
-        //             if (highScore.value) {
-        //                 menu.classList.remove('hidden');
-        //                 playSound(`start_${Math.floor(Math.random() * 3)}`, {behaviour: 'immediately'});
-        //                 setTimeout(() => menu.style.opacity = '1');
-        //             } else {
-        //                 playSound('intro', {
-        //                     afterEnded: () => {
-        //                         menu.classList.remove('hidden');
-        //                         setTimeout(() => menu.style.opacity = '1');
-        //                     },
-        //                     behaviour: 'immediately'
-        //                 });
-        //             }
-        //         },
-        //         behaviour: 'immediately'
-        //     });
-        // }
+        function startIntro() {
+            introButton.remove();
+
+            setTimeout(() => {
+                me.style.opacity = '1';
+
+                playSound('hi', {
+                    afterEnded: () => {
+                        if (highScore.value) {
+                            menu.classList.remove('hidden');
+                            playSound(`start_${Math.floor(Math.random() * 3)}`, {behaviour: 'immediately'});
+                            setTimeout(() => menu.style.opacity = '1');
+                        } else {
+                            playSound('intro', {
+                                afterEnded: () => {
+                                    menu.classList.remove('hidden');
+                                    setTimeout(() => menu.style.opacity = '1');
+                                },
+                                behaviour: 'immediately'
+                            });
+                        }
+                    },
+                    behaviour: 'immediately'
+                });
+            }, 1000);
+        }
     </script>
 </body>
 </html>
