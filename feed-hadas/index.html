@@ -544,25 +544,28 @@
         function startIntro() {
             introButton.remove();
 
-            me.style.opacity = '1';
-            playSound('hi', {
-                afterEnded: () => {
-                    if (highScore.value) {
-                        menu.classList.remove('hidden');
-                        playSound(`start_${Math.floor(Math.random() * 3)}`, {behaviour: 'immediately'});
-                        setTimeout(() => menu.style.opacity = '1');
-                    } else {
-                        playSound('intro', {
-                            afterEnded: () => {
-                                menu.classList.remove('hidden');
-                                setTimeout(() => menu.style.opacity = '1');
-                            },
-                            behaviour: 'immediately'
-                        });
-                    }
-                },
-                behaviour: 'immediately'
-            });
+            setTimeout(() => {
+                me.style.opacity = '1';
+
+                playSound('hi', {
+                    afterEnded: () => {
+                        if (highScore.value) {
+                            menu.classList.remove('hidden');
+                            playSound(`start_${Math.floor(Math.random() * 3)}`, {behaviour: 'immediately'});
+                            setTimeout(() => menu.style.opacity = '1');
+                        } else {
+                            playSound('intro', {
+                                afterEnded: () => {
+                                    menu.classList.remove('hidden');
+                                    setTimeout(() => menu.style.opacity = '1');
+                                },
+                                behaviour: 'immediately'
+                            });
+                        }
+                    },
+                    behaviour: 'immediately'
+                });
+            }, 1000);
         }
     </script>
 </body>
