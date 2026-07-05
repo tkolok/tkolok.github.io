@@ -147,7 +147,8 @@
     <div id="lives"
          class="hidden">
     </div>
-    <div id="menu">
+    <div id="menu"
+         class="hidden">
         <div class="hidden"
              id="finalScore"></div>
         <div id="highScore"></div>
@@ -320,6 +321,7 @@
         let animationFrameId;
         let audioIsAvailable = true;
         let audioTimeout;
+        let currentAfterEnded;
         let isPlaying = false;
         let spawnTimeout;
 
@@ -450,7 +452,7 @@
          * @param {function} [config.afterEnded]
          * @param {'immediately', 'whenIdle'} [config.behaviour]
          */
-        function playSound(fileName, config = {}) {
+        async function playSound(fileName, config = {}) {
             let play;
 
             switch (config.behaviour) {
@@ -458,6 +460,10 @@
                     play = true;
                     audio.pause();
                     clearTimeout(audioTimeout);
+
+                    if (currentAfterEnded) {
+                        audio.removeEventListener('ended', currentAfterEnded);
+                    }
                     break;
                 case 'whenIdle':
                     play = audio.paused;
@@ -470,10 +476,17 @@
             if (play) {
                 audioIsAvailable = false;
                 audio.src = `assets/sounds/${fileName}.m4a`;
-                audio.play();
+                audio.load();
+
+                audio.play().catch(() => {
+                    if (config.afterEnded) {
+                        config.afterEnded();
+                    }
+                });
             }
 
             if (config.afterEnded) {
+                currentAfterEnded = config.afterEnded;
                 audio.addEventListener('ended', config.afterEnded, {once: true});
             }
         }
@@ -527,11 +540,15 @@
             playSound('hi', {
                 afterEnded: () => {
                     if (highScore.value) {
-                        menu.style.opacity = '1';
+                        menu.classList.remove('hidden');
                         playSound(`start_${Math.floor(Math.random() * 3)}`, {behaviour: 'immediately'});
+                        setTimeout(() => menu.style.opacity = '1');
                     } else {
                         playSound('intro', {
-                            afterEnded: () => menu.style.opacity = '1',
+                            afterEnded: () => {
+                                menu.classList.remove('hidden');
+                                setTimeout(() => menu.style.opacity = '1');
+                            },
                             behaviour: 'immediately'
                         });
                     }
