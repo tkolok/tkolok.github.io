@@ -7,16 +7,19 @@
     <title>Etesd meg Tomit!</title>
     <link rel="preload"
           as="image"
-          href="assets/default.webp">
+          href="assets/images/hi.webp">
     <link rel="preload"
           as="image"
-          href="assets/disgusting.webp">
+          href="assets/images/default.webp">
     <link rel="preload"
           as="image"
-          href="assets/tasty.webp">
+          href="assets/images/disgusting.webp">
     <link rel="preload"
           as="image"
-          href="assets/waiting.webp">
+          href="assets/images/tasty.webp">
+    <link rel="preload"
+          as="image"
+          href="assets/images/waiting.webp">
     <style>
         :root {
             --object-size: 75px;
@@ -26,9 +29,6 @@
         body {
             align-items: center;
             background-color: #2c3e50;
-            background-position: center bottom;
-            background-repeat: no-repeat;
-            background-size: contain;
             color: white;
             display: flex;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -94,6 +94,16 @@
             z-index: 1;
         }
 
+        #me {
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            background-size: contain;
+            inset: 0;
+            opacity: 0;
+            position: fixed;
+            transition: opacity .5s;
+        }
+
         #menu {
             align-items: center;
             background: rgba(0, 0, 0, 0.5);
@@ -102,7 +112,9 @@
             flex-direction: column;
             gap: 10px;
             justify-content: center;
+            opacity: 0;
             padding: 50px;
+            transition: opacity .5s;
             z-index: 1;
         }
 
@@ -126,10 +138,15 @@
     </style>
 </head>
 <body>
+    <div id="me"
+         style="background-image: url(assets/images/hi.webp);">
+    </div>
     <div id="score"
-         class="hidden"></div>
+         class="hidden">
+    </div>
     <div id="lives"
-         class="hidden"></div>
+         class="hidden">
+    </div>
     <div id="menu">
         <div class="hidden"
              id="finalScore"></div>
@@ -148,7 +165,7 @@
         };
         const BAD_OBJECT_SOURCES = ['ant.svg', 'fly.svg', 'ladybug.svg', 'moth.svg', 'spider.svg'];
         const GOOD_OBJECT_SOURCES = ['apple.svg', 'grape.svg', 'pear.svg', 'strawberry.svg', 'watermelon.svg'];
-        const HIGH_SCORE_KEY = 'loveHighScore';
+        const HIGH_SCORE_KEY = 'feedHadasHighScore';
         const OBJECT_SIZE = +getCSSVariable('--object-size').match(/\d+/)[0];
         const THROWING_SPEED = +getCSSVariable('--throwing-speed').match(/\d+/)[0] * 1000;
         const {body} = document;
@@ -182,7 +199,7 @@
                 this.isGood = config.isGood;
                 this.x = Math.floor(Math.random() * (window.innerWidth - OBJECT_SIZE));
 
-                document.body.appendChild(this.#element);
+                body.appendChild(this.#element);
                 setTimeout(() => this.#element.classList.remove('hidden'));
             }
 
@@ -231,7 +248,7 @@
                 const sources = value ? GOOD_OBJECT_SOURCES : BAD_OBJECT_SOURCES;
 
                 this.#isGood = value;
-                this.#element.style.backgroundImage = `url(assets/${sources[Math.floor(Math.random() * sources.length)]})`;
+                this.#element.style.backgroundImage = `url(assets/images/${sources[Math.floor(Math.random() * sources.length)]})`;
             }
 
             get x() {
@@ -285,6 +302,7 @@
 
         /** @type number[] */
         const actions = [];
+        const audio = new Audio();
         /** @type Set<FallingObject> */
         const fallingObjects = new Set();
         const finalScoreElement = document.getElementById('finalScore');
@@ -292,6 +310,7 @@
         const highScoreElement = document.getElementById('highScore');
         const lives = new Publisher(0);
         const livesElement = document.getElementById('lives');
+        const me = document.getElementById('me');
         const menu = document.getElementById('menu');
         const score = new Publisher(0);
         const scoreElement = document.getElementById('score');
@@ -299,9 +318,14 @@
         let acceleration = 1;
         let accelerationInterval;
         let animationFrameId;
+        let audioIsAvailable = true;
+        let audioTimeout;
         let isPlaying = false;
         let spawnTimeout;
 
+        audio.addEventListener('ended', () => audioTimeout = setTimeout(() => audioIsAvailable = true, 10000));
+        body.addEventListener('mousedown', startIntro);
+        body.addEventListener('touchstart', startIntro);
         highScore.subscribe(value => {
             highScoreElement.innerText = `Legjobb eredmény: ${value}`;
             localStorage.setItem(HIGH_SCORE_KEY, value);
@@ -335,13 +359,31 @@
         function afterEatingBad() {
             addAction(ACTION_MAP.disgusting);
             lives.value--;
-            setTimeout(() => removeAction(ACTION_MAP.disgusting), 1000);
+
+            if (audio.paused) {
+                playSound(`bad_${Math.floor(Math.random() * 4)}`, {
+                    afterEnded: () => removeAction(ACTION_MAP.disgusting),
+                    behaviour: 'whenIdle'
+                });
+            } else {
+                setTimeout(() => removeAction(ACTION_MAP.disgusting), 1000);
+            }
         }
 
         function afterEatingGood() {
             addAction(ACTION_MAP.tasty);
-            score.value++;
-            setTimeout(() => removeAction(ACTION_MAP.tasty), 500);
+
+            if (isPlaying) {
+                score.value++;
+            }
+
+            if (audioIsAvailable) {
+                playSound(`good_${Math.floor(Math.random() * 3)}`, {
+                    afterEnded: () => removeAction(ACTION_MAP.tasty)
+                });
+            } else {
+                setTimeout(() => removeAction(ACTION_MAP.tasty), 500);
+            }
         }
 
         function endGame() {
@@ -351,10 +393,14 @@
                 obj.remove();
             }
 
-            highScore.value = Math.max(highScore.value, score.value);
             clearInterval(accelerationInterval);
             clearTimeout(spawnTimeout);
             cancelAnimationFrame(animationFrameId);
+
+            if (score.value > highScore.value) {
+                highScore.value = score.value;
+                playSound('new_record', {behaviour: 'immediately'});
+            }
 
             removeAction(ACTION_MAP.default);
             finalScoreElement.classList.remove('hidden');
@@ -392,10 +438,48 @@
 
         function onTouch(obj) {
             fallingObjects.delete(obj);
+
+            if (obj.isGood && obj.y + OBJECT_SIZE * 3 > window.innerHeight) {
+                playSound('almost_fallen', {behaviour: 'whenIdle'});
+            }
+        }
+
+        /**
+         * @param {string} fileName
+         * @param {object} [config]
+         * @param {function} [config.afterEnded]
+         * @param {'immediately', 'whenIdle'} [config.behaviour]
+         */
+        function playSound(fileName, config = {}) {
+            let play;
+
+            switch (config.behaviour) {
+                case 'immediately':
+                    play = true;
+                    audio.pause();
+                    clearTimeout(audioTimeout);
+                    break;
+                case 'whenIdle':
+                    play = audio.paused;
+                    clearTimeout(audioTimeout);
+                    break;
+                default:
+                    play = audioIsAvailable;
+            }
+
+            if (play) {
+                audioIsAvailable = false;
+                audio.src = `assets/sounds/${fileName}.m4a`;
+                audio.play();
+            }
+
+            if (config.afterEnded) {
+                audio.addEventListener('ended', config.afterEnded, {once: true});
+            }
         }
 
         function refreshBackground() {
-            body.style.backgroundImage = isPlaying ? `url(assets/${ACTION_LIST[actions[0]]}.webp)` : '';
+            me.style.backgroundImage = isPlaying ? `url(assets/images/${ACTION_LIST[actions[0]] ?? 'default'}.webp)` : '';
         }
 
         function spawnObject() {
@@ -417,6 +501,8 @@
 
         function startGame() {
             acceleration = 1;
+            actions.length = 0;
+            audioIsAvailable = true;
             fallingObjects.clear();
             isPlaying = true;
             lives.value = 3;
@@ -426,10 +512,32 @@
             menu.classList.add('hidden');
             scoreElement.classList.remove('hidden');
             addAction(ACTION_MAP.default);
+            clearTimeout(audioTimeout);
 
             accelerationInterval = setInterval(() => acceleration += ACCELERATION_INCREASE, ACCELERATION_TIMEOUT);
             spawnObject();
             gameLoop();
+        }
+
+        function startIntro() {
+            me.style.opacity = '1';
+            body.removeEventListener('mousedown', startIntro);
+            body.removeEventListener('touchstart', startIntro);
+
+            playSound('hi', {
+                afterEnded: () => {
+                    if (highScore.value) {
+                        menu.style.opacity = '1';
+                        playSound(`start_${Math.floor(Math.random() * 3)}`, {behaviour: 'immediately'});
+                    } else {
+                        playSound('intro', {
+                            afterEnded: () => menu.style.opacity = '1',
+                            behaviour: 'immediately'
+                        });
+                    }
+                },
+                behaviour: 'immediately'
+            });
         }
     </script>
 </body>
