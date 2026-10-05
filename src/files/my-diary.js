@@ -3,6 +3,16 @@ export default (() =>
             style(),
             ...[
                 {
+                    date: '2026. 10. 05.',
+                    text: `
+                        Tudom, hogy sok idő telt el, de nagyon nincs kedvem írni, szóval csak végig szaladok mindenen. Kezdjük ismét a baba hírekkel, mert ismét
+                        van. Marikáéknál egy újabb fiú fogja bővíteni a családot, míg Bíróéknál pedig egy újabb kislány. Július elején megvolt Esztinek a
+                        diplomaosztója, ahol találkozhattam az egész családjával. Ezenkívül a legfiatalabb bátyjától kaptam norvég rénszarvas szalámit. A nyáron
+                        sikeresen beszereltek egy új klímát. Végre meglátogattuk a Japánakácot. Eszti pedig keresztanyuka lett. A keresztelő Miskolcon történt,
+                        ahol még ketten bebarangoltuk a város központot. Megünnepeltük Atika első születésnapját, ahol bemutattam Esztit a nagyobb
+                        családikörnek. Végül pedig pár napja egy remek randinap keretein belül átadtam Esztinek egy "bérleti szerződést".`
+                },
+                {
                     date: '2026. 06. 26.',
                     text: `
                         Most nagyon sok idő telt el, mióta nem írtam, úgyhogy lesz miről beszámolnom. Kezdjük a baba hírekkel. Végre találkozhattam Viviék
